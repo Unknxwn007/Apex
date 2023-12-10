@@ -20,7 +20,6 @@ if not menu.is_trusted_mode_enabled(1 << 0) then
 end
 if not menu.is_trusted_mode_enabled(1 << 2) then 
     menu.notify("Enable #FF00FC7C#Natives #DEFAULT#Trusted Mode!", "Apex")
-    menu.notify("Allow access to Statistics!")
     menu.exit()
 end
 
