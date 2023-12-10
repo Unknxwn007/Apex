@@ -249,4 +249,30 @@ function uFunctions.unlockMeleeWeaponSkins()
    script.set_global_i(262145 + 34094 + 10, -1786099057) 
 end
 
+function uFunctions.refillInventory()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."NO_BOUGHT_YUM_SNACKS"..i), 30, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."NO_BOUGHT_HEALTH_SNACKS"..i), 15, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."NO_BOUGHT_EPIC_SNACKS"..i), 5, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."NUMBER_OF_CHAMP_BOUGHT"..i), 5, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."NUMBER_OF_ORANGE_BOUGHT"..i), 11, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."NUMBER_OF_BOURGE_BOUGHT"..i), 10, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."NUMBER_OF_SPRUNK_BOUGHT"..i), 10, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CIGARETTES_BOUGHT"..i), 20, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."MP_CHAR_ARMOUR_1_COUNT"..i), 10, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."MP_CHAR_ARMOUR_2_COUNT"..i), 10, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."MP_CHAR_ARMOUR_3_COUNT"..i), 10, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."MP_CHAR_ARMOUR_4_COUNT"..i), 10, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."MP_CHAR_ARMOUR_5_COUNT"..i), 10, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."BREATHING_APPAR_BOUGHT"..i), 20, true)
+end
+
+function uFunctions.unlockAllAchievements()
+    function uFunctions.unlockEveryPackedStat()
+        for _, index in ipairs(uTable.AchievementIDs) do
+            script.set_global_i(4542602 + 1, index)
+         system.wait(2)
+        end
+    end
+end
+
 return uFunctions

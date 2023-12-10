@@ -30,25 +30,37 @@ local root = menu.add_feature("Apex", "parent", 0)
 
 local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
 local fraudSub = menu.add_feature("#FF0000FF#[RISKY] #DEFAULT# Tax Fraud", "parent", root.id)
+local reputationSub = menu.add_feature("Reputation", "parent", root.id)
 local usefulSub = menu.add_feature("Useful Features", "parent", root.id)
 local collectSub = menu.add_feature("Collectables", "parent", root.id) 
 local teleportSub = menu.add_feature("Teleportation", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
 
 -- Sub in Sub
+local uAchievementSub = menu.add_feature("Achievement Manager", "parent", unlocksSub.id)
 local uWeaponsSub = menu.add_feature("Weapons", "parent", unlocksSub.id)
 local uVehiclesSub = menu.add_feature("Vehicles", "parent", unlocksSub.id)
 local uClothingSub = menu.add_feature("Clothing", "parent", unlocksSub.id)
-local uDLCSub = menu.add_feature("DLC Content", "parent", unlocksSub.id)
 
 local serialKiller = menu.add_feature("Serial Killer", "parent", teleportSub.id)
 local collectMusic = menu.add_feature("Media Sticks - LS Tuners DLC", "parent", collectSub.id)
+
+local tunableSub = menu.add_feature("Tunables", "parent", miscSub.id)
 
 
 -- Fraud
 menu.add_feature("Spawn $1.900.000 Issi", "action", fraudSub.id, function()
     --TODO
 end)
+
+-- Reputation
+menu.add_feature("Level 1000 in LS Car Meet", "action", reputationSub.id, function()
+    
+end)
+menu.add_feature("Level 1000 in Arena", "action", reputationSub.id, function()
+    --TODO
+end)
+
 
 -- Useful Features
 menu.add_feature("Spawn ped for weapon challenges", "action", usefulSub.id, function()
@@ -72,20 +84,10 @@ menu.add_feature("Unlock Fast Run and Reload", "action", usefulSub.id, function(
     uFunctions.unlockFastRun()
 end)
 
--- Vehicles
-menu.add_feature("Arena Wars vehicles", "action", uVehiclesSub.id, function()
-    uFunctions.unlockArenaCars()
+-- Unlocks || General
+menu.add_feature("EVERY Packed Stat", "action", unlocksSub.id, function()
+    uFunctions.unlockEveryPackedStat()
 end)
-menu.add_feature("Some Liveries", "action", uVehiclesSub.id, function()
-    uFunctions.unlockLiveries()
-end)
-
--- Weapons
-menu.add_feature("Knife and Bat skins (Gun Van)", "action", uWeaponsSub.id, function()
-    uFunctions.unlockMeleeWeaponSkins()
-end)  
-
--- Unlocks
 menu.add_feature("Most awards", "action", unlocksSub.id, function()
     uTable.unlockAwards()
     menu.notify("Unlocked Most Awards", "Apex", 4, 257818)
@@ -99,7 +101,20 @@ menu.add_feature("Alien Tattoo (Female)", "action", unlocksSub.id, function()
     menu.notify("Unlocked Alien Tattoo, requires new session", "Apex", 4, 257818)
 end)
 
--- Clothing
+-- Unlocks || Vehicles
+menu.add_feature("Arena Wars vehicles", "action", uVehiclesSub.id, function()
+    uFunctions.unlockArenaCars()
+end)
+menu.add_feature("Some Liveries", "action", uVehiclesSub.id, function()
+    uFunctions.unlockLiveries()
+end)
+
+-- Unlocks || Weapons
+menu.add_feature("Knife and Bat skins (Gun Van)", "action", uWeaponsSub.id, function()
+    uFunctions.unlockMeleeWeaponSkins()
+end)  
+
+-- Unlocks || Clothing
 menu.add_feature("Cunning Stunts Figures", "action", uClothingSub.id, function()
     uFunctions.cunningStuntsFigures()
 end)
@@ -137,10 +152,245 @@ menu.add_feature("Independence Day Special Additional Clothing 2", "action", uCl
     uFunctions.independenceDaySpecialAdditionalClothing2()
 end)
 
--- DLC Unlock
-menu.add_feature("EVERY Packed Stat", "action", uDLCSub.id, function()
-    uFunctions.unlockEveryPackedStat()
+-- Unlocks || Achievements
+menu.add_feature("EVERY Achievement", "action", uAchievementSub.id, function()
+    uFunctions.unlockAllAchievements()
 end)
+menu.add_feature("-----------------------------", "action", serialKiller.id, function()
+    menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
+end)
+menu.add_feature("Welcome to Los Santos", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 1) -- Welcome to Los Santos
+end)
+menu.add_feature("A Friendship Resurrected", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 2) -- A Friendship Resurrected
+end)
+menu.add_feature("A Fair Day's Pay", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 3) -- A Fair Day's Pay
+end)
+menu.add_feature("The Moment of Truth", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 4) -- The Moment of Truth
+end)
+menu.add_feature("To Live or Die in Los Santos", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 5) -- To Live or Die in Los Santos
+end)
+menu.add_feature("Diamond Hard", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 6) -- Diamond Hard
+end)
+menu.add_feature("Subversive", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 7) -- Subversive
+end)
+menu.add_feature("Blitzed", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 8) -- Blitzed
+end)
+menu.add_feature("Small Town, Big Job", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 9) -- Small Town, Big Job
+end)
+menu.add_feature("The Government Gimps", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 10) -- The Government Gimps
+end)
+menu.add_feature("The Big One!", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 11) -- The Big One!
+end)
+menu.add_feature("Solid Gold, Baby!", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 12) -- Solid Gold, Baby!
+end)
+menu.add_feature("Career Criminal", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 13) -- Career Criminal
+end)
+menu.add_feature("San Andreas Sightseer", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 14) -- San Andreas Sightseer
+end)
+menu.add_feature("All's Fare in Love and War", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 15) -- All's Fare in Love and War
+end)
+menu.add_feature("TP Industries Arms Race", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 16) -- TP Industries Arms Race
+end)
+menu.add_feature("Multi-Disciplined", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 17) -- Multi-Disciplined
+end)
+menu.add_feature("From Beyond the Stars", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 18) -- From Beyond the Stars
+end)
+menu.add_feature("A Mystery, Solved", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 19) -- A Mystery, Solved
+end)
+menu.add_feature("Waste Management", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 20) -- Waste Management
+end)
+menu.add_feature("Red Mist", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 21) -- Red Mist
+end)
+menu.add_feature("Show Off", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 22) -- Show Off
+end)
+menu.add_feature("Kifflom!", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 23) -- Kifflom!
+end)
+menu.add_feature("Three Man Army", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 24) -- Three Man Army
+end)
+menu.add_feature("Out of Your Depth", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 25) -- Out of Your Depth
+end)
+menu.add_feature("Altruist Acolyte", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 26) -- Altruist Acolyte
+end)
+menu.add_feature("A Lot of Cheddar", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 27) -- A Lot of Cheddar
+end)
+menu.add_feature("Trading Pure Alpha", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 28) -- Trading Pure Alpha
+end)
+menu.add_feature("Pimp My Sidearm", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 29) -- Pimp My Sidearm
+end)
+menu.add_feature("Wanted: Alive Or Alive", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 30) -- Wanted: Alive Or Alive
+end)
+menu.add_feature("Los Santos Customs", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 31) -- Los Santos Customs
+end)
+menu.add_feature("Close Shave", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 32) -- Close Shave
+end)
+menu.add_feature("Off the Plane", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 33) -- Off the Plane
+end)
+menu.add_feature("Three-Bit Gangster", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 34) -- Three-Bit Gangster
+end)
+menu.add_feature("Making Moves", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 35) -- Making Moves
+end)
+menu.add_feature("Above the Law", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 36) -- Above the Law
+end)
+menu.add_feature("Numero Uno", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 37) -- Numero Uno
+end)
+menu.add_feature("The Midnight Club", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 38) -- The Midnight Club
+end)
+menu.add_feature("Unnatural Selection", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 39) -- Unnatural Selection
+end)
+menu.add_feature("Backseat Driver", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 40) -- Backseat Driver
+end)
+menu.add_feature("Run Like The Wind", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 41) -- Run Like The Wind
+end)
+menu.add_feature("Clean Sweep", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 42) -- Clean Sweep
+end)
+menu.add_feature("Decorated", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 43) -- Decorated
+end)
+menu.add_feature("Stick Up Kid", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 44) -- Stick Up Kid
+end)
+menu.add_feature("Enjoy Your Stay", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 45) -- Enjoy Your Stay
+end)
+menu.add_feature("Crew Cut", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 46) -- Crew Cut
+end)
+menu.add_feature("Full Refund", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 47) -- Full Refund
+end)
+menu.add_feature("Dialling Digits", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 48) -- Dialling Digits
+end)
+menu.add_feature("American Dream", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 49) -- American Dream
+end)
+menu.add_feature("A New Perspective", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 50) -- A New Perspective
+end)
+menu.add_feature("Be Prepared", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 51) -- Be Prepared
+end)
+menu.add_feature("In the Name of Science", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 52) -- In the Name of Science
+end)
+menu.add_feature("Dead Presidents", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 53) -- Dead Presidents
+end)
+menu.add_feature("Parole Day", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 54) -- Parole Day
+end)
+menu.add_feature("Shot Caller", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 55) -- Shot Caller
+end)
+menu.add_feature("Four Way", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 56) -- Four Way
+end)
+menu.add_feature("Live a Little", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 57) -- Live a Little
+end)
+menu.add_feature("Can't Touch This", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 58) -- Can't Touch This
+end)
+menu.add_feature("Mastermind", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 59) -- Mastermind
+end)
+menu.add_feature("Vinewood Visionary", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 60) -- Vinewood Visionary
+end)
+menu.add_feature("Majestic", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 61) -- Majestic
+end)
+menu.add_feature("Humans of Los Santos", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 62) -- Humans of Los Santos
+end)
+menu.add_feature("First Time Director", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 63) -- First Time Director
+end)
+menu.add_feature("Animal Lover", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 64) -- Animal Lover
+end)
+menu.add_feature("Ensemble Piece", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 65) -- Ensemble Piece
+end)
+menu.add_feature("Cult Movie", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 66) -- Cult Movie
+end)
+menu.add_feature("Location Scout", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 67) -- Location Scout
+end)
+menu.add_feature("Method Actor", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 68) -- Method Actor
+end)
+menu.add_feature("Cryptozoologist", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 69) -- Cryptozoologist
+end)
+menu.add_feature("Getting Started", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 70) -- Getting Started
+end)
+menu.add_feature("The Data Breaches", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 71) -- The Data Breaches
+end)
+menu.add_feature("The Bogdan Problem", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 72) -- The Bogdan Problem
+end)
+menu.add_feature("The Doomsday Scenario", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 73) -- The Doomsday Scenario
+end)
+menu.add_feature("A World Worth Saving", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 74) -- A World Worth Saving
+end)
+menu.add_feature("Orbital Obliteration", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 75) -- Orbital Obliteration
+end)
+menu.add_feature("Elitist", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 76) -- Elitist
+end)
+menu.add_feature("Masterminds", "action", uAchievementSub.id, function()
+    script.set_global_i(4542602 + 1, 77) -- Masterminds
+end)
+
 
 --[[menu.add_feature("Basic Unlock All", "toggle", unlocksSub.id, function(f)
   uFunctions.basicUnlocks()
@@ -148,6 +398,16 @@ end)]]--
   
 
 -- Misc
+menu.add_feature("Enable Snow", "action", tunableSub.id, function()
+    script.set_global_i(262145 + 4752, 1)
+end)
+menu.add_feature("Disable Snow", "action", tunableSub.id, function()
+    script.set_global_i(262145 + 4752, 0)
+end)
+
+menu.add_feature("Refill Inventory", "action", miscSub.id, function()
+    uFunctions.refillInventory()
+end)
 menu.add_feature("Set Kills", "action", miscSub.id, function()
    uFunctions.setKills()
 end)
@@ -156,6 +416,9 @@ menu.add_feature("Set Deaths", "action", miscSub.id, function()
 end)
 menu.add_feature("Set K/D", "action", miscSub.id, function()
    uFunctions.setKD()
+end)
+menu.add_feature("-----------------------------", "action", serialKiller.id, function()
+    menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
 end)
 menu.add_feature("Get Plane Access", "action", miscSub.id, function()
     stats.stat_set_bool("PLANE_ACCESS", true, true)
@@ -168,6 +431,9 @@ end)
 menu.add_feature("Get Boat Access", "action", miscSub.id, function()
     stats.stat_set_bool("BOAT_ACCESS", true, true)
     menu.notify("You have gained boat access", "Apex", 4, 257818)
+end)
+menu.add_feature("-----------------------------", "action", serialKiller.id, function()
+    menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
 end)
 menu.add_feature("Equip 'Record A' livery for the AP Pistol", "action", miscSub.id, function()
     weapon_hash = gameplay.get_hash_key("WEAPON_APPISTOL")
