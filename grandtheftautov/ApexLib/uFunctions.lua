@@ -245,8 +245,8 @@ end
 
 function uFunctions.unlockMeleeWeaponSkins()
    script.set_global_i(262145 + 34131, 0)
-   script.set_global_i(262145 + 34094 + 9, -1716189206) -- Knife
-   script.set_global_i(262145 + 34094 + 10, -1786099057) -- Bat
+   script.set_global_i(262145 + 34094 + 9, -1716189206) 
+   script.set_global_i(262145 + 34094 + 10, -1786099057) 
 end
 
 return uFunctions
