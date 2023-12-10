@@ -3,12 +3,9 @@
 //Functions
 namespace functions
 {
-	bool godmode = false;
-	bool uAmmo = false;
-	bool wallhack = false;
+	//booleans
+	bool godmode = false, uAmmo = false, wallhack = false, showMenu = true;
 
-	int coins;
-	int xp;
-
-	bool showMenu = false;
+	//integers
+	int coins, xp;
 }

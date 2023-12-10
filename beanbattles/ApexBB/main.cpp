@@ -167,15 +167,18 @@ HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT 
 
 			}
 			ImGui::SameLine();
-			if (ImGui::Checkbox("Unlimited Ammo", &functions::uAmmo)) {
+			if (ImGui::Button("Add Ammo")) {
+				*(int*)memory::FindAddress(moduleBase + 0x00263A28, { 0x170, 0x10, 0x88, 0x00, 0x20, 0x28, 0xDC4 }) = 200;
+			}
+			/*if (ImGui::Checkbox("Unlimited Ammo", &functions::uAmmo)) {
 				/*auto lastTime = high_resolution_clock::now();
 
 				if ((high_resolution_clock::now() - lastTime) >= milliseconds(1))
 				{
 					*(int*)memory::FindAddress(moduleBase + 0x00263A28, { 0x170, 0x10, 0x88, 0x00, 0x20, 0x28, 0xDC4 }) = 200;
 					lastTime = high_resolution_clock::now();
-				}*/
-			}
+				}
+			}*/
 			ImGui::Separator();
 			if (ImGui::InputInt("Coins", &functions::coins)) {
 
