@@ -13,11 +13,15 @@ end)
 
 -- Checks
 if not menu.is_trusted_mode_enabled(1 << 1) then 
-    menu.notify("Allow access to globals!")
+         menu.notify("Enable #FF00FC7C#Globals #DEFAULT#Trusted Mode!", "Apex")
     menu.exit()
 end
 if not menu.is_trusted_mode_enabled(1 << 0) then 
-    menu.notify("Allow access to Statistics!")
+	    menu.notify("Enable #FF00FC7C#Stats #DEFAULT#Trusted Mode!", "Apex")
+    menu.exit()
+end
+if not menu.is_trusted_mode_enabled(1 << 2) then 
+    menu.notify("Enable #FF00FC7C#Natives #DEFAULT#Trusted Mode!", "Apex")
     menu.exit()
 end
 
