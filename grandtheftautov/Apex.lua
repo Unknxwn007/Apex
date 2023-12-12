@@ -43,7 +43,7 @@ end
 -- submenu's
 local root = menu.add_feature("Apex", "parent", 0) 
 
-local charSub = menu.add_feature("Character", "parent", root.id)
+local charSub = menu.add_feature("Identity Theft", "parent", root.id)
 local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
 local fraudSub = menu.add_feature("#FF0000FF#[RISKY] #DEFAULT# Tax Fraud", "parent", root.id)
 local reputationSub = menu.add_feature("Reputation", "parent", root.id)
@@ -65,9 +65,10 @@ local collectMusic = menu.add_feature("Media Sticks - LS Tuners DLC", "parent", 
 
 local tunableSub = menu.add_feature("Tunables", "parent", miscSub.id)
 
+
 -- Character
 menu.add_feature("Set Year", "action", cCreationDate.id, function()
-    uFunctions.stat_set_date(gameplay.get_hash_key("MP0_CHAR_DATE_CREATED"), 01102013)
+    uFunctions.stat_set_date(gameplay.get_hash_key("MP0_CHAR_DATE_CREATED"))
 end)
 menu.add_feature("Set Month", "action_value_i", cCreationDate.id, function()
     --TODO
@@ -124,7 +125,7 @@ menu.add_feature("EVERY Packed Stat", "action", unlocksSub.id, function()
 end)
 menu.add_feature("Basic Unlock All", "action", unlocksSub.id, function(f)
     uFunctions.basicUnlocks()
- end)
+end)
 
 menu.add_feature("Most awards", "action", unlocksSub.id, function()
     uTable.unlockAwards()
@@ -447,6 +448,7 @@ menu.add_feature("Disable Snow", "action", tunableSub.id, function()
     script.set_global_i(262145 + 4752, 0)
 end)
 
+
 menu.add_feature("Refill Inventory", "action", miscSub.id, function()
     uFunctions.refillInventory()
 end)
@@ -476,27 +478,11 @@ end)
 menu.add_feature("-----------------------------", "action", miscSub.id, function()
     menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
 end)
-menu.add_feature("Equip 'Record A' livery for the AP Pistol", "action", miscSub.id, function()
-    weapon_hash = gameplay.get_hash_key("WEAPON_APPISTOL")
-    component_hash = gameplay.get_hash_key("COMPONENT_APPISTOL_VARMOD_SECURITY")
 
-    weapon.give_weapon_component_to_ped(player.get_player_ped(player.player_id()), weapon_hash, component_hash)
-    menu.notify("This did NOT unlock the finish!\nThis goes away after switching sessions.", "Apex", 3, 3578712200220)
+vanityPlateFunc = menu.add_feature("Vanity Plates", "autoaction_value_str", miscSub.id, function(f, pid)
+    vehicle.set_vehicle_number_plate_index(player.player_vehicle(), f.value + 6)
 end)
-menu.add_feature("Equip 'Organics' livery for the Micro SMG", "action", miscSub.id, function()
-    weapon_hash = gameplay.get_hash_key("WEAPON_MICROSMG")
-    component_hash = gameplay.get_hash_key("COMPONENT_MICROSMG_VARMOD_SECURITY")
-
-    weapon.give_weapon_component_to_ped(player.get_player_ped(player.player_id()), weapon_hash, component_hash)
-    menu.notify("This did NOT unlock the finish!\nThis goes away after switching sessions.", "Apex", 3, 3578712200220)
-end)
-menu.add_feature("Equip 'Families' livery for the Heavy Rifle", "action", miscSub.id, function()
-    weapon_hash = gameplay.get_hash_key("WEAPON_HEAVYRIFLE")
-    component_hash = gameplay.get_hash_key("COMPONENT_HEAVYRIFLE_CAMO1")
-
-    weapon.give_weapon_component_to_ped(player.get_player_ped(player.player_id()), weapon_hash, component_hash)
-    menu.notify("This did NOT unlock the finish!\nThis goes away after switching sessions.", "Apex", 3, 3578712200220)
-end)
+vanityPlateFunc:set_str_data({"E-Cola", "Las Venturas", "Liberty City", "LS Car Meet", "Panic", "Pounders", "Sprunk"})
 
 
 -- Teleportation || serialKiller

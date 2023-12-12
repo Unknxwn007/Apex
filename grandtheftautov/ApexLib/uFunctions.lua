@@ -3,7 +3,6 @@ package.path = appdata .. "\\scripts\\?.lua;" .. package.path
 local uTable = require("ApexLib.uTable")
 
 local uFunctions = {}
-
 local mpx
 
 local leplayer = stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1)
@@ -15,10 +14,6 @@ end
 
 local function mpx2()
     return "MP" .. stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1) .. "_"
-end
-
-function uFunctions.stat_set_date(statName, value)
-    native.call(0x2C29BFB64F4FCBE4, statName, value, 8, true)
 end
 
 function uFunctions.unlockHeliAccess()
