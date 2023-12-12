@@ -17,29 +17,8 @@ local function mpx2()
     return "MP" .. stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1) .. "_"
 end
 
-function uFunctions.unlockHeliAccess()
-    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."HELI_ACCESS"..i), true, true)
-end
-function uFunctions.unlockPlaneAccess()
-    stats.stat_set_bool(gameplay.get_hash_key("PLANE_ACCESS"), true, true)
-end
-function uFunctions.unlockBoatAccess()
-    stats.stat_set_bool(gameplay.get_hash_key("BOAT_ACCESS"), true, true)
-end
-
-
 function unlockPackedStat(index, mpxValue)
     native.call(0xDB8A58AEAA67CD07, index, true, mpxValue)
-end
-
-function uFunctions.unlockChopShopCars()
-    for index = 36285, 36304 do
-       script.set_global_i(262145+index, 1)
-     end
-end
-
-function uFunctions.unlockSnowLauncher()
-    unlockPackedStat(36066, mpxValue)
 end
 
 function uFunctions.unlockEveryPackedStat()
@@ -190,20 +169,20 @@ stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_3_UNLCK"), -1,
 menu.notify("Please change sessions.", "Apex")
    end
 
---[[function uFunctions.basicUnlocks()
-   menu.get_feature_by_hierarchy_key("online.recovery.stat_unlocks")
-   menu.get_feature_by_hierarchy_key("online.recovery.tattoo_unlocks")
-   menu.get_feature_by_hierarchy_key("online.recovery.parachute_unlocks")
-   menu.get_feature_by_hierarchy_key("online.recovery.rims_unlocks")
-   menu.get_feature_by_hierarchy_key("online.recovery.vehicle_unlocks")
-   menu.get_feature_by_hierarchy_key("online.recovery.trophy_unlocks")
-   menu.get_feature_by_hierarchy_key("online.recovery.hairstyle_unlocks")
-   menu.get_feature_by_hierarchy_key("online.recovery.weapon_unlocks")
-   menu.get_feature_by_hierarchy_key("online.recovery.clothing_unlocks")
-   menu.get_feature_by_hierarchy_key("online.recovery.doomsday_unlocks")
-   menu.get_feature_by_hierarchy_key("online.recovery.bunker_research_unlocks")
-   menu.get_feature_by_hierarchy_key("online.recovery.arena_unlocks")
-end]]-- idk why this doesnt work rn lol
+function uFunctions.basicUnlocks()
+   menu.get_feature_by_hierarchy_key("online.recovery.stat_unlocks"):toggle()
+   menu.get_feature_by_hierarchy_key("online.recovery.tattoo_unlocks"):toggle()
+   menu.get_feature_by_hierarchy_key("online.recovery.parachute_unlocks"):toggle()
+   menu.get_feature_by_hierarchy_key("online.recovery.rims_unlocks"):toggle()
+   menu.get_feature_by_hierarchy_key("online.recovery.vehicle_unlocks"):toggle()
+   menu.get_feature_by_hierarchy_key("online.recovery.trophy_unlocks"):toggle()
+   menu.get_feature_by_hierarchy_key("online.recovery.hairstyle_unlocks"):toggle()
+   menu.get_feature_by_hierarchy_key("online.recovery.weapon_unlocks"):toggle()
+   menu.get_feature_by_hierarchy_key("online.recovery.clothing_unlocks"):toggle()
+   menu.get_feature_by_hierarchy_key("online.recovery.doomsday_unlocks"):toggle()
+   menu.get_feature_by_hierarchy_key("online.recovery.bunker_research_unlocks"):toggle()
+   menu.get_feature_by_hierarchy_key("online.recovery.arena_unlocks"):toggle()
+end -- i forgot :toggle() thanks toph        -Lol
       
 function uFunctions.setKills()
       local input_stat, input_val = input.get("Enter desired kills (Max. 2147483647)", "", 10, 3)
@@ -288,24 +267,37 @@ function uFunctions.refillInventory()
 end
 
 function uFunctions.unlockAllAchievements()
-    for _, index in ipairs(uTable.clothingIDs) do
-        unlockPackedStat(index, mpxValue)
-        system.wait(2)
+    function uFunctions.unlockEveryPackedStat()
+        for _, index in ipairs(uTable.AchievementIDs) do
+            script.set_global_i(4542602 + 1, index)
+         system.wait(2)
+        end
     end
 end
 
 function uFunctions.unlockChopShopCars()
-    for index = 36285, 36304 do
-        script.set_global_i(262145+index, 1)
-    end
+ for index = 36285, 36304 do
+    script.set_global_i(262145+index, 1)
+  end
 end
 
 function uFunctions.unlockSnowCannon()
-    unlockPackedStat(42148, mpxValue)
+unlockPackedStat(42148, mpxValue)
 end
 
 function uFunctions.enableVincent()
-    script.set_global_i(262145+36058, 1)
+  script.set_global_i(262145+36058, 1)
 end
 
+function uFunctions.packedChopShopClothes()
+  for index = 42154, 42247 do
+unlockPackedStat(index, mpxValue)
+unlockPackedStat(42217, mpxValue)
+unlockPackedStat(42237, mpxValue)
+unlockPackedStat(42220, mpxValue)
+  for index2 = 36186, 36264 do
+script.set_global_i(262145+index2, 1)
+    end
+  end
+end
 return uFunctions
