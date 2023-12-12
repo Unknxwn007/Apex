@@ -200,6 +200,9 @@ end)
 menu.add_feature("Chop Shop Clothing", "action", uClothingSub.id, function()
     uFunctions.packedChopShopClothes()
 end)
+menu.add_feature("Unlock Party Hats", "action", uClothingSub.id, function()
+uFunctions.unlockPartyHats()
+end)
 
 -- Unlocks || Achievements
 menu.add_feature("EVERY Achievement", "action", uAchievementSub.id, function()

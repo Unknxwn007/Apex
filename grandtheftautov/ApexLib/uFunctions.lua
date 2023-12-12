@@ -319,4 +319,10 @@ function uFunctions.packedChopShopClothes()
     end
   end
 
+function uFunctions.unlockPartyHats()
+  for index = 42130, 42144 do
+  unlockPackedStat(index, mpxValue)
+  end
+end
+
 return uFunctions
