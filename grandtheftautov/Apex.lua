@@ -92,6 +92,9 @@ menu.add_feature("Unlock Fast Run and Reload", "action", usefulSub.id, function(
 end)
 
 -- Unlocks || General
+menu.add_feature("Basic Unlock All", "toggle", unlocksSub.id, function(f)
+  uFunctions.basicUnlocks()
+end)
 menu.add_feature("EVERY Packed Stat", "action", unlocksSub.id, function()
     uFunctions.unlockEveryPackedStat()
 end)
@@ -398,11 +401,6 @@ end)
 menu.add_feature("Masterminds", "action", uAchievementSub.id, function()
     script.set_global_i(4542602 + 1, 77) -- Masterminds
 end)
-
-
---[[menu.add_feature("Basic Unlock All", "toggle", unlocksSub.id, function(f)
-  uFunctions.basicUnlocks()
-end)]]--
   
 
 -- Misc
