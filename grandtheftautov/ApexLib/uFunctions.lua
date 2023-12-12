@@ -288,7 +288,7 @@ end
 
 function uFunctions.unlockAllAchievements()
     for _, index in ipairs(uTable.clothingIDs) do
-        unlockPackedStat(index, mpxValue)
+	    native.call(0xBEC7076D64130195, index)
         system.wait(2)
     end
 end
