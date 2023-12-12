@@ -317,12 +317,14 @@ function uFunctions.packedChopShopClothes()
         script.set_global_i(262145+index2, 1)
       end
     end
-  end
+end
 
-function uFunctions.unlockPartyHats()
-  for index = 42130, 42144 do
-  unlockPackedStat(index, mpxValue)
-  end
+function uFunctions.unlockPartyClothes()
+    for index = 42130, 42144 do
+        unlockPackedStat(index, mpxValue)
+        unlockPackedStat(42145, mpxValue) --bronze
+        unlockPackedStat(42146, mpxValue) --silver
+    end
 end
 
 return uFunctions
