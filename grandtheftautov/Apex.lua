@@ -487,10 +487,10 @@ end)
 vanityPlateFunc:set_str_data({"E-Cola", "Las Venturas", "Liberty City", "LS Car Meet", "Panic", "Pounders", "Sprunk"})
 
 menu.add_feature("New Yeti Event", "action", miscSub.id, function(f)
-script.set_global_i(252145+36054, 1)
+script.set_global_i(262145+36054, 1)
 entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-1409.0927, 4492.598, 23.707672))
 end)
-
+-- Idk the exact requirements for the event.
 
 -- Teleportation || serialKiller
 menu.add_feature("Clue 1 - Bloody Handprint", "action", serialKiller.id, function()
