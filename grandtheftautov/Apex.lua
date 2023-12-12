@@ -65,7 +65,6 @@ local collectMusic = menu.add_feature("Media Sticks - LS Tuners DLC", "parent", 
 
 local tunableSub = menu.add_feature("Tunables", "parent", miscSub.id)
 
-
 -- Character
 menu.add_feature("Set Year", "action", cCreationDate.id, function()
     uFunctions.stat_set_date(gameplay.get_hash_key("MP0_CHAR_DATE_CREATED"))
@@ -200,8 +199,8 @@ end)
 menu.add_feature("Chop Shop Clothing", "action", uClothingSub.id, function()
     uFunctions.packedChopShopClothes()
 end)
-menu.add_feature("Unlock Party Hats", "action", uClothingSub.id, function()
-uFunctions.unlockPartyHats()
+menu.add_feature("Unlock Party Clothing", "action", uClothingSub.id, function()
+    uFunctions.unlockPartyClothes()
 end)
 
 -- Unlocks || Achievements
