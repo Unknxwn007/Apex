@@ -1160,4 +1160,6 @@ function uTable.unlockAwards()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_CHEMCOMPOUNDS"), 50, true)
 end
 
+-- This was done by ChatGPT if you have a better solution please make a pull request.  -Lol
+
 return uTable
