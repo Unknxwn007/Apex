@@ -17,16 +17,6 @@ local function mpx2()
     return "MP" .. stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1) .. "_"
 end
 
-function uFunctions.unlockHeliAccess()
-    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."HELI_ACCESS"..i), true, true)
-end
-function uFunctions.unlockPlaneAccess()
-    stats.stat_set_bool(gameplay.get_hash_key("PLANE_ACCESS"), true, true)
-end
-function uFunctions.unlockBoatAccess()
-    stats.stat_set_bool(gameplay.get_hash_key("BOAT_ACCESS"), true, true)
-end
-
 function unlockPackedStat(index, mpxValue)
     native.call(0xDB8A58AEAA67CD07, index, true, mpxValue)
 end
@@ -283,6 +273,20 @@ function uFunctions.unlockAllAchievements()
          system.wait(2)
         end
     end
+end
+
+function uFunctions.unlockChopShopCars()
+ for index = 36285, 36304 do
+    script.set_global_i(262145+index, 1)
+  end
+end
+
+function uFunctions.unlockSnowCannon()
+unlockPackedStat(42148, mpxValue)
+end
+
+function uFunctions.enableVincent()
+  script.set_global_i(262145+36058, 1)
 end
 
 return uFunctions
