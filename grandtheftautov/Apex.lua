@@ -2,32 +2,33 @@ local appdata = utils.get_appdata_path("PopstarDevs", "2Take1Menu")
 package.path = appdata .. "\\scripts\\?.lua;" .. package.path  
 local uFunctions = require("ApexLib.uFunctions")
 local uTable = require("ApexLib.uTable")
+local helpers = require("ApexLib.helpers")
 
--- Colors
-local colors = {
-    red = "0xFF0000FF",
-    green = "0xFF00FF00",
-    blue = "0xFFFF0000",
-	yellow = "0xFF00FFFF"
-} -- skidded from toph
+--[[
+    TODO List
+
+    - Check Stats Menu -> Modify in menu
+    - make modded acc presets
+]]
 
 -- Welcome
-local menuName = "Apex"
 menu.create_thread(function()
-    menu.notify("Welcome to Apex!", menuName, 6, 0x00ff00)
+    -- menu.notify("Welcome to Apex!", "Apex", 6, 0x00ff00)
+    helpers.iconNotification("CHAR_MP_FM_CONTACT", "Welcome!")
 end)
 
 -- Checks
 if not menu.is_trusted_mode_enabled(1 << 1) then 
-    menu.notify("Enable #FF00FC7C#Globals #DEFAULT#Trusted Mode!", "Apex", 6, colors.red)
+    menu.notify("Enable #FF00FC7C#Globals #DEFAULT#Trusted Mode!", "Apex")
     menu.exit()
 end
 if not menu.is_trusted_mode_enabled(1 << 0) then 
-    menu.notify("Enable #FF00FC7C#Stats #DEFAULT#Trusted Mode!", "Apex", 6, colors.red)
+    menu.notify("Enable #FF00FC7C#Stats #DEFAULT#Trusted Mode!", "Apex")
     menu.exit()
 end
 if not menu.is_trusted_mode_enabled(1 << 2) then 
-    menu.notify("Enable #FF00FC7C#Natives #DEFAULT#Trusted Mode!", "Apex", 6, colors.red)
+    menu.notify("Enable #FF00FC7C#Natives #DEFAULT#Trusted Mode!", "Apex")
+    menu.notify("Allow access to Statistics!")
     menu.exit()
 end
 
@@ -68,7 +69,6 @@ menu.add_feature("Level 1000 in Arena", "action", reputationSub.id, function()
     --TODO
 end)
 
-
 -- Useful Features
 menu.add_feature("Spawn ped for weapon challenges", "action", usefulSub.id, function()
     local coords = player.get_player_coords(player.player_id())
@@ -91,7 +91,7 @@ menu.add_feature("Unlock Fast Run and Reload", "action", usefulSub.id, function(
     uFunctions.unlockFastRun()
 end)
 menu.add_feature("Enable Vincent contact missions", "action", usefulSub.id, function()
-uFunctions.enableVincent()
+    uFunctions.enableVincent()
 end)
 
 -- Unlocks || General
@@ -126,13 +126,14 @@ end)
 menu.add_feature("Knife and Bat skins (Gun Van)", "action", uWeaponsSub.id, function()
     uFunctions.unlockMeleeWeaponSkins()
 end)  
-menu.add_feature("Unlock Snow Cannon", "action", uWeaponsSub.id, function()
-uFunctions.unlockSnowCannon()
-end)
+menu.add_feature("Snow Cannon", "action", uWeaponsSub.id, function()
+    uFunctions.unlockSnowCannon()
+end)  
 
 -- Unlocks || Clothing
 menu.add_feature("Cunning Stunts Figures", "action", uClothingSub.id, function()
     uFunctions.cunningStuntsFigures()
+    -- helpers.cIconNotification("CHAR_SOCIAL_CLUB", "Social Club", "Rockstar Games has given you\nsome clothes.")
 end)
 menu.add_feature("Doomsday Heist Bodysuits", "action", uClothingSub.id, function()
     uFunctions.doomsdayHeistBodysuits()
@@ -172,7 +173,7 @@ end)
 menu.add_feature("EVERY Achievement", "action", uAchievementSub.id, function()
     uFunctions.unlockAllAchievements()
 end)
-menu.add_feature("-----------------------------", "action", miscSub.id, function()
+menu.add_feature("-----------------------------", "action", uAchievementSub.id, function()
     menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
 end)
 menu.add_feature("Welcome to Los Santos", "action", uAchievementSub.id, function()
@@ -408,9 +409,9 @@ menu.add_feature("Masterminds", "action", uAchievementSub.id, function()
 end)
 
 
-menu.add_feature("Basic Unlock All", "action", unlocksSub.id, function(f)
+--[[menu.add_feature("Basic Unlock All", "toggle", unlocksSub.id, function(f)
   uFunctions.basicUnlocks()
-end)
+end)]]--
   
 
 -- Misc
@@ -433,21 +434,20 @@ end)
 menu.add_feature("Set K/D", "action", miscSub.id, function()
    uFunctions.setKD()
 end)
+--[[
 menu.add_feature("-----------------------------", "action", miscSub.id, function()
     menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
 end)
 menu.add_feature("Get Plane Access", "action", miscSub.id, function()
-    stats.stat_set_bool("PLANE_ACCESS", true, true)
-    menu.notify("You have gained plane access", "Apex", 4, 257818)
+    uFunctions.unlockPlaneAccess()
 end)
 menu.add_feature("Get Heli Access", "action", miscSub.id, function()
-    stats.stat_set_bool("HELI_ACCESS", true, true)
-    menu.notify("You have gained heli access", "Apex", 4, 257818)
+    uFunctions.unlockHeliAccess()
 end)
 menu.add_feature("Get Boat Access", "action", miscSub.id, function()
-    stats.stat_set_bool("BOAT_ACCESS", true, true)
-    menu.notify("You have gained boat access", "Apex", 4, 257818)
+    uFunctions.unlockBoatAccess()
 end)
+--]]
 menu.add_feature("-----------------------------", "action", miscSub.id, function()
     menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
 end)
