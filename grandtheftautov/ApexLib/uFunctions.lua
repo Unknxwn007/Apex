@@ -287,7 +287,7 @@ function uFunctions.refillInventory()
 end
 
 function uFunctions.unlockAllAchievements()
-    for _, index in ipairs(uTable.clothingIDs) do
+    for _, index in ipairs(uTable.AchievementIDs) do
 	    native.call(0xBEC7076D64130195, index)
         system.wait(2)
     end
