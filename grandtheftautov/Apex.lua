@@ -284,7 +284,7 @@ vanityPlateFunc:set_str_data({"E-Cola", "Las Venturas", "Liberty City", "LS Car 
 
 
 -- Teleportation Features
-for id, v in pairs(uTable.yetiClues) do
+for i, v in pairs(uTable.YetiClues) do
     menu.add_feature(v.name, "action", yetiHunt.id, function()
         entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v.coord)
     end)

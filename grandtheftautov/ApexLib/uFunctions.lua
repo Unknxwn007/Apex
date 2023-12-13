@@ -26,7 +26,6 @@ function unlockPackedStat(index, leplayer)
     native.call(0xDB8A58AEAA67CD07, index, true, leplayer)
 end
 
-
 function uFunctions.unlockChopShopCars()
     for index = 36285, 36304 do
        script.set_global_i(262145+index, 1)
@@ -283,8 +282,8 @@ function uFunctions.refillInventory()
 end
 
 function uFunctions.unlockAllAchievements()
-    for _, index in ipairs(uTable.clothingIDs) do
-        unlockPackedStat(index, leplayer)
+    for _, index in ipairs(uTable.AchievementIDs) do
+	    native.call(0xBEC7076D64130195, index)
         system.wait(2)
     end
 end
@@ -309,7 +308,6 @@ function uFunctions.packedChopShopClothes()
         unlockPackedStat(42217, leplayer)
         unlockPackedStat(42237, leplayer)
         unlockPackedStat(42220, leplayer)
-		unlockPackedStat(42119, leplayer)
     for index2 = 36186, 36264 do
         script.set_global_i(262145+index2, 1)
       end
@@ -329,6 +327,5 @@ function uFunctions.triggerSnowTruckEvent()
     script.set_global_i(262145 + 36158, 1800000)
     script.set_global_i(262145 + 36055, 1)
 end
-
 
 return uFunctions
