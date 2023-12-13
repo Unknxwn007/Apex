@@ -5,12 +5,7 @@ local uTable = require("ApexLib.uTable")
 local uFunctions = {}
 local mpx
 
-local leplayer = stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1)
-if leplayer == 0 then
-    mpx = "0"
-else
-    mpx = "1"
-end
+leplayer = stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 0)
 
 local function mpx2()
     return "MP" .. stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1) .. "_"
@@ -27,9 +22,10 @@ function uFunctions.unlockBoatAccess()
 end
 
 
-function unlockPackedStat(index, mpxValue)
-    native.call(0xDB8A58AEAA67CD07, index, true, mpxValue)
+function unlockPackedStat(index, leplayer)
+    native.call(0xDB8A58AEAA67CD07, index, true, leplayer)
 end
+
 
 function uFunctions.unlockChopShopCars()
     for index = 36285, 36304 do
@@ -38,12 +34,12 @@ function uFunctions.unlockChopShopCars()
 end
 
 function uFunctions.unlockSnowLauncher()
-    unlockPackedStat(36066, mpxValue)
+    unlockPackedStat(36066, leplayer)
 end
 
 function uFunctions.unlockEveryPackedStat()
        for _, index in ipairs(uTable.clothingIDs) do
-    unlockPackedStat(index, mpxValue)
+    unlockPackedStat(index, leplayer)
         system.wait(2)
     end
 end
@@ -287,8 +283,8 @@ function uFunctions.refillInventory()
 end
 
 function uFunctions.unlockAllAchievements()
-    for _, index in ipairs(uTable.AchievementIDs) do
-	    native.call(0xBEC7076D64130195, index)
+    for _, index in ipairs(uTable.clothingIDs) do
+        unlockPackedStat(index, leplayer)
         system.wait(2)
     end
 end
@@ -300,7 +296,7 @@ function uFunctions.unlockChopShopCars()
 end
 
 function uFunctions.unlockSnowCannon()
-    unlockPackedStat(42148, mpxValue)
+    unlockPackedStat(42148, leplayer)
 end
 
 function uFunctions.enableVincent()
@@ -309,10 +305,11 @@ end
 
 function uFunctions.packedChopShopClothes()
     for index = 42154, 42247 do
-        unlockPackedStat(index, mpxValue)
-        unlockPackedStat(42217, mpxValue)
-        unlockPackedStat(42237, mpxValue)
-        unlockPackedStat(42220, mpxValue)
+        unlockPackedStat(index, leplayer)
+        unlockPackedStat(42217, leplayer)
+        unlockPackedStat(42237, leplayer)
+        unlockPackedStat(42220, leplayer)
+		unlockPackedStat(42119, leplayer)
     for index2 = 36186, 36264 do
         script.set_global_i(262145+index2, 1)
       end
@@ -321,9 +318,9 @@ end
 
 function uFunctions.unlockPartyClothes()
     for index = 42130, 42144 do
-        unlockPackedStat(index, mpxValue)
-        unlockPackedStat(42145, mpxValue) --bronze
-        unlockPackedStat(42146, mpxValue) --silver
+        unlockPackedStat(index, leplayer)
+        unlockPackedStat(42145, leplayer) --bronze
+        unlockPackedStat(42146, leplayer) --silver
     end
 end
 
