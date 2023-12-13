@@ -9,7 +9,7 @@ Stop asking for staff to help you everytime you weirdo
 
 
 # Bypass file made by Decco
-
+- Load clownUnlockerActivator.lua **first**
 
 Here you can't delete it, you can always pay me tho!
 
