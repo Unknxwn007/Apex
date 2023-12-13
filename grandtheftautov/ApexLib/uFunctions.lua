@@ -324,4 +324,11 @@ function uFunctions.unlockPartyClothes()
     end
 end
 
+function uFunctions.triggerSnowTruckEvent()
+    script.set_global_i(262145 + 36157, 3600000)
+    script.set_global_i(262145 + 36158, 1800000)
+    script.set_global_i(262145 + 36055, 1)
+end
+
+
 return uFunctions

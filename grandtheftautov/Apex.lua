@@ -9,6 +9,7 @@ local helpers = require("ApexLib.helpers")
 
     - Check Stats Menu -> Modify in menu
     - make modded acc presets
+    - at a random interval show random name from an array "leaving" the game
 ]]
 
 local colors = {
@@ -35,24 +36,24 @@ if not menu.is_trusted_mode_enabled(1 << 0) then
 end
 if not menu.is_trusted_mode_enabled(1 << 2) then 
     menu.notify("Enable #FF00FC7C#Natives #DEFAULT#Trusted Mode!", "Apex", 6, colors.red)
-    menu.notify("Allow access to Statistics!")
     menu.exit()
 end
 
 
--- submenu's
+-- Main Menu
 local root = menu.add_feature("Apex", "parent", 0) 
 
 local charSub = menu.add_feature("Identity Theft", "parent", root.id)
 local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
 local fraudSub = menu.add_feature("#FF0000FF#[RISKY] #DEFAULT# Tax Fraud", "parent", root.id)
 local reputationSub = menu.add_feature("Reputation", "parent", root.id)
+local eventsSub = menu.add_feature("Events", "parent", root.id)
 local usefulSub = menu.add_feature("Useful Features", "parent", root.id)
 local collectSub = menu.add_feature("Collectables", "parent", root.id) 
 local teleportSub = menu.add_feature("Teleportation", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
 
--- Sub in Sub
+-- Subs
 local cCreationDate = menu.add_feature("Creation Date", "parent", charSub.id)
 
 local uAchievementSub = menu.add_feature("Achievement Manager", "parent", unlocksSub.id)
@@ -61,11 +62,14 @@ local uVehiclesSub = menu.add_feature("Vehicles", "parent", unlocksSub.id)
 local uClothingSub = menu.add_feature("Clothing", "parent", unlocksSub.id)
 
 local serialKiller = menu.add_feature("Serial Killer", "parent", teleportSub.id)
+local yetiHunt = menu.add_feature("Yeti Hunt", "parent", teleportSub.id)
+
 local collectMusic = menu.add_feature("Media Sticks - LS Tuners DLC", "parent", collectSub.id)
 
 local tunableSub = menu.add_feature("Tunables", "parent", miscSub.id)
 
--- Character
+
+-- Character Features
 menu.add_feature("Set Year", "action", cCreationDate.id, function()
     uFunctions.stat_set_date(gameplay.get_hash_key("MP0_CHAR_DATE_CREATED"))
 end)
@@ -80,18 +84,32 @@ menu.add_feature("Unlock Birthday Rewards", "action", charSub.id, function()
 end)
 
 
--- Fraud
+-- Tax Fraud Features
 menu.add_feature("Spawn $1.900.000 Issi", "action", fraudSub.id, function()
     --TODO
 end)
 
--- Reputation
+
+-- Reputation Features
 menu.add_feature("Level 1000 in LS Car Meet", "action", reputationSub.id, function()
     
 end)
 menu.add_feature("Level 1000 in Arena", "action", reputationSub.id, function()
     --TODO
 end)
+
+
+-- Event Functions
+menu.add_feature("Christmas Truck event", "action", eventsSub.id, function() -- thanks ShinyWasabi
+    uFunctions.triggerSnowTruckEvent()
+    helpers.cIconNotification("CHAR_HUMANDEFAULT", "Santa Claus", "Make sure there's more than 2 players!")
+    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(247.353, -986.255, 28.828 ))
+end)
+menu.add_feature("Yeti Event", "action", eventsSub.id, function(f)
+    script.set_global_i(262145+36054, 1)
+    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-1409.0927, 4492.598, 23.707672))
+end)
+
 
 -- Useful Features
 menu.add_feature("Spawn ped for weapon challenges", "action", usefulSub.id, function()
@@ -108,7 +126,7 @@ menu.add_feature("Spawn ped for weapon challenges", "action", usefulSub.id, func
     network.request_control_of_entity(ped)
     entity.freeze_entity(ped, true)
 end)
-menu.add_feature("Set Cutscenes Seen", "action", usefulSub.id, function()
+menu.add_feature("Set Lowrider Cutscenes Seen", "action", usefulSub.id, function()
     uFunctions.setCutscenesSeen()
 end)
 menu.add_feature("Unlock Fast Run and Reload", "action", usefulSub.id, function()
@@ -263,13 +281,15 @@ vanityPlateFunc = menu.add_feature("Vanity Plates", "autoaction_value_str", misc
 end)
 vanityPlateFunc:set_str_data({"E-Cola", "Las Venturas", "Liberty City", "LS Car Meet", "Panic", "Pounders", "Sprunk"})
 
-menu.add_feature("New Yeti Event", "action", miscSub.id, function(f)
-script.set_global_i(262145+36054, 1)
-entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-1409.0927, 4492.598, 23.707672))
-end)
--- Idk the exact requirements for the event.
 
--- Teleportation || serialKiller
+
+-- Teleportation Features
+for id, v in pairs(uTable.yetiClues) do
+    menu.add_feature(v.name, "action", yetiHunt.id, function()
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v.coord)
+    end)
+end
+-- seperation line
 menu.add_feature("Clue 1 - Bloody Handprint", "action", serialKiller.id, function()
     entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-678.9984, 5797.6851, 17.3309))
 end)

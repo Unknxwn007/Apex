@@ -84,7 +84,13 @@ uTable.Achievements = {
     [77] = "Masterminds",
 }
 
-
+uTable.YetiClues = {
+    {name = "Camp", coord = v3(-1562.69, 4699.04, 50.426)},
+    {name = "Clothes", coord = v3(-1359.869, 4733.429, 46.919)},
+    {name = "Dead Deer", coord = v3(-1715.398, 4501.203, 0.096)},
+    {name = "Car Wreck", coord = v3(-1282.18, 4487.826, 12.643)},
+    {name = "Body Parts", coord = v3(-1569.107, 4478.335, 21.157)},
+}
 
 uTable.clothingIDs = {
     36699, 36700, 36701, 36702, 36703, 36704, 36705, 36706, 36707, 36708,
