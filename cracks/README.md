@@ -1,7 +1,7 @@
 ### Master Unlocker (DONOR Version)
 
 # Why?
-Skidpaste for $15 a DLC and 55$ for lifetime LOL.
+Skidpaste for $15 a DLC and $55 for lifetime LOL.
 
 Stop asking for staff to help you everytime you weirdo
 
