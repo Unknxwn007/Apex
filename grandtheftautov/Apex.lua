@@ -174,7 +174,7 @@ menu.add_feature("Knife and Bat skins (Gun Van)", "action", uWeaponsSub.id, func
 end)  
 menu.add_feature("Snow Cannon", "action", uWeaponsSub.id, function()
     uFunctions.unlockSnowCannon()
-end)  
+end)   
 
 -- Unlocks || Clothing
 menu.add_feature("Cunning Stunts Figures", "action", uClothingSub.id, function()
