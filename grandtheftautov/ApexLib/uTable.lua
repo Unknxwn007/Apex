@@ -92,6 +92,20 @@ uTable.YetiClues = {
     {name = "Body Parts", coord = v3(-1569.107, 4478.335, 21.157)},
 }
 
+uTable.SerialKillerClues = {
+    {name = "Bloody Handprint", coord = v3(-678.9984, 5797.6851, 17.3309)},
+    {name = "Machete", coord = v3(1901.4042, 4911.5479, 48.6951)},
+    {name = "Severed Hand", coord = v3(1111.7750, 3142.0457, 38.4241)},
+    {name = "Message", coord = v3(-136.5509, 1912.8038, 197.2982)},
+}
+uTable.SerialKillerCluesRandom = {
+    {name = "Black Van - Location 1", coord = v3(2576.0391, 1251.7494, 43.6099)},
+    {name = "Black Van - Location 2", coord = v3(2903.4150, 3644.0413, 43.8774)},
+    {name = "Black Van - Location 3", coord = v3(2432.3904, 5846.0757, 58.8891)},
+    {name = "Black Van - Location 4", coord = v3(-1567.880, 4424.6104, 7.2154)},
+    {name = "Black Van - Location 5", coord = v3(-1715.793, 2618.7686, 2.9409)},
+}
+
 uTable.clothingIDs = {
     36699, 36700, 36701, 36702, 36703, 36704, 36705, 36706, 36707, 36708,
     36709, 36710, 36711, 36712, 36713, 36714, 36715, 36716, 36717, 36718,

@@ -10,6 +10,7 @@ local helpers = require("ApexLib.helpers")
     - Check Stats Menu -> Modify in menu
     - make modded acc presets
     - at a random interval show random name from an array "leaving" the game
+    - stop paying house keeping charges
 ]]
 
 local colors = {
@@ -48,6 +49,7 @@ local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
 local fraudSub = menu.add_feature("#FF0000FF#[RISKY] #DEFAULT# Tax Fraud", "parent", root.id)
 local reputationSub = menu.add_feature("Reputation", "parent", root.id)
 local eventsSub = menu.add_feature("Events", "parent", root.id)
+local heistSub = menu.add_feature("Heist Manager", "parent", root.id)
 local usefulSub = menu.add_feature("Useful Features", "parent", root.id)
 local collectSub = menu.add_feature("Collectables", "parent", root.id) 
 local teleportSub = menu.add_feature("Teleportation", "parent", root.id)
@@ -61,6 +63,13 @@ local uWeaponsSub = menu.add_feature("Weapons", "parent", unlocksSub.id)
 local uVehiclesSub = menu.add_feature("Vehicles", "parent", unlocksSub.id)
 local uClothingSub = menu.add_feature("Clothing", "parent", unlocksSub.id)
 local uAwardsSub = menu.add_feature("Awards", "parent", unlocksSub.id)
+
+local heistCooldowns = menu.add_feature("Cooldowns", "parent", heistSub.id)
+local legacyHeist = menu.add_feature("Legacy Heists", "parent", heistSub.id)
+local doomsdayHeist = menu.add_feature("The Doomsday Heist", "parent", heistSub.id)
+local casinoHeist = menu.add_feature("The Casino Heist", "parent", heistSub.id)
+local cayopericoHeist = menu.add_feature("The Cayo Perico Heist", "parent", heistSub.id)
+local salvageRobberies = menu.add_feature("Salvage Yard Robberies", "parent", heistSub.id)
 
 local serialKiller = menu.add_feature("Serial Killer", "parent", teleportSub.id)
 local yetiHunt = menu.add_feature("Yeti Hunt", "parent", teleportSub.id)
@@ -85,10 +94,62 @@ menu.add_feature("Unlock Birthday Rewards", "action", charSub.id, function()
 end)
 
 
--- Tax Fraud Features
-menu.add_feature("Spawn $1.900.000 Issi", "action", fraudSub.id, function()
-    --TODO
+-- Heist Manager
+menu.add_feature("Remove Dax Cooldown", "action", heistCooldowns.id, function()
+    uFunctions.daxCooldown()
 end)
+menu.add_feature("Remove Salvage Yard Cooldown", "action", heistCooldowns.id, function()
+    uFunctions.salvageYardRobberyCooldown()
+end)
+menu.add_feature("Remove Chicken Farm Raid Cooldown", "action", heistCooldowns.id, function()
+    uFunctions.chickenCooldown()
+end)
+
+menu.add_feature("Skip Current Heist Setups", "action", legacyHeist.id, function()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "HEIST_PLANNING_STAGE"), -1, true)
+end)
+menu.add_feature("Reset Setups", "action", legacyHeist.id, function()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "HEIST_PLANNING_STAGE"), 0, true)
+end)
+
+menu.add_feature("Complete Setup - Act 1: The Data Breaches", "action", doomsdayHeist.id, function()
+    uFunctions.doomsDayActOne()
+end)
+menu.add_feature("Complete Setup - Act 2: The Bodgan Problem", "action", doomsdayHeist.id, function()
+    uFunctions.doomsDayActTwo()
+end)
+menu.add_feature("Complete Setup - Act 3: Doomsday Scenario", "action", doomsdayHeist.id, function()
+    uFunctions.doomsDayActThree()
+end)
+
+menu.add_feature("Auto Setup: Silent & Sneaky", "action", casinoHeist.id, function()
+    uFunctions.casinoHeistSilentSneaky()
+end)
+menu.add_feature("Auto Setup: The Big Con", "action", casinoHeist.id, function()
+    uFunctions.casinoHeistBigCon()
+end)
+menu.add_feature("Auto Setup: Aggressive", "action", casinoHeist.id, function()
+    uFunctions.casinoHeistAggressive()
+end)
+
+menu.add_feature("Auto Setup: Panther + Hard Mode", "action", cayopericoHeist.id, function()
+    uFunctions.cayoPericoPantherHard()
+end)
+menu.add_feature("Remove All CCTV Camera's", "action", cayopericoHeist.id, function()
+    for _, ent in pairs(entities.get_all_objects_as_handles()) do
+        for __, cam in pairs(CamList) do
+            if ENTITY.GET_ENTITY_MODEL(ent) == cam then
+                ENTITY.SET_ENTITY_AS_MISSION_ENTITY(ent,true,true)
+                ENTITY.DELETE_ENTITY(ent)               
+            end
+        end
+    end
+end)
+
+menu.add_feature("Remove All CCTV Camera's", "action", salvageRobberies.id, function()
+
+end)
+
 
 
 -- Reputation Features
@@ -238,6 +299,16 @@ for id, achievementName in pairs(uTable.Achievements) do
         setAchievement(id)
     end)
 end
+
+
+-- Tax Fraud Features
+menu.add_feature("Nightclub Loop", "toggle", fraudSub.id, function()
+    helpers.iconNotification("WEB_BAHAMAMAMASWEST", "1 Million per minute!")
+
+
+end)
+
+
 -- Misc
 menu.add_feature("Snow", "action_value_str", tunableSub.id, function(snow_options)
     if snow_options.value == 0 then
@@ -292,41 +363,21 @@ for i, v in pairs(uTable.YetiClues) do
     end)
 end
 -- seperation line
-menu.add_feature("Clue 1 - Bloody Handprint", "action", serialKiller.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-678.9984, 5797.6851, 17.3309))
-end)
-menu.add_feature("Clue 2 - Machete", "action", serialKiller.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(1901.4042, 4911.5479, 48.6951))
-end)
-menu.add_feature("Clue 3 - Severed Hand", "action", serialKiller.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(1111.7750, 3142.0457, 38.4241))
-end)
-menu.add_feature("Clue 4 - Message", "action", serialKiller.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-136.5509, 1912.8038, 197.2982))
-end)
+for i, v in pairs(uTable.SerialKillerClues) do
+    menu.add_feature(v.name, "action", serialKiller.id, function()
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v.coord)
+    end)
+end
 menu.add_feature("-----------------------------", "action", serialKiller.id, function()
     menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
 end)
-menu.add_feature("Clue 5 - Black Van (1)", "action", serialKiller.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(2576.0391, 1251.7494, 43.6099))
-    menu.notify("The LS Slasher will appear from 7PM-5AM, Kill him! (GTA$ 50,000 Reward)", "Apex", 4, 257818)
-end)
-menu.add_feature("Clue 5 - Black Van (2)", "action", serialKiller.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(2903.4150, 3644.0413, 43.8774))
-    menu.notify("The LS Slasher will appear from 7PM-5AM, Kill him! (GTA$ 50,000 Reward)", "Apex", 4, 257818)
-end)
-menu.add_feature("Clue 5 - Black Van (3)", "action", serialKiller.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(2432.3904, 5846.0757, 58.8891))
-    menu.notify("The LS Slasher will appear from 7PM-5AM, Kill him! (GTA$ 50,000 Reward)", "Apex", 4, 257818)
-end)
-menu.add_feature("Clue 5 - Black Van (4)", "action", serialKiller.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-1567.880, 4424.6104, 7.2154))
-    menu.notify("The LS Slasher will appear from 7PM-5AM, Kill him! (GTA$ 50,000 Reward)", "Apex", 4, 257818)
-end)
-menu.add_feature("Clue 5 - Black Van (5)", "action", serialKiller.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-1715.793, 2618.7686, 2.9409))
-    menu.notify("The LS Slasher will appear from 7PM-5AM, Kill him! (GTA$ 50,000 Reward)", "Apex", 4, 257818)
-end)
+for i, v in pairs(uTable.SerialKillerCluesRandom) do
+    menu.add_feature(v.name, "action", serialKiller.id, function()
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v.coord)
+        menu.notify("The LS Slasher will appear from 7PM-5AM, Kill him! (GTA$ 50,000 Reward)", "Apex", 4, 257818)
+    end)
+end
+
 
 -- Collectables || Music
 menu.add_feature("CircoLoco Record - Black EP", "action", collectMusic.id, function()
