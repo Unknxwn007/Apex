@@ -60,6 +60,7 @@ local uAchievementSub = menu.add_feature("Achievement Manager", "parent", unlock
 local uWeaponsSub = menu.add_feature("Weapons", "parent", unlocksSub.id)
 local uVehiclesSub = menu.add_feature("Vehicles", "parent", unlocksSub.id)
 local uClothingSub = menu.add_feature("Clothing", "parent", unlocksSub.id)
+local uAwardsSub = menu.add_feature("Awards", "parent", unlocksSub.id)
 
 local serialKiller = menu.add_feature("Serial Killer", "parent", teleportSub.id)
 local yetiHunt = menu.add_feature("Yeti Hunt", "parent", teleportSub.id)
