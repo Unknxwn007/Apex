@@ -4,6 +4,7 @@ Focused on in-depth recovery alongside fun features. \
 
 ### Information
 I am not responsible for any suspensions / bans to your account. \
+[Changelog](https://github.com/Unknxwn007/Apex/blob/main/grandtheftautov/changelog.md)
 
 ## Contributing
 Do you want to have your feature and or suggestion added to any of the above listed cheats? \
