@@ -328,4 +328,32 @@ function uFunctions.triggerSnowTruckEvent()
     script.set_global_i(262145 + 36055, 1)
 end
 
+function uFunctions.unlockChopShopAwards()
+		for index = 36068, 36075 do
+	script.set_global_i(262145+index, 1)
+	script.set_global_i(262145+36305, 1)
+	script.set_global_i(262145+36306, 1)	
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_MAZE_BANK_ROBBERY"), true, true)
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_DIAMOND_CASINO_ROBBERY"), true, true)
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_MISSION_ROW_ROBBERY"), true, true)
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_SUBMARINE_ROBBERY"), true, true)
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_PERFECT_RUN"), true, true)
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_GETAWAY_VEHICLES"), true, true)
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_EXTRA_MILE"  ), true, true)
+	stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_VEHICLE_ROBBERIES"), 50, true)
+	stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_PREP_WORK"), 50, true)
+	stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_CAR_DEALER"), 10000000, true)
+	stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_SECOND_HAND_PARTS"), 10000000, true)
+	stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_TOW_TRUCK_SERVICE"), 50, true)
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_BOLINGBROKE"), true, true)
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_GETTING_SET_UP"), true, true)
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_CHICKEN_FACTORY_RAID"), true, true)
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_HELPING_HAND2"), true, true)
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_SURPRISE_ATTACK"), true, true)
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_ALL_OUT_RAID"), true, true)
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_WEAPON_ARSENAL"), true, true)
+	stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "AWD_CARGO_SHIP_ROBBERY"), true, true)
+  end
+end
+
 return uFunctions

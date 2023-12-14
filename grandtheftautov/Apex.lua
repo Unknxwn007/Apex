@@ -367,3 +367,7 @@ end)
 menu.add_feature("Dr. Dre", "action", collectMusic.id, function()
     menu.notify("You need to complete the VIP missions\nIt'll be on your desk in the Agency", "Apex", 5, 3578712200220)
 end)
+-- DLC Awards
+menu.add_feature("Chop Shop Awards", "action", uAwardsSub.id, function()
+   uFunctions.unlockChopShopAwards()
+end)

@@ -1257,5 +1257,4 @@ function uTable.unlockAwards()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_CALLME"), 50, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_CHEMCOMPOUNDS"), 50, true)
 end
-
 return uTable
