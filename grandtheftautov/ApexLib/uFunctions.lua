@@ -459,4 +459,16 @@ function uFunctions.salvageYardRobberyCooldown()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "SALV23_VEHROB_CD"), -1, true)
 end
 
+function uFunctions.nightClubLoopFunc()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "CLUB_POPULARITY"), 1000, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "CLUB_PAY_TIME_LEFT"), -1, true)
+end
+
+function uFunctions.weaponLiveryChristmas23()
+    for index = 42068, 42069, 42122 do
+        script.set_global_i(262145 + index, 1)
+    end
+    stats.stat_set_int(-7648559, 5, true)
+end
+
 return uFunctions

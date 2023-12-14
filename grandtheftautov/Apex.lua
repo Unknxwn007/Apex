@@ -146,7 +146,7 @@ menu.add_feature("Remove All CCTV Camera's", "action", cayopericoHeist.id, funct
     end
 end)
 
-menu.add_feature("Remove All CCTV Camera's", "action", salvageRobberies.id, function()
+menu.add_feature("test", "action", salvageRobberies.id, function()
 
 end)
 
@@ -236,6 +236,9 @@ menu.add_feature("Knife and Bat skins (Gun Van)", "action", uWeaponsSub.id, func
 end)  
 menu.add_feature("Snow Cannon", "action", uWeaponsSub.id, function()
     uFunctions.unlockSnowCannon()
+end)  
+menu.add_feature("Christmas 2023 Liveries", "action", uWeaponsSub.id, function()
+    uFunctions.weaponLiveryChristmas23()
 end)   
 
 -- Unlocks || Clothing
@@ -302,10 +305,11 @@ end
 
 
 -- Tax Fraud Features
-menu.add_feature("Nightclub Loop", "toggle", fraudSub.id, function()
+menu.add_feature("Nightclub Loop", "toggle", fraudSub.id, function(f)
     helpers.iconNotification("WEB_BAHAMAMAMASWEST", "1 Million per minute!")
-
-
+    while f.on do
+        uFunctions.nightClubLoopFunc()
+    end 
 end)
 
 
