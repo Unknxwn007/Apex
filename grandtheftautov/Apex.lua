@@ -239,12 +239,13 @@ for id, achievementName in pairs(uTable.Achievements) do
     end)
 end
 -- Misc
-menu.add_feature("Enable Snow", "action", tunableSub.id, function()
-    script.set_global_i(262145 + 4752, 1)
-end)
-menu.add_feature("Disable Snow", "action", tunableSub.id, function()
-    script.set_global_i(262145 + 4752, 0)
-end)
+menu.add_feature("Snow", "action_value_str", tunableSub.id, function(snow_options)
+    if snow_options.value == 0 then
+        script.set_global_i(262145 + 4575, 1)
+    elseif snow_options.value == 1 then
+        script.set_global_i(262145 + 4575, 0)
+    end
+end):set_str_data({"Enable Snow", "Disable Snow"})
 
 
 menu.add_feature("Refill Inventory", "action", miscSub.id, function()
