@@ -2,7 +2,7 @@
 Apex is the brand name of a collection of cheats for various games. \
 *for educational purposes only!*
 
-## Apex GTA V 
+## Apex for GTA V 
 A lua script made using the 2take1 lua API, focused on in-depth recovery and fun.
 
 ### Information
