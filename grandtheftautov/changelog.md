@@ -1,3 +1,7 @@
+### 1.3.2
+- Added more liveries to unlock (Unlocks>Vehicles>Some Liveries)
+- Added ability to buy Police Gauntlet in Warstock (Unlocks>Vehicles>Unlock Chop Shop Cars)
+
 ### 1.3.1
 - Added more outfits to Chop Shop Unlocks (Unlocks>Clothing>Shop Chop Clothing)
    - The Coast Guard
