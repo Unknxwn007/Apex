@@ -28,7 +28,8 @@ end
 
 function uFunctions.unlockChopShopCars()
     for index = 36285, 36304 do
-       script.set_global_i(262145+index, 1)
+       script.set_global_i(262145+ index, 1)
+       stats.stat_set_int(gameplay.get_hash_key(mpx2().."SALV23_INST_PROG"), -1, true) -- gaunlet
      end
 end
 
@@ -242,12 +243,12 @@ function uFunctions.unlockArenaCars()
 end
 
 function uFunctions.setCutscenesSeen()
-stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_FLOW_CS_DRV_SEEN"), true, true)
-stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_FLOW_CS_TRA_SEEN"), true, true)
-stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_FLOW_CS_FUN_SEEN"), true, true)
-stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_FLOW_CS_PHO_SEEN"), true, true)
-stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_FLOW_CS_FIN_SEEN"), true, true)
-stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_BEN_INTRO_CS_SEEN"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_FLOW_CS_DRV_SEEN"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_FLOW_CS_TRA_SEEN"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_FLOW_CS_FUN_SEEN"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_FLOW_CS_PHO_SEEN"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_FLOW_CS_FIN_SEEN"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_BEN_INTRO_CS_SEEN"), true, true)
 end
 
 function uFunctions.unlockLiveries()
@@ -294,7 +295,6 @@ end
 function uFunctions.unlockChopShopCars()
     for index = 36285, 36304 do
         script.set_global_i(262145+index, 1)
-		stats.stat_set_int(gameplay.get_hash_key(mpx2().."SALV23_INST_PROG"), -1, true)
     end
 end
 
@@ -422,7 +422,7 @@ function uFunctions.casinoHeistAggressive()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_MASKS"), 2, true)
 end
 function uFunctions.cayoPericoPantherHard()
-    stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_BS_GEN"), 131071, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_BS_GEN"), 131071, true) 
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_BS_ENTR"), 63, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_BS_ABIL"), 63, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_WEAPONS"), 5, true)
@@ -454,6 +454,14 @@ function uFunctions.cayoPericoPantherHard()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4LOOT_PAINT_SCOPED"), -1, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4_MISSIONS"), 65535, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4_PLAYTHROUGH_STATUS"), 32, true) 
+end
+function uFunctions.resetCayoPerico()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H4_MISSIONS"), 0, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H4_PROGRESS"), 0, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H4_PLAYTHROUGH_STATUS"), 0, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H4CNF_APPROACH"), 0, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H4CNF_BS_ENTR"), 0, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H4CNF_BS_GEN"), 0, true)
 end
 
 function uFunctions.daxCooldown()

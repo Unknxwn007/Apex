@@ -96,14 +96,31 @@ uTable.SerialKillerClues = {
     {name = "Bloody Handprint", coord = v3(-678.9984, 5797.6851, 17.3309)},
     {name = "Machete", coord = v3(1901.4042, 4911.5479, 48.6951)},
     {name = "Severed Hand", coord = v3(1111.7750, 3142.0457, 38.4241)},
-    {name = "Message", coord = v3(-136.5509, 1912.8038, 197.2982)},
+    {name = "Message", coord = v3(-136.5509, 1912.8038, 197.2982)}
 }
 uTable.SerialKillerCluesRandom = {
     {name = "Black Van - Location 1", coord = v3(2576.0391, 1251.7494, 43.6099)},
     {name = "Black Van - Location 2", coord = v3(2903.4150, 3644.0413, 43.8774)},
     {name = "Black Van - Location 3", coord = v3(2432.3904, 5846.0757, 58.8891)},
     {name = "Black Van - Location 4", coord = v3(-1567.880, 4424.6104, 7.2154)},
-    {name = "Black Van - Location 5", coord = v3(-1715.793, 2618.7686, 2.9409)},
+    {name = "Black Van - Location 5", coord = v3(-1715.793, 2618.7686, 2.9409)}
+}
+
+uTable.CircoLocoMusic = {
+    {name = "CircoLoco Record - Black EP", coord = v3(-2172.050, 1159.195, -24.372)},
+    {name = "CircoLoco Record - Blue EP", coord = v3(955.299, 48.904, 112.553)},
+    {name = "CircoLoco Record - Violet EP", coord = v3(-1618.841, -3010.627, -75.205)},
+    {name = "CircoLoco Record - Green EP", coord = v3(2726.694, -387.484, -48.993)}
+}
+uTable.KennyMusic = {
+    {name = "Kenny's Backyard Boogie - #1", coord = v3(-2163.025, 1083.473, -24.362)},
+    {name = "Kenny's Backyard Boogie - #2", coord = v3(-2180.532, 1082.276, -24.367)},
+    {name = "Kenny's Backyard Boogie - #3", coord = v3(-2162.992, 1089.790, -24.363)},
+    {name = "Kenny's Backyard Boogie - #4", coord = v3(-2162.770, 1115.913, -24.371)}
+}
+uTable.NezMusic = {
+    {name = "NEZ - You Wanna?", coord = v3(-860.241, -229.980, 61.016)},
+    {name = "NEZ ft. Schoolboy Q - Let's Get It", coord = v3(25.010, 521.276, 170.227)}
 }
 
 uTable.clothingIDs = {

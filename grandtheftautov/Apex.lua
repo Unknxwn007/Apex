@@ -17,6 +17,10 @@ end
     - at a random interval show random name from an array "leaving" the game
     - stop paying house keeping charges
     - collectable drop
+    - collectables -> ghost photo, action figure, ld organics, play cards, signal jammer, usb stick, movie prop, burried stashes, hidden cache, treasure chest, shipwreck (daily)
+    - collectables -> trick or treat, halloween, stunt jumps, junk energy skydive
+    - events -> ufo, bank shoot, ghost, taxi, christmas mug, armored truck, possessed animal, bar resupply, 
+    - unlocks -> halloween decorations, navy revolv, stone hatchet, return player, trade price, halloween / taxi livery, office clutter, 
 ]]
 
 local colors = {
@@ -80,7 +84,7 @@ local salvageRobberies = menu.add_feature("Salvage Yard Robberies", "parent", he
 local serialKiller = menu.add_feature("Serial Killer", "parent", teleportSub.id)
 local yetiHunt = menu.add_feature("Yeti Hunt", "parent", teleportSub.id)
 
-local collectMusic = menu.add_feature("Media Sticks - LS Tuners DLC", "parent", collectSub.id)
+local collectMusic = menu.add_feature("Media Sticks", "parent", collectSub.id)
 local collectTrophy = menu.add_feature("Trophy Rewards", "parent", collectSub.id)
 
 local tunableSub = menu.add_feature("Tunables", "parent", miscSub.id)
@@ -139,9 +143,19 @@ menu.add_feature("Auto Setup: Aggressive", "action", casinoHeist.id, function()
     uFunctions.casinoHeistAggressive()
 end)
 
-menu.add_feature("Auto Setup: Panther + Hard Mode", "action", cayopericoHeist.id, function()
+menu.add_feature("#DEFAULT#Auto Setup: Panther + Hard Mode #FF0000FF#[Solo]", "action", cayopericoHeist.id, function()
     uFunctions.cayoPericoPantherHard()
 end)
+--[[
+menu.add_feature("#DEFAULT#Auto Setup: Panther + Hard Mode #FF0000FF#[2P]", "action", cayopericoHeist.id, function()
+    uFunctions.cayoPericoPantherHard2()
+end)
+menu.add_feature("#DEFAULT#Auto Setup: Panther + Hard Mode #FF0000FF#[3P]", "action", cayopericoHeist.id, function()
+    uFunctions.cayoPericoPantherHard3()
+end)
+menu.add_feature("#DEFAULT#Auto Setup: Panther + Hard Mode #FF0000FF#[4P]", "action", cayopericoHeist.id, function()
+    uFunctions.cayoPericoPantherHard4()
+end)]]
 menu.add_feature("Remove All CCTV Camera's", "action", cayopericoHeist.id, function()
     for _, ent in pairs(entities.get_all_objects_as_handles()) do
         for __, cam in pairs(CamList) do
@@ -152,9 +166,13 @@ menu.add_feature("Remove All CCTV Camera's", "action", cayopericoHeist.id, funct
         end
     end
 end)
+menu.add_feature("Reset Heist", "action", cayopericoHeist.id, function()
+    uFunctions.resetCayoPerico()
+end)
 
-menu.add_feature("test", "action", salvageRobberies.id, function()
-
+menu.add_feature("get test", "action", salvageRobberies.id, function()
+    local piss = stats.stat_get_int(gameplay.get_hash_key(mpx2().."SALV23_PLAN_DIALOGUE"), -1)
+    menu.notify(tostring(piss))
 end)
 
 
@@ -244,7 +262,7 @@ menu.add_feature("Some Liveries", "action", uVehiclesSub.id, function()
 end)
 menu.add_feature("Unlock Chop Shop Cars", "action", uVehiclesSub.id, function()
     uFunctions.unlockChopShopCars()
-	menu.notify("Unlocked Police Gauntlet too.", "Apex", 6, colors.green)
+    menu.notify("Unlocked Police Gauntlet too.", "Apex", 6, colors.green)
 end)
 
 -- Unlocks || Weapons
@@ -339,6 +357,13 @@ menu.add_feature("Snow", "action_value_str", tunableSub.id, function(snow_option
     end
 end):set_str_data({"Enable Snow", "Disable Snow"})
 
+menu.add_feature("Set character as transferred", "action", miscSub.id, function()
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."WAS_CHAR_TRANSFERED"), true, true)
+end)
+menu.add_feature("Set clear plate", "action", miscSub.id, function()
+    vehicle.set_vehicle_number_plate_text(player.player_vehicle(), "-")
+end)
+
 menu.add_feature("Refill Inventory", "action", miscSub.id, function()
     uFunctions.refillInventory()
 end)
@@ -407,47 +432,32 @@ menu.add_feature("Love Meter - Arcade", "action", collectTrophy.id, function()
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."CH_ARC_CAB_LOVE_TROPHY"), 1, true)
 end)
 
-
-menu.add_feature("CircoLoco Record - Black EP", "action", collectMusic.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-2172.050, 1159.195, -24.372))
-end)
-menu.add_feature("CircoLoco Record - Blue EP", "action", collectMusic.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(955.299, 48.904, 112.553))
-end)
-menu.add_feature("CircoLoco Record - Violet EP", "action", collectMusic.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-1618.841, -3010.627, -75.205))
-end)
-menu.add_feature("CircoLoco Record - Green EP", "action", collectMusic.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(2726.694, -387.484, -48.993))
-    menu.notify("You now unlocked the Circoloco Tee & Media!", "Apex", 5, 3578712200220)
-end)
+-- LS Tuners
+for i, v in pairs(uTable.CircoLocoMusic) do
+    menu.add_feature(v.name, "action", collectMusic.id, function()
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v.coord)
+        menu.notify("You now unlocked the Circoloco Tee & Media!", "Apex", 5, 3578712200220)
+    end)
+end
 menu.add_feature("-----------------------------", "action", collectMusic.id, function()
     menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
 end)
-menu.add_feature("Kenny's Backyard Boogie - #1", "action", collectMusic.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-2163.025, 1083.473, -24.362))
-end)
-menu.add_feature("Kenny's Backyard Boogie - #2", "action", collectMusic.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-2180.532, 1082.276, -24.367))
-end)
-menu.add_feature("Kenny's Backyard Boogie - #3", "action", collectMusic.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-2162.992, 1089.790, -24.363))
-end)
-menu.add_feature("Kenny's Backyard Boogie - #4", "action", collectMusic.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-2162.770, 1115.913, -24.371))
-end)
+for i, v in pairs(uTable.KennyMusic) do
+    menu.add_feature(v.name, "action", collectMusic.id, function()
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v.coord)
+        menu.notify("The LS Slasher will appear from 7PM-5AM, Kill him! (GTA$ 50,000 Reward)", "Apex", 4, 257818)
+    end)
+end
 menu.add_feature("-----------------------------", "action", collectMusic.id, function()
     menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
 end)
-menu.add_feature("NEZ - You Wanna?", "action", collectMusic.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-860.241, -229.980, 61.016))
-end)
-menu.add_feature("NEZ ft. Schoolboy Q - Let's Get It", "action", collectMusic.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(25.010, 521.276, 170.227))
-end)
-menu.add_feature("Dr. Dre", "action", collectMusic.id, function()
-    menu.notify("You need to complete the VIP missions\nIt'll be on your desk in the Agency", "Apex", 5, 3578712200220)
-end)
+-- Contract DLC
+for i, v in pairs(uTable.NezMusic) do
+    menu.add_feature(v.name, "action", collectMusic.id, function()
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v.coord)
+        menu.notify("You need to complete the VIP missions\nIt'll be on your desk in the Agency", "Apex", 5, 3578712200220)
+    end)
+end
 
 
 -- DLC Awards
