@@ -16,6 +16,7 @@ end
     - make modded acc presets
     - at a random interval show random name from an array "leaving" the game
     - stop paying house keeping charges
+    - collectable drop
 ]]
 
 local colors = {
@@ -80,6 +81,7 @@ local serialKiller = menu.add_feature("Serial Killer", "parent", teleportSub.id)
 local yetiHunt = menu.add_feature("Yeti Hunt", "parent", teleportSub.id)
 
 local collectMusic = menu.add_feature("Media Sticks - LS Tuners DLC", "parent", collectSub.id)
+local collectTrophy = menu.add_feature("Trophy Rewards", "parent", collectSub.id)
 
 local tunableSub = menu.add_feature("Tunables", "parent", miscSub.id)
 
@@ -179,6 +181,15 @@ end)
 
 
 -- Useful Features
+menu.add_feature("Remove transaction error", "toggle", usefulSub.id, function(f)
+    while f.on do
+        script.set_global_i(4537356, 0)
+        script.set_global_i(4537357, 0)
+        script.set_global_i(4537358, 0)
+        system.wait(0)
+    end
+end)
+
 menu.add_feature("Spawn ped for weapon challenges", "action", usefulSub.id, function()
     local coords = player.get_player_coords(player.player_id())
     local model = 0xE7A963D9 --a_m_y_beach_03
@@ -327,7 +338,6 @@ menu.add_feature("Snow", "action_value_str", tunableSub.id, function(snow_option
     end
 end):set_str_data({"Enable Snow", "Disable Snow"})
 
-
 menu.add_feature("Refill Inventory", "action", miscSub.id, function()
     uFunctions.refillInventory()
 end)
@@ -388,7 +398,15 @@ for i, v in pairs(uTable.SerialKillerCluesRandom) do
 end
 
 
--- Collectables || Music
+-- Collectables
+menu.add_feature("Claw Crane - Arcade", "action", collectTrophy.id, function()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CH_ARC_CAB_CLAW_TROPHY"), 1, true)
+end)
+menu.add_feature("Love Meter - Arcade", "action", collectTrophy.id, function()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CH_ARC_CAB_LOVE_TROPHY"), 1, true)
+end)
+
+
 menu.add_feature("CircoLoco Record - Black EP", "action", collectMusic.id, function()
     entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-2172.050, 1159.195, -24.372))
 end)
@@ -429,6 +447,8 @@ end)
 menu.add_feature("Dr. Dre", "action", collectMusic.id, function()
     menu.notify("You need to complete the VIP missions\nIt'll be on your desk in the Agency", "Apex", 5, 3578712200220)
 end)
+
+
 -- DLC Awards
 menu.add_feature("Chop Shop Awards", "action", uAwardsSub.id, function()
    uFunctions.unlockChopShopAwards()
