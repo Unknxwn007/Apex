@@ -294,6 +294,7 @@ end
 function uFunctions.unlockChopShopCars()
     for index = 36285, 36304 do
         script.set_global_i(262145+index, 1)
+		stats.stat_set_int(gameplay.get_hash_key(mpx2().."SALV23_INST_PROG"), -1, true)
     end
 end
 

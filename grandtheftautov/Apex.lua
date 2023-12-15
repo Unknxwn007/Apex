@@ -244,6 +244,7 @@ menu.add_feature("Some Liveries", "action", uVehiclesSub.id, function()
 end)
 menu.add_feature("Unlock Chop Shop Cars", "action", uVehiclesSub.id, function()
     uFunctions.unlockChopShopCars()
+	menu.notify("Unlocked Police Gauntlet too.", "Apex", 6, colors.green)
 end)
 
 -- Unlocks || Weapons
