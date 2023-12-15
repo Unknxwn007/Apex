@@ -310,6 +310,7 @@ function uFunctions.packedChopShopClothes()
         unlockPackedStat(42055, leplayer)
 		unlockPackedStat(42152, leplayer)
 		unlockPackedStat(42063, leplayer)
+		unlockPackedStat(42119, leplayer)
     for index2 = 36186, 36264 do
         script.set_global_i(262145+index2, 1)
       end
