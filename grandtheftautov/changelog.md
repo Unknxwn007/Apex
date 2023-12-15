@@ -12,6 +12,8 @@
  - Re-Organized tabs
    - Events (Christmas Truck, Yeti)
  - Tax Fraud was changed (Nightclub Method)
+ - Bug Fixes
+   - Alien Tattoo was fixed
 
 # 1.2
 - Added ability to enable all Chop Shop awards (Unlocks>Awards>Chop Shop Awards)
