@@ -1,3 +1,10 @@
+### 1.3.1
+- Added more outfits to Chop Shop Unlocks (Unlocks>Clothing>Shop Chop Clothing)
+   - The Coast Guard
+   - The McTony Security
+   - The Cluckin' Bell Outfit (Currently not appearing?)
+   - The LSDS 
+   - The LS Panic 
 # 1.3
 - Added Heist Manager
    - Remove Dax Cooldown
