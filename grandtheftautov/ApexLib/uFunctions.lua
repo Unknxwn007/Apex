@@ -255,6 +255,9 @@ for i = 0,20 do
         stats.stat_set_int(gameplay.get_hash_key(mpx2().."MPPLY_XMASLIVERIES"..i), -1, true)
         stats.stat_set_int(gameplay.get_hash_key(mpx2().."AWD_TAXIDRIVER"), 50, true)
 	    stats.stat_set_masked_int(gameplay.get_hash_key(mpx2().."DLC22022PSTAT_INT536"), 10, 16, 8, true)
+		script.set_global_i(262145+36052, 1)
+		script.set_global_i(262145+36053, 1)
+		script.set_global_i(262145+36051, 1)
  end
 end
 
