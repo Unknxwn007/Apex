@@ -4,6 +4,11 @@ local uFunctions = require("ApexLib.uFunctions")
 local uTable = require("ApexLib.uTable")
 local helpers = require("ApexLib.helpers")
 
+
+local function mpx2()
+    return "MP" .. stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1) .. "_"
+end
+
 --[[
     TODO List
 
@@ -211,11 +216,11 @@ menu.add_feature("Most awards", "action", unlocksSub.id, function()
     menu.notify("Unlocked Most Awards", "Apex", 4, 257818)
 end)
 menu.add_feature("Alien Tattoo (Male)", "action", unlocksSub.id, function()
-    stats.stat_set_int("TATTOO_FM_CURRENT_32", true, 32768)
+    stats.stat_set_int(mpx2().."TATTOO_FM_CURRENT_32", 32768, true, true)
     menu.notify("Unlocked Alien Tattoo, requires new session", "Apex", 4, 257818)
 end)
 menu.add_feature("Alien Tattoo (Female)", "action", unlocksSub.id, function()
-    stats.stat_set_int("TATTOO_FM_CURRENT_32", true, 67108864)
+    stats.stat_set_int(mpx2().."TATTOO_FM_CURRENT_32", 67108864, true, true)
     menu.notify("Unlocked Alien Tattoo, requires new session", "Apex", 4, 257818)
 end)
 
