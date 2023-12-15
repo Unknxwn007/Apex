@@ -13,7 +13,7 @@ Lethal Company | ⛔ | ✅ | ⛔ | ❓
 Cyberpunk 2077 | ⛔ | ⛔ | ⛔ | ❓
 
 ### Information
-[Discord Server](https://discord.gg/Hc9dUjFr)
+[Discord Server](https://discord.gg/Hc9dUjFr) \
 PayDay 3 and Lethal Company cheats are based on [Kiero's ImGui Hook](https://github.com/rdbo/ImGui-DirectX-11-Kiero-Hook) \
 I am not responsible for any suspensions / bans to your account. \
 Apex GTA requires a subscription to 2take1 as it uses their API.
