@@ -3,9 +3,9 @@ A 2take1 lua extension focused on in-depth recovery alongside fun features. \
 *for educational purposes only!*
 
 ### Information
-[Discord Server](https://discord.gg/jWJMPNbWD8) \
+[Discord Server](https://discord.gg/jWJMPNbWD8) 
 
-I am not responsible for any suspensions / bans to your account. \
+I am not responsible for any suspensions / bans to your account. 
 
 [Changelog](https://github.com/Unknxwn007/Apex/blob/main/changelog.md)
 
