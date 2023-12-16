@@ -176,14 +176,14 @@ function uFunctions.independenceDaySpecialAdditionalClothing2()
 end
 
 function uFunctions.unlockFastRun()
-stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_1_UNLCK"), -1, true)
-stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_2_UNLCK"), -1, true)
-stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_3_UNLCK"), -1, true)
-stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_1_UNLCK"), -1, true)
-stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_2_UNLCK"), -1, true)
-stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_3_UNLCK"), -1, true)
-menu.notify("Please change sessions.", "Apex")
-   end
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_1_UNLCK"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_2_UNLCK"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_3_UNLCK"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_1_UNLCK"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_2_UNLCK"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_3_UNLCK"), -1, true)
+    menu.notify("Please change sessions.", "Apex")
+end
 
 function uFunctions.basicUnlocks()
     menu.get_feature_by_hierarchy_key("online.recovery.stat_unlocks"):toggle()
@@ -484,6 +484,60 @@ function uFunctions.weaponLiveryChristmas23()
         script.set_global_i(262145 + index, 1)
     end
     stats.stat_set_int(-7648559, 5, true)
+end
+
+function uFunctions.setFavoriteBikeMC()
+    local input_stat, input_val = input.get("Enter int32 of desired vehicle", "", 10, 3)
+    if input_stat == 1 then
+        return HANDLER_CONTINUE
+    end
+    if input_stat == 2 then
+        return HANDLER_POP
+    end
+    menu.notify("Might require a double click")
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "FAVOUTFITBIKETIMECURRENT"), input_val, true) 
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "FAVOUTFITBIKETIME1ALLTIME"), input_val, true) 
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "FAVOUTFITBIKETYPECURRENT"), input_val, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "FAVOUTFITBIKETYPEALLTIME"), input_val, true)
+end
+
+function uFunctions.unlockArmoredParagon()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "VCM_FLOW_PROGRESS"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "VCM_STORY_PROGRESS"), -1, true)
+
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "VCM_FLOW_CS_RSC_SEEN"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "VCM_FLOW_CS_BWL_SEEN"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "VCM_FLOW_CS_MTG_SEEN"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "VCM_FLOW_CS_OIL_SEEN"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "VCM_FLOW_CS_DEF_SEEN"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "VCM_FLOW_CS_FIN_SEEN"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "CAS_VEHICLE_REWARD"), false, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "CASINOPSTAT_BOOL0"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "CASINOPSTAT_BOOL1"), true, true)
+end
+
+function uFunctions.setCreationDate()
+    local input_stat, input_val = input.get("Example input: 2011,09,12 (year/month/day)", "", 10, 0)
+    if input_stat == 1 then
+        return HANDLER_CONTINUE
+    end
+    if input_stat == 2 then
+        return HANDLER_POP
+    end
+    menu.notify("Might require a double click")
+    native.call(0x2C29BFB64F4FCBE4, gameplay.get_hash_key(mpx2() .. "CHAR_DATE_CREATED"), native.ByteBuffer64(input_val) , true)
+end
+
+function uFunctions.setPlayTime()
+    local input_stat, input_val = input.get("Example input: 50400000000 (14,000hrs)", "", 10, 0)
+    if input_stat == 1 then
+        return HANDLER_CONTINUE
+    end
+    if input_stat == 2 then
+        return HANDLER_POP
+    end
+    menu.notify("Might require a double click")
+    stats.stat_set_i64(gameplay.get_hash_key(mpx2() .. "TOTAL_PLAYING_TIME"), input_val, true)
 end
 
 return uFunctions

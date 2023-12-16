@@ -1,3 +1,21 @@
+### 1.3.3
+- Additions
+    - Delete Character 1 & 2
+    - Set Creation Date
+    - Set character as transferred
+    - Unlock Shotaro
+    - Unlock Armored Paragon R
+    - Unlock Candy Red color
+    - Remove Transaction Error
+    - Delete current vehicle
+    - Claw Crane & Love Meter Arcade trophies
+    - Set clear plate
+    - set favorite bike
+- Removals
+    - Reputation submenu (work in progress)
+- Changes
+    - Moved some options around
+
 ### 1.3.2
 - Added more liveries to unlock (Unlocks>Vehicles>Some Liveries)
 - Added ability to buy Police Gauntlet in Warstock (Unlocks>Vehicles>Unlock Chop Shop Cars)

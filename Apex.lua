@@ -57,7 +57,7 @@ local root = menu.add_feature("Apex", "parent", 0)
 local charSub = menu.add_feature("Identity Theft", "parent", root.id)
 local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
 local fraudSub = menu.add_feature("#FF0000FF#[RISKY] #DEFAULT# Tax Fraud", "parent", root.id)
-local reputationSub = menu.add_feature("Reputation", "parent", root.id)
+-- local reputationSub = menu.add_feature("Reputation", "parent", root.id)
 local eventsSub = menu.add_feature("Events", "parent", root.id)
 local heistSub = menu.add_feature("Heist Manager", "parent", root.id)
 local usefulSub = menu.add_feature("Useful Features", "parent", root.id)
@@ -66,8 +66,6 @@ local teleportSub = menu.add_feature("Teleportation", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
 
 -- Subs
-local cCreationDate = menu.add_feature("Creation Date", "parent", charSub.id)
-
 local uAchievementSub = menu.add_feature("Achievement Manager", "parent", unlocksSub.id)
 local uWeaponsSub = menu.add_feature("Weapons", "parent", unlocksSub.id)
 local uVehiclesSub = menu.add_feature("Vehicles", "parent", unlocksSub.id)
@@ -91,19 +89,21 @@ local tunableSub = menu.add_feature("Tunables", "parent", miscSub.id)
 
 
 -- Character Features
-menu.add_feature("Set Year", "action", cCreationDate.id, function()
-    uFunctions.stat_set_date(gameplay.get_hash_key("MP0_CHAR_DATE_CREATED"))
+menu.add_feature("Set creation date", "action", charSub.id, function()
+    uFunctions.setCreationDate()
 end)
-menu.add_feature("Set Month", "action_value_i", cCreationDate.id, function()
-    --TODO
+--menu.add_feature("Set playtime (milliseconds)", "action", charSub.id, function()
+   -- uFunctions.setPlayTime()
+--end)
+menu.add_feature("Set character as transferred", "action", charSub.id, function()
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."WAS_CHAR_TRANSFERED"), true, true)
 end)
-menu.add_feature("Set Day", "action_value_i", cCreationDate.id, function()
-    --TODO
+menu.add_feature("Delete Character Slot 1", "action", charSub.id, function()
+    native.call(0x821418C727FCACD7, 0)
 end)
-menu.add_feature("Unlock Birthday Rewards", "action", charSub.id, function()
-    --TODO
+menu.add_feature("Delete Character Slot 2", "action", charSub.id, function()
+    native.call(0x821418C727FCACD7, 1)
 end)
-
 
 -- Heist Manager
 menu.add_feature("Remove Dax Cooldown", "action", heistCooldowns.id, function()
@@ -133,13 +133,13 @@ menu.add_feature("Complete Setup - Act 3: Doomsday Scenario", "action", doomsday
     uFunctions.doomsDayActThree()
 end)
 
-menu.add_feature("Auto Setup: Silent & Sneaky", "action", casinoHeist.id, function()
+menu.add_feature("Auto Setup: Silent & Sneaky + Diamonds", "action", casinoHeist.id, function()
     uFunctions.casinoHeistSilentSneaky()
 end)
-menu.add_feature("Auto Setup: The Big Con", "action", casinoHeist.id, function()
+menu.add_feature("Auto Setup: The Big Con + Diamonds", "action", casinoHeist.id, function()
     uFunctions.casinoHeistBigCon()
 end)
-menu.add_feature("Auto Setup: Aggressive", "action", casinoHeist.id, function()
+menu.add_feature("Auto Setup: Aggressive + Diamonds", "action", casinoHeist.id, function()
     uFunctions.casinoHeistAggressive()
 end)
 
@@ -170,12 +170,10 @@ menu.add_feature("Reset Heist", "action", cayopericoHeist.id, function()
     uFunctions.resetCayoPerico()
 end)
 
-menu.add_feature("get test", "action", salvageRobberies.id, function()
+--[[menu.add_feature("get test", "action", salvageRobberies.id, function()
     local piss = stats.stat_get_int(gameplay.get_hash_key(mpx2().."SALV23_PLAN_DIALOGUE"), -1)
     menu.notify(tostring(piss))
-end)
-
-
+end)--]]
 
 -- Reputation Features
 menu.add_feature("Level 1000 in LS Car Meet", "action", reputationSub.id, function()
@@ -207,7 +205,13 @@ menu.add_feature("Remove transaction error", "toggle", usefulSub.id, function(f)
         system.wait(0)
     end
 end)
-
+menu.add_feature("Delete current vehicle", "action", usefulSub.id, function()
+    -- how does 2take1 STILL not have this fucking option???
+    entity.delete_entity(player.player_vehicle())
+end)
+menu.add_feature("Refill Inventory", "action", usefulSub.id, function()
+    uFunctions.refillInventory()
+end)
 menu.add_feature("Spawn ped for weapon challenges", "action", usefulSub.id, function()
     local coords = player.get_player_coords(player.player_id())
     local model = 0xE7A963D9 --a_m_y_beach_03
@@ -225,21 +229,20 @@ end)
 menu.add_feature("Set Lowrider Cutscenes Seen", "action", usefulSub.id, function()
     uFunctions.setCutscenesSeen()
 end)
-menu.add_feature("Unlock Fast Run and Reload", "action", usefulSub.id, function()
-    uFunctions.unlockFastRun()
-end)
 menu.add_feature("Enable Vincent contact missions", "action", usefulSub.id, function()
     uFunctions.enableVincent()
 end)
 
 -- Unlocks || General
-menu.add_feature("EVERY Packed Stat", "action", unlocksSub.id, function()
+menu.add_feature("Every Packed Stat", "action", unlocksSub.id, function()
     uFunctions.unlockEveryPackedStat()
 end)
 menu.add_feature("Basic Unlock All", "action", unlocksSub.id, function(f)
     uFunctions.basicUnlocks()
 end)
-
+menu.add_feature("Unlock Fast Run and Reload", "action", unlocksSub.id, function()
+    uFunctions.unlockFastRun()
+end)
 menu.add_feature("Most awards", "action", unlocksSub.id, function()
     uTable.unlockAwards()
     menu.notify("Unlocked Most Awards", "Apex", 4, 257818)
@@ -254,6 +257,13 @@ menu.add_feature("Alien Tattoo (Female)", "action", unlocksSub.id, function()
 end)
 
 -- Unlocks || Vehicles
+--[[menu.add_feature("GET BEST LAP", "action", uVehiclesSub.id, function()
+    local piss = stats.stat_get_int(gameplay.get_hash_key("MPPLY_TIMES_RACE_BEST_LAP"), -1)
+    menu.notify(tostring(piss))
+end)
+menu.add_feature("Unlock Candy Red color", "action", uVehiclesSub.id, function()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_FM_RACES_FASTEST_LAP"), 50, true) 
+end)--]]
 menu.add_feature("Arena Wars vehicles", "action", uVehiclesSub.id, function()
     uFunctions.unlockArenaCars()
 end)
@@ -263,6 +273,12 @@ end)
 menu.add_feature("Unlock Chop Shop Cars", "action", uVehiclesSub.id, function()
     uFunctions.unlockChopShopCars()
     menu.notify("Unlocked Police Gauntlet too.", "Apex", 6, colors.green)
+end)
+menu.add_feature("Unlock Shotaro", "action", uVehiclesSub.id, function()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CRDEADLINE"), 32768, true)
+end)
+menu.add_feature("Unlock Armored Paragon R", "action", uVehiclesSub.id, function()
+    uFunctions.unlockArmoredParagon()
 end)
 
 -- Unlocks || Weapons
@@ -279,7 +295,6 @@ end)
 -- Unlocks || Clothing
 menu.add_feature("Cunning Stunts Figures", "action", uClothingSub.id, function()
     uFunctions.cunningStuntsFigures()
-    -- helpers.cIconNotification("CHAR_SOCIAL_CLUB", "Social Club", "Rockstar Games has given you\nsome clothes.")
 end)
 menu.add_feature("Doomsday Heist Bodysuits", "action", uClothingSub.id, function()
     uFunctions.doomsdayHeistBodysuits()
@@ -325,7 +340,7 @@ end)
 local function setAchievement(achievementId)
     native.call(0xBEC7076D64130195, achievementId)
 end
-menu.add_feature("EVERY Achievement", "action", uAchievementSub.id, function()
+menu.add_feature("Every Achievement", "action", uAchievementSub.id, function()
     uFunctions.unlockAllAchievements()
 end)
 menu.add_feature("-----------------------------", "action", uAchievementSub.id, function()
@@ -341,7 +356,7 @@ end
 
 -- Tax Fraud Features
 menu.add_feature("Nightclub Loop", "toggle", fraudSub.id, function(f)
-    helpers.iconNotification("WEB_BAHAMAMAMASWEST", "1 Million per minute!")
+    helpers.iconNotification("CHAR_BANK_MAZE", "1 Million per minute!")
     while f.on do
         uFunctions.nightClubLoopFunc()
     end 
@@ -353,16 +368,15 @@ menu.add_feature("Enable Snow", "toggle", tunableSub.id, function(f)
     menu.get_feature_by_hierarchy_key("online.tunables.snow").on = f.on
 end)
 
-menu.add_feature("Set character as transferred", "action", miscSub.id, function()
-    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."WAS_CHAR_TRANSFERED"), true, true)
-end)
+
 menu.add_feature("Set clear plate", "action", miscSub.id, function()
     vehicle.set_vehicle_number_plate_text(player.player_vehicle(), "-")
 end)
-
-menu.add_feature("Refill Inventory", "action", miscSub.id, function()
-    uFunctions.refillInventory()
+menu.add_feature("Set favorite bike (int32)", "action", miscSub.id, function()
+    uFunctions.setFavoriteBikeMC()
 end)
+
+
 menu.add_feature("Set Kills", "action", miscSub.id, function()
    uFunctions.setKills()
 end)
@@ -372,20 +386,7 @@ end)
 menu.add_feature("Set K/D", "action", miscSub.id, function()
    uFunctions.setKD()
 end)
---[[
-menu.add_feature("-----------------------------", "action", miscSub.id, function()
-    menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
-end)
-menu.add_feature("Get Plane Access", "action", miscSub.id, function()
-    uFunctions.unlockPlaneAccess()
-end)
-menu.add_feature("Get Heli Access", "action", miscSub.id, function()
-    uFunctions.unlockHeliAccess()
-end)
-menu.add_feature("Get Boat Access", "action", miscSub.id, function()
-    uFunctions.unlockBoatAccess()
-end)
---]]
+
 menu.add_feature("-----------------------------", "action", miscSub.id, function()
     menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
 end)
