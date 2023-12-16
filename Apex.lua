@@ -86,6 +86,7 @@ local collectMusic = menu.add_feature("Media Sticks", "parent", collectSub.id)
 local collectTrophy = menu.add_feature("Trophy Rewards", "parent", collectSub.id)
 
 local tunableSub = menu.add_feature("Tunables", "parent", miscSub.id)
+local xenoSub = menu.add_feature("Xenophobia", "parent", miscSub.id)
 
 
 -- Character Features
@@ -176,12 +177,12 @@ end)
 end)--]]
 
 -- Reputation Features
-menu.add_feature("Level 1000 in LS Car Meet", "action", reputationSub.id, function()
+--[[menu.add_feature("Level 1000 in LS Car Meet", "action", reputationSub.id, function()
     
 end)
 menu.add_feature("Level 1000 in Arena", "action", reputationSub.id, function()
     --TODO
-end)
+end)--]]
 
 
 -- Event Functions
@@ -367,6 +368,25 @@ end)
 menu.add_feature("Enable Snow", "toggle", tunableSub.id, function(f)
     menu.get_feature_by_hierarchy_key("online.tunables.snow").on = f.on
 end)
+for k, v in pairs(uTable.regionKick) do
+    menu.add_feature("Byebye " .. v, "toggle", xenoSub.id, function(f)
+        while f.on do
+            if not network.is_session_started() then
+                return
+            end
+    
+            for i = 0, 31 do
+                if player.is_player_valid(i) and i ~= player.player_id() then
+                    if script.get_global_i(1886967 + 1 + (i * 609) + 10 + 121) == k then
+                        menu.notify("Getting rid of " .. player.get_player_name(i).. " for being inferior")
+                        menu.get_feature_by_hierarchy_key("online.online_players.player_"..i..".fragment_crash"):toggle() -- sends crash
+                    end
+                end
+            end
+            system.wait()
+        end
+    end)
+end
 
 
 menu.add_feature("Set clear plate", "action", miscSub.id, function()
@@ -461,3 +481,8 @@ end
 menu.add_feature("Chop Shop Awards", "action", uAwardsSub.id, function()
    uFunctions.unlockChopShopAwards()
 end)
+
+-- wjopwefjwoefjewf
+menu.add_player_feature("Xenophobia Test", "action", 0, function(feat, pid)
+    menu.notify("Xenophobia Test Result: " .. uTable.regionKick[script.get_global_i(1886967 + 1 + (pid * 609) + 10 + 121)])
+  end)

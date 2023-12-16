@@ -343,6 +343,22 @@ uTable.vanityPlates = {
     {name = "Sprunk", id = 12}
 }
 
+uTable.regionKick = {
+    [0] = "English",
+    [1] = "French",
+    [2] = "German",
+    [3] = "Italian",
+    [4] = "Spanish",
+    [5] = "Brazilian",
+    [6] = "Polish",
+    [7] = "Russian",
+    [8] = "Korean",
+    [9] = "Chinese Traditional",
+    [10] = "Japanese",
+    [11] = "Mexican",
+    [12] = "Chinese Simplified",
+}
+
 function uTable.unlockAwards()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_FM_DM_WINS"), 50, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_FM_TDM_WINS"), 50, true)
