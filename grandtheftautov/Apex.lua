@@ -349,13 +349,9 @@ end)
 
 
 -- Misc
-menu.add_feature("Snow", "action_value_str", tunableSub.id, function(snow_options)
-    if snow_options.value == 0 then
-        script.set_global_i(262145 + 4575, 1)
-    elseif snow_options.value == 1 then
-        script.set_global_i(262145 + 4575, 0)
-    end
-end):set_str_data({"Enable Snow", "Disable Snow"})
+menu.add_feature("Enable Snow", "toggle", tunableSub.id, function(f)
+    menu.get_feature_by_hierarchy_key("online.tunables.snow").on = f.on
+end)
 
 menu.add_feature("Set character as transferred", "action", miscSub.id, function()
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."WAS_CHAR_TRANSFERED"), true, true)
