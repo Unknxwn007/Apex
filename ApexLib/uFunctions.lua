@@ -540,4 +540,36 @@ function uFunctions.setPlayTime()
     stats.stat_set_i64(gameplay.get_hash_key(mpx2() .. "TOTAL_PLAYING_TIME"), input_val, true)
 end
 
+function uFunctions.skipYachtMissions()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "YACHT_MISSION_PROG"), 0, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "YACHT_MISSION_FLOW"), 21845, true)
+end
+
+function uFunctions.skipBennyMissions()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "LOWRIDER_FLOW_COMPLETE"), 3, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "LOW_FLOW_CURRENT_PROG"), 8, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "LOW_FLOW_CURRENT_CALL"), 8, true)
+    helpers.iconNotification("CHAR_CARSITE3", "Find a new session!")
+end
+
+function uFunctions.triggerAlienBunker()
+     local complete = gameplay.get_hash_key(mpx2() .. "LFETIME_BIKER_BUY_COMPLET5")
+     local undertake = gameplay.get_hash_key(mpx2() .. "LFETIME_BIKER_BUY_UNDERTA5")
+
+     if not (stats.stat_get_int(complete, -1) >= 600) then
+         stats.stat_set_int(complete, 600, true)
+         menu.notify("Launch a Steal Supplies mission between the in-game hours of 21:00 (9:00pm) - 23:00 (11:00pm)")
+     else
+        menu.notify("You already meet the requirements!\nLaunch a Steal Supplies mission between the in-game hours of 21:00 (9:00pm) - 23:00 (11:00pm)")
+     end
+
+     if not (stats.stat_get_int(undertake, -1) >= 600) then
+        stats.stat_set_int(undertake, 600, true)
+        menu.notify("Launch a Steal Supplies mission between the in-game hours of 21:00 (9:00pm) - 23:00 (11:00pm)")
+    else
+        menu.notify("You already meet the requirements!\nLaunch a Steal Supplies mission between the in-game hours of 21:00 (9:00pm) - 23:00 (11:00pm)")
+    end
+end
+
+
 return uFunctions

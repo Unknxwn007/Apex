@@ -57,9 +57,10 @@ local root = menu.add_feature("Apex", "parent", 0)
 local charSub = menu.add_feature("Identity Theft", "parent", root.id)
 local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
 local fraudSub = menu.add_feature("#FF0000FF#[RISKY] #DEFAULT# Tax Fraud", "parent", root.id)
--- local reputationSub = menu.add_feature("Reputation", "parent", root.id)
+local reputationSub = menu.add_feature("Reputation", "parent", root.id)
 local eventsSub = menu.add_feature("Events", "parent", root.id)
 local heistSub = menu.add_feature("Heist Manager", "parent", root.id)
+local missionSub = menu.add_feature("Mission Manager", "parent", root.id)
 local usefulSub = menu.add_feature("Useful Features", "parent", root.id)
 local collectSub = menu.add_feature("Collectables", "parent", root.id) 
 local teleportSub = menu.add_feature("Teleportation", "parent", root.id)
@@ -179,10 +180,26 @@ end)--]]
 -- Reputation Features
 --[[menu.add_feature("Level 1000 in LS Car Meet", "action", reputationSub.id, function()
     
-end)
-menu.add_feature("Level 1000 in Arena", "action", reputationSub.id, function()
-    --TODO
 end)--]]
+menu.add_feature("Max Arena level", "action", reputationSub.id, function()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "ARENAWARS_AP_TIER"), 999, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "ARENAWARS_AP"), 10000, true)
+end)
+
+
+-- Mission Manager
+menu.add_feature("Enable Vincent contact missions", "action", missionSub.id, function()
+    uFunctions.enableVincent()
+end)
+menu.add_feature("Skip Yacht missions", "action", missionSub.id, function()
+    uFunctions.skipYachtMissions()
+end)
+menu.add_feature("Skip Benny missions", "action", missionSub.id, function()
+    uFunctions.skipBennyMissions()
+end)
+menu.add_feature("Trigger Alien Egg resupply mission", "action", missionSub.id, function()
+    uFunctions.triggerAlienBunker()
+end)
 
 
 -- Event Functions
