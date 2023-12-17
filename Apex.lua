@@ -57,7 +57,7 @@ local root = menu.add_feature("Apex", "parent", 0)
 local charSub = menu.add_feature("Identity Theft", "parent", root.id)
 local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
 local fraudSub = menu.add_feature("#FF0000FF#[RISKY] #DEFAULT# Tax Fraud", "parent", root.id)
-local reputationSub = menu.add_feature("Reputation", "parent", root.id)
+-- local reputationSub = menu.add_feature("Reputation", "parent", root.id)
 local eventsSub = menu.add_feature("Events", "parent", root.id)
 local heistSub = menu.add_feature("Heist Manager", "parent", root.id)
 local missionSub = menu.add_feature("Mission Manager", "parent", root.id)
@@ -66,6 +66,7 @@ local collectSub = menu.add_feature("Collectables", "parent", root.id)
 local teleportSub = menu.add_feature("Teleportation", "parent", root.id)
 local customSub = menu.add_feature("Custom Executions", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
+
 
 -- Subs
 local uAchievementSub = menu.add_feature("Achievement Manager", "parent", unlocksSub.id)
@@ -101,12 +102,11 @@ end)
 menu.add_feature("Set character as transferred", "action", charSub.id, function()
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."WAS_CHAR_TRANSFERED"), true, true)
 end)
-menu.add_feature("Delete Character Slot 1", "action", charSub.id, function()
-    native.call(0x821418C727FCACD7, 0)
+menu.add_feature("Set character name", "action", charSub.id, function()
+    local value = helpers.getInput("Enter the desired character name (has no filter)", "", 10, 0)
+    uFunctions.stat_set_string(gameplay.get_hash_key(mpx2() .. "CHAR_NAME"), value)
 end)
-menu.add_feature("Delete Character Slot 2", "action", charSub.id, function()
-    native.call(0x821418C727FCACD7, 1)
-end)
+
 
 -- Heist Manager
 menu.add_feature("Remove Dax Cooldown", "action", heistCooldowns.id, function()
@@ -173,6 +173,16 @@ menu.add_feature("Reset Heist", "action", cayopericoHeist.id, function()
     uFunctions.resetCayoPerico()
 end)
 
+menu.add_feature("Enable unreleased missions", "action", salvageRobberies.id, function()
+    uFunctions.enablePodiumMcTonyRob()
+end)
+menu.add_feature("Skip to finale", "action", salvageRobberies.id, function()
+    uFunctions.skipSalvageMissions()
+end)
+menu.add_feature("Keep vehicle after robbery", "action", salvageRobberies.id, function()
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "SALV23_CAN_KEEP"), true, true)
+end)
+
 --[[menu.add_feature("get test", "action", salvageRobberies.id, function()
     local piss = stats.stat_get_int(gameplay.get_hash_key(mpx2().."SALV23_PLAN_DIALOGUE"), -1)
     menu.notify(tostring(piss))
@@ -181,11 +191,11 @@ end)--]]
 -- Reputation Features
 --[[menu.add_feature("Level 1000 in LS Car Meet", "action", reputationSub.id, function()
     
-end)--]]
+end)
 menu.add_feature("Max Arena level", "action", reputationSub.id, function()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "ARENAWARS_AP_TIER"), 999, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "ARENAWARS_AP"), 10000, true)
-end)
+end)--]]
 
 
 -- Mission Manager
@@ -224,6 +234,10 @@ menu.add_feature("Remove transaction error", "toggle", usefulSub.id, function(f)
         system.wait(0)
     end
 end)
+menu.add_feature("Reset vehicle sell timer", "action", usefulSub.id, function()
+    stats.stat_set_int(gameplay.get_hash_key("MPPLY_VEHICLE_SELL_TIME"), 0, true)
+    stats.stat_set_int(gameplay.get_hash_key("MPPLY_NUM_CARS_SOLD_TODAY"), 0, true)
+end)
 menu.add_feature("Delete current vehicle", "action", usefulSub.id, function()
     -- how does 2take1 STILL not have this fucking option???
     entity.delete_entity(player.player_vehicle())
@@ -248,9 +262,6 @@ end)
 menu.add_feature("Set Lowrider Cutscenes Seen", "action", usefulSub.id, function()
     uFunctions.setCutscenesSeen()
 end)
-menu.add_feature("Enable Vincent contact missions", "action", usefulSub.id, function()
-    uFunctions.enableVincent()
-end)
 
 -- Unlocks || General
 menu.add_feature("Every Packed Stat", "action", unlocksSub.id, function()
@@ -265,6 +276,13 @@ end)
 menu.add_feature("Most awards", "action", unlocksSub.id, function()
     uTable.unlockAwards()
     menu.notify("Unlocked Most Awards", "Apex", 4, 257818)
+end)
+menu.add_feature("Returning Player Bonus", "action", unlocksSub.id, function()
+    stats.stat_set_int(gameplay.get_hash_key("MPPLY_UNLOCK_EXCLUS_CONTENT"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."SP_UNLOCK_EXCLUS_CONTENT"), -1, true)
+end)
+menu.add_feature("All Contacts", "action", unlocksSub.id, function()
+    uFunctions.unlockContacts()
 end)
 menu.add_feature("Alien Tattoo (Male)", "action", unlocksSub.id, function()
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."TATTOO_FM_CURRENT_32"), 32768, true, true)
@@ -312,6 +330,10 @@ end)
 menu.add_feature("Christmas 2023 Liveries", "action", uWeaponsSub.id, function()
     uFunctions.weaponLiveryChristmas23()
 end)   
+menu.add_feature("Stone Hatchet", "action", uWeaponsSub.id, function()
+    stats.stat_set_bool(gameplay.get_hash_key("MPPLY_MELEECHLENGECOMPLETED"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key("MPPLY_HEADSHOTCHLENGECOMPLETED"), true, true)
+end)  
 
 -- Unlocks || Clothing
 menu.add_feature("Cunning Stunts Figures", "action", uClothingSub.id, function()
@@ -415,6 +437,9 @@ end)
 menu.add_feature("Set favorite bike (int32)", "action", miscSub.id, function()
     uFunctions.setFavoriteBikeMC()
 end)
+menu.add_feature("100% Complete Flightschool", "action", miscSub.id, function()
+    uFunctions.completeFlightSchool()
+end)
 
 
 menu.add_feature("Set Kills", "action", miscSub.id, function()
@@ -470,11 +495,8 @@ end
 
 
 -- Collectables
-menu.add_feature("Claw Crane - Arcade", "action", collectTrophy.id, function()
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CH_ARC_CAB_CLAW_TROPHY"), 1, true)
-end)
-menu.add_feature("Love Meter - Arcade", "action", collectTrophy.id, function()
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CH_ARC_CAB_LOVE_TROPHY"), 1, true)
+menu.add_feature("All Arcade Trophies", "action", collectTrophy.id, function()
+    uFunctions.unlockArcadeTrophies()
 end)
 
 -- LS Tuners

@@ -1,3 +1,26 @@
+### 1.3.4
+- Additions
+    - 100% Complete Flightschool
+    - Unlock all Arcade Trophies
+    - Custom Int & Bool stat execution
+    - Set character name (no profanity filter)
+    - Enable unreleased salvage robberies
+    - Skip salvage robbery to finale
+    - Keep vehicle after robbery
+    - Reset vehicle timer
+    - Unlock Returning player bonus
+    - Unlock All contacts
+    - Skip yacht missions
+    - Skip benny missions
+    - Trigger alien egg resupply mission
+    - Unlock Stone Hatchet
+- Removals
+    - Delete character 1 & 2
+- Changes
+    - Updated unlock knife & bat skin
+    - Fixed Unlock candy red
+    - Renamed Unlock candy red to Unlock best lap colors
+
 ### 1.3.3
 - Additions
     - Delete Character 1 & 2
@@ -9,6 +32,7 @@
     - Remove Transaction Error
     - Delete current vehicle
     - Claw Crane & Love Meter Arcade trophies
+    - Xenophobia
     - Set clear plate
     - set favorite bike
 - Removals

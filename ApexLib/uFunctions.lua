@@ -12,14 +12,9 @@ local function mpx2()
     return "MP" .. stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1) .. "_"
 end
 
-function uFunctions.unlockHeliAccess()
-    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."HELI_ACCESS"..i), true, true)
-end
-function uFunctions.unlockPlaneAccess()
-    stats.stat_set_bool(gameplay.get_hash_key("PLANE_ACCESS"), true, true)
-end
-function uFunctions.unlockBoatAccess()
-    stats.stat_set_bool(gameplay.get_hash_key("BOAT_ACCESS"), true, true)
+
+function uFunctions.stat_set_string(statName, value)
+    native.call(0xA87B2335D12531D7, statName, value, true)
 end
 
 
@@ -264,9 +259,9 @@ for i = 0,20 do
 end
 
 function uFunctions.unlockMeleeWeaponSkins()
-   script.set_global_i(262145 + 34131, 0)
-   script.set_global_i(262145 + 34094 + 9, -1716189206) 
-   script.set_global_i(262145 + 34094 + 10, -1786099057) 
+   script.set_global_i(262145 + 34365, 0)
+   script.set_global_i(262145 + 34328 + 9, -1716189206) --knife
+   script.set_global_i(262145 + 34328 + 10, -1786099057) -- bat
 end
 
 function uFunctions.refillInventory()
@@ -572,6 +567,11 @@ function uFunctions.triggerAlienBunker()
     end
 end
 
+function uFunctions.enablePodiumMcTonyRob()
+    script.set_global_i(262145 + 34080 + 1, 3) -- The Podium Robbery | slot 1
+    script.set_global_i(262145 + 34080 + 2, 4) -- The McTony Robbery | slot 2
+end
+
 function uFunctions.customInteger()
     local val1 = helpers.getInput("Example input: KILLS_COP", "", 10, 0)
     local val2 = helpers.getInput("Any integer value", "", 10, 0)
@@ -592,9 +592,61 @@ function uFunctions.schizoLog()
     local random = math.random(5000, 10000) 
     system.yield(random)
 
-    ui.notify_above_map("~b~UnknXwn007 left.", "", 40)
+    ui.notify_above_map("~b~penis left.", "", 40)
     -- clear the feed
 end
 
+function uFunctions.skipSalvageMissions()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "SALV23_SCOPE_BS"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "SALV23_FM_PROG"), -1, true)
+end
+
+function uFunctions.unlockContacts()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PHN"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PH2"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PH3"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PH4"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PH5"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_VEH_TX1"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PH6"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PH7"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PH8"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PH9"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PH10"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_CUT_DONE"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_CUT_DONE_2"), -1, true)
+end
+
+function uFunctions.unlockArcadeTrophies()
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."AWD_KINGOFQUB3D"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."AWD_QUBISM"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."AWD_QUIBITS"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."AWD_GODOFQUB3D"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."AWD_GOFOR11TH"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."AWD_ELEVENELEVEN"), true, true)
+end
+
+function uFunctions.completeFlightSchool()
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."PILOT_ASPASSEDLESSON_0"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."PILOT_ASPASSEDLESSON_1"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."PILOT_ASPASSEDLESSON_2"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."PILOT_ASPASSEDLESSON_3"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."PILOT_ASPASSEDLESSON_4"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."PILOT_ASPASSEDLESSON_5"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."PILOT_ASPASSEDLESSON_6"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."PILOT_ASPASSEDLESSON_7"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."PILOT_ASPASSEDLESSON_8"), true, true)
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."PILOT_ASPASSEDLESSON_9"), true, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."PILOT_SCHOOL_MEDAL_0"), 1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."PILOT_SCHOOL_MEDAL_1"), 1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."PILOT_SCHOOL_MEDAL_2"), 1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."PILOT_SCHOOL_MEDAL_3"), 1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."PILOT_SCHOOL_MEDAL_4"), 1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."PILOT_SCHOOL_MEDAL_5"), 1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."PILOT_SCHOOL_MEDAL_6"), 1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."PILOT_SCHOOL_MEDAL_7"), 1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."PILOT_SCHOOL_MEDAL_8"), 1, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."PILOT_SCHOOL_MEDAL_9"), 1, true)
+end
 
 return uFunctions
