@@ -1,6 +1,7 @@
 local appdata = utils.get_appdata_path("PopstarDevs", "2Take1Menu")
 package.path = appdata .. "\\scripts\\?.lua;" .. package.path  
 local uTable = require("ApexLib.uTable")
+local helpers = require("ApexLib.helpers")
 
 local uFunctions = {}
 local mpx
@@ -569,6 +570,30 @@ function uFunctions.triggerAlienBunker()
     else
         menu.notify("You already meet the requirements!\nLaunch a Steal Supplies mission between the in-game hours of 21:00 (9:00pm) - 23:00 (11:00pm)")
     end
+end
+
+function uFunctions.customInteger()
+    local val1 = helpers.getInput("Example input: KILLS_COP", "", 10, 0)
+    local val2 = helpers.getInput("Any integer value", "", 10, 0)
+    local stat = gameplay.get_hash_key(mpx2() .. val1)
+
+    stats.stat_set_int(stat, val2, true)
+end
+
+function uFunctions.customBoolean()
+    local val1 = helpers.getInput("Example input: WAREHOUSEVISITED", "", 10, 0)
+    local val2 = helpers.getInput("TRUE or FALSE", "", 10, 0)
+    local stat = gameplay.get_hash_key(mpx2() .. val1)
+
+    stats.stat_set_bool(stat, val2, true)
+end
+
+function uFunctions.schizoLog()
+    local random = math.random(5000, 10000) 
+    system.yield(random)
+
+    ui.notify_above_map("~b~UnknXwn007 left.", "", 40)
+    -- clear the feed
 end
 
 

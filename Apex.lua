@@ -64,6 +64,7 @@ local missionSub = menu.add_feature("Mission Manager", "parent", root.id)
 local usefulSub = menu.add_feature("Useful Features", "parent", root.id)
 local collectSub = menu.add_feature("Collectables", "parent", root.id) 
 local teleportSub = menu.add_feature("Teleportation", "parent", root.id)
+local customSub = menu.add_feature("Custom Executions", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
 
 -- Subs
@@ -436,6 +437,14 @@ end)
 vanityPlateFunc:set_str_data({"E-Cola", "Las Venturas", "Liberty City", "LS Car Meet", "Panic", "Pounders", "Sprunk"})
 
 
+-- Custom Execution
+menu.add_feature("Integer", "action", customSub.id, function()
+    uFunctions.customInteger()
+end)
+ menu.add_feature("Boolean", "action", customSub.id, function()
+    uFunctions.customBoolean()
+end)
+
 
 -- Teleportation Features
 for i, v in pairs(uTable.YetiClues) do
@@ -504,4 +513,10 @@ end)
 -- wjopwefjwoefjewf
 menu.add_player_feature("Xenophobia Test", "action", 0, function(feat, pid)
     menu.notify("Xenophobia Test Result: " .. uTable.regionKick[script.get_global_i(1886967 + 1 + (pid * 609) + 10 + 121)])
-  end)
+end)
+--[[local schizoLog = menu.add_feature("Schizo Log", "toggle", miscSub.id, function(f)
+    while f.on do
+        uFunctions.schizoLog()
+    end 
+end)
+schizoLog:toggle()--]]
