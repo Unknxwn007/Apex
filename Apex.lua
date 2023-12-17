@@ -258,13 +258,15 @@ menu.add_feature("Alien Tattoo (Female)", "action", unlocksSub.id, function()
 end)
 
 -- Unlocks || Vehicles
---[[menu.add_feature("GET BEST LAP", "action", uVehiclesSub.id, function()
-    local piss = stats.stat_get_int(gameplay.get_hash_key("MPPLY_TIMES_RACE_BEST_LAP"), -1)
-    menu.notify(tostring(piss))
+menu.add_feature("Unlock 'Candy Red' Paint Color", "action", uVehiclesSub.id, function()
+    local bestLapStat = gameplay.get_hash_key("MPPLY_TIMES_RACE_BEST_LAP")
+    if not (stats.stat_get_int(bestLapStat, -1) >= 25) then
+        stats.stat_set_int(bestLapStat, 25, true)
+        menu.notify("Paint color unlocked.")
+    else
+        menu.notify("You already have this color unlocked.")
+    end
 end)
-menu.add_feature("Unlock Candy Red color", "action", uVehiclesSub.id, function()
-    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_FM_RACES_FASTEST_LAP"), 50, true) 
-end)--]]
 menu.add_feature("Arena Wars vehicles", "action", uVehiclesSub.id, function()
     uFunctions.unlockArenaCars()
 end)
