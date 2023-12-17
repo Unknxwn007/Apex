@@ -4,7 +4,7 @@ A 2take1 lua extension focused on in-depth recovery alongside fun features. \
 
 ### Information
 [Discord Server](https://discord.gg/jWJMPNbWD8) 
-
+[Documentation](https://github.com/Unknxwn007/Apex/wiki)
 I am not responsible for any suspensions / bans to your account. 
 
 [Changelog](https://github.com/Unknxwn007/Apex/blob/main/changelog.md)
