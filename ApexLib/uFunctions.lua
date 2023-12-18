@@ -649,4 +649,34 @@ function uFunctions.completeFlightSchool()
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."PILOT_SCHOOL_MEDAL_9"), 1, true)
 end
 
+function uFunctions.intStatInput(stat, perchar)
+    local value = helpers.getInput("Integer value", "", 10, 0)
+
+    if not (perchar) then
+        stats.stat_set_int(gameplay.get_hash_key(stat), value, value)
+    else
+        stats.stat_set_int(gameplay.get_hash_key(mpx2()..stat), value, value)
+    end
+end
+
+function uFunctions.floatStatInput(stat, perchar)
+    local value = helpers.getInput("Float value", "", 10, 0)
+
+    if not (perchar) then
+        stats.stat_set_float(gameplay.get_hash_key(stat), value, value)
+    else
+        stats.stat_set_float(gameplay.get_hash_key(mpx2()..stat), value, value)
+    end
+end
+
+function uFunctions.u64StatInput(stat, perchar)
+    local value = helpers.getInput("Integer value", "", 10, 0)
+
+    if not (perchar) then
+        stats.stat_set_u64(gameplay.get_hash_key(stat), value, value)
+    else
+        stats.stat_set_u64(gameplay.get_hash_key(mpx2()..stat), value, value)
+    end 
+end
+
 return uFunctions

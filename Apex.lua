@@ -61,6 +61,7 @@ local fraudSub = menu.add_feature("#FF0000FF#[RISKY] #DEFAULT# Tax Fraud", "pare
 local eventsSub = menu.add_feature("Events", "parent", root.id)
 local heistSub = menu.add_feature("Heist Manager", "parent", root.id)
 local missionSub = menu.add_feature("Mission Manager", "parent", root.id)
+local statSub = menu.add_feature("Stats Manager", "parent", root.id)
 local usefulSub = menu.add_feature("Useful Features", "parent", root.id)
 local collectSub = menu.add_feature("Collectables", "parent", root.id) 
 local teleportSub = menu.add_feature("Teleportation", "parent", root.id)
@@ -81,6 +82,15 @@ local doomsdayHeist = menu.add_feature("The Doomsday Heist", "parent", heistSub.
 local casinoHeist = menu.add_feature("The Casino Heist", "parent", heistSub.id)
 local cayopericoHeist = menu.add_feature("The Cayo Perico Heist", "parent", heistSub.id)
 local salvageRobberies = menu.add_feature("Salvage Yard Robberies", "parent", heistSub.id)
+
+local carreerStats = menu.add_feature("Carreer", "parent", statSub.id)
+local generalStats = menu.add_feature("General", "parent", statSub.id)
+local crimeStats = menu.add_feature("Crimes", "parent", statSub.id)
+local vehicelStats = menu.add_feature("Vehicles", "parent", statSub.id)
+local cashStats = menu.add_feature("Cash", "parent", statSub.id)
+local combatStats = menu.add_feature("Combat", "parent", statSub.id)
+local weaponStats = menu.add_feature("Weapons", "parent", statSub.id)
+local miscStats = menu.add_feature("Miscellaneous Stats", "parent", statSub.id)
 
 local serialKiller = menu.add_feature("Serial Killer", "parent", teleportSub.id)
 local yetiHunt = menu.add_feature("Yeti Hunt", "parent", teleportSub.id)
@@ -211,6 +221,119 @@ end)
 menu.add_feature("Trigger Alien Egg resupply mission", "action", missionSub.id, function()
     uFunctions.triggerAlienBunker()
 end)
+
+menu.add_feature("STAT FIX", "action", statSub.id, function()
+    -- Carreer
+    stats.stat_set_int(gameplay.get_hash_key("MPPLY_KILLS_PLAYERS"), 35933, true)
+    stats.stat_set_int(gameplay.get_hash_key("MPPLY_DEATHS_PLAYER "), 10020, true)
+    stats.stat_set_float(gameplay.get_hash_key("MPPLY_CHAR_DIST_TRAVELLED"), 27, true)
+    -- General
+    -- Crimes
+    -- Vehicles
+    -- Cash
+    -- Combat
+    -- Weapons
+
+
+
+    --stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PHN"), -1, true)
+    stats.stat_set_int(gameplay.get_hash_key("MPPLY_TOTAL_RACES_WON"), 1028, true)
+    stats.stat_set_int(gameplay.get_hash_key("MPPLY_TOTAL_RACES_LOST"), 782, true)
+    stats.stat_set_int(gameplay.get_hash_key("MPPLY_TOTAL_DEATHMATCH_WON"), 2083, true)
+    stats.stat_set_int(gameplay.get_hash_key("MPPLY_TOTAL_DEATHMATCH_LOST"), 972, true)
+    stats.stat_set_int(gameplay.get_hash_key("MPPLY_TENNIS_MATCHES_WON "), 87, true)
+    stats.stat_set_int(gameplay.get_hash_key("MPPLY_TENNIS_MATCHES_LOST"), 27, true)
+
+    -- STARS_EVADED, AVERAGE_TIME_PER_SESSON
+    -- 
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."KILLS_COP"), 21833, true) 
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."KILLS_SWAT"), 4287, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."DIED_IN_EXPLOSION"), 2788, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."DIED_IN_FALL"), 1207, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."DIED_IN_FIRE"), 108, true)
+
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."DIED_IN_ROAD"), 1876, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."NO_TIMES_WANTED_LEVEL"), 20763, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."STARS_ATTAINED"), 37972, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."STARS_EVADED"), 23196, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."PLANE_LANDINGS"), 43, true)
+
+    --stats.stat_set_int(gameplay.get_hash_key(""), , true)
+    --stats.stat_set_int(gameplay.get_hash_key(""), , true)
+    --[[stats.stat_set_int(gameplay.get_hash_key(""), , true)
+    stats.stat_set_int(gameplay.get_hash_key(""), , true)
+    stats.stat_set_int(gameplay.get_hash_key(""), , true)--]]
+end)
+menu.add_feature("U64 test", "action", charSub.id, function()
+    stats.stat_set_u64(gameplay.get_hash_key("MPPLY_TOTAL_TIME_SPENT_RACES"), 2149200000, 2149200000) --597hrs
+    stats.stat_set_u64(gameplay.get_hash_key("MPPLY_TOTAL_TIME_MISSION_CREATO"), 36000000, 36000000)
+    stats.stat_set_u64(gameplay.get_hash_key("MPPLY_TOTAL_TIME_SPENT_ON_MISS"), 4352400000, 4352400000)
+    stats.stat_set_u64(gameplay.get_hash_key("MPPLY_TOTAL_TIME_SPENT_DEATHMAT"), 3189600000, 3189600000)
+    stats.stat_set_u64(gameplay.get_hash_key("MPPLY_TOTAL_TIME_SPENT_FREEMODE"), 14317200000, 14317200000)
+end)
+
+-- Stats Manager
+
+--[[
+    Time spent in GTA Online -> LEADERBOARD_PLAYING_TIME
+    Time played as character ->  TOTAL_PLAYING_TIME
+    Longest single game session -> LONGEST_PLAYING_TIME
+    Average time per session -> AVERAGE_TIME_PER_SESSON
+]]
+
+menu.add_feature("Total players killed", "action", carreerStats.id, function() 
+    uFunctions.intStatInput("MPPLY_KILLS_PLAYER", false)
+end)
+menu.add_feature("Total deaths by players", "action", carreerStats.id, function() 
+    uFunctions.intStatInput("MPPLY_DEATHS_PLAYER", false)
+end)
+menu.add_feature("Distance traveled", "action", carreerStats.id, function() 
+    uFunctions.floatStatInput("MPPLY_CHAR_DIST_TRAVELLED", false)
+end)
+menu.add_feature("Favorite radio staton", "action", carreerStats.id, function() 
+    uFunctions.intStatInput("MPPLY_DEATHS_PLAYER", false)
+end)
+menu.add_feature("Time spent in GTA Online", "action", carreerStats.id, function() 
+    uFunctions.u64StatInput("LEADERBOARD_PLAYING_TIME", true)
+end)
+menu.add_feature("Time spent in first person", "action", carreerStats.id, function() 
+    
+end)
+menu.add_feature("Time spent in Deathmatches", "action", carreerStats.id, function() 
+    uFunctions.u64StatInput("MPPLY_TOTAL_TIME_SPENT_DEATHMAT", false)
+end)
+menu.add_feature("Time spent in Races", "action", carreerStats.id, function() 
+    uFunctions.u64StatInput("MPPLY_TOTAL_TIME_SPENT_RACES", false)
+end)
+menu.add_feature("Time spent in Creator", "action", carreerStats.id, function() 
+    uFunctions.u64StatInput("MPPLY_TOTAL_TIME_MISSION_CREATO", false)
+end)
+menu.add_feature("Deathmatches published", "action", carreerStats.id, function() 
+
+end)
+menu.add_feature("Races published", "action", carreerStats.id, function() 
+
+end)
+menu.add_feature("Captures published", "action", carreerStats.id, function() 
+
+end)
+menu.add_feature("Last Team Standings published", "action", carreerStats.id, function() 
+
+end)
+menu.add_feature("Community plays of your published content", "action", carreerStats.id, function() 
+
+end)
+menu.add_feature("Thumbs up for your published content", "action", carreerStats.id, function() 
+
+end)
+
+menu.add_feature("Least favorite radio station", "action", miscStats.id, function() 
+
+end)
+menu.add_feature("Lapdances bought  ", "action", miscStats.id, function() 
+    --LAP_DANCED_BOUGHT
+end)
+
 
 
 -- Event Functions
@@ -525,6 +648,13 @@ for i, v in pairs(uTable.NezMusic) do
         menu.notify("You need to complete the VIP missions\nIt'll be on your desk in the Agency", "Apex", 5, 3578712200220)
     end)
 end
+menu.add_feature("-----------------------------", "action", collectMusic.id, function()
+    menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
+end)
+-- Chop Shop DLC
+menu.add_feature("DâM-FunK - Even the Score", "action", collectMusic.id, function()
+    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-56.656, -1089.496, 26.422))
+end)
 
 
 -- DLC Awards
