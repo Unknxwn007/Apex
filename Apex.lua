@@ -4,7 +4,6 @@ local uFunctions = require("ApexLib.uFunctions")
 local uTable = require("ApexLib.uTable")
 local helpers = require("ApexLib.helpers")
 
-
 local function mpx2()
     return "MP" .. stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1) .. "_"
 end
@@ -86,7 +85,7 @@ local salvageRobberies = menu.add_feature("Salvage Yard Robberies", "parent", he
 local carreerStats = menu.add_feature("Carreer", "parent", statSub.id)
 local generalStats = menu.add_feature("General", "parent", statSub.id)
 local crimeStats = menu.add_feature("Crimes", "parent", statSub.id)
-local vehicelStats = menu.add_feature("Vehicles", "parent", statSub.id)
+local vehicleStats = menu.add_feature("Vehicles", "parent", statSub.id)
 local cashStats = menu.add_feature("Cash", "parent", statSub.id)
 local combatStats = menu.add_feature("Combat", "parent", statSub.id)
 local weaponStats = menu.add_feature("Weapons", "parent", statSub.id)
@@ -273,14 +272,6 @@ menu.add_feature("U64 test", "action", charSub.id, function()
 end)
 
 -- Stats Manager
-
---[[
-    Time spent in GTA Online -> LEADERBOARD_PLAYING_TIME
-    Time played as character ->  TOTAL_PLAYING_TIME
-    Longest single game session -> LONGEST_PLAYING_TIME
-    Average time per session -> AVERAGE_TIME_PER_SESSON
-]]
-
 menu.add_feature("Total players killed", "action", carreerStats.id, function() 
     uFunctions.intStatInput("MPPLY_KILLS_PLAYER", false)
 end)
@@ -327,11 +318,284 @@ menu.add_feature("Thumbs up for your published content", "action", carreerStats.
 
 end)
 
+menu.add_feature("Time played as character", "action", generalStats.id, function() 
+    uFunctions.u64StatInput("TOTAL_PLAYING_TIME", true)
+end)
+menu.add_feature("Character created", "action", generalStats.id, function() 
+    uFunctions.dateStatInput("CHAR_DATE_CREATED", true)
+end)
+menu.add_feature("Last ranked up", "action", generalStats.id, function() 
+    uFunctions.dateStatInput("CHAR_DATE_RANKUP", true)
+end)
+menu.add_feature("Longest single game session", "action", generalStats.id, function() 
+    uFunctions.u64StatInput("LONGEST_PLAYING_TIME", true)
+end)
+menu.add_feature("Average time per session", "action", generalStats.id, function() 
+    uFunctions.u64StatInput("AVERAGE_TIME_PER_SESSON", true)
+end)
+menu.add_feature("Total deaths", "action", generalStats.id, function() 
+    uFunctions.intStatInput("DEATHS", true)
+end)
+menu.add_feature("Deaths by explosion", "action", generalStats.id, function() 
+    uFunctions.intStatInput("DIED_IN_EXPLOSION", true)
+end)
+menu.add_feature("Deaths by falling", "action", generalStats.id, function() 
+    uFunctions.intStatInput("DIED_IN_FALL", true)
+end)
+menu.add_feature("Deaths by fire", "action", generalStats.id, function() 
+    uFunctions.intStatInput("DIED_IN_FIRE", true)
+end)
+menu.add_feature("Deaths by traffic", "action", generalStats.id, function() 
+    uFunctions.intStatInput("DIED_IN_ROAD", true)
+end)
+menu.add_feature("Deaths by drowning", "action", generalStats.id, function() 
+    uFunctions.intStatInput("DIED_IN_DROWNING", true)
+end)
+menu.add_feature("Time swimming", "action", generalStats.id, function() 
+    uFunctions.u64StatInput("TIME_SWIMMING", true)
+end)
+menu.add_feature("Distance traveled swimming", "action", generalStats.id, function() 
+    uFunctions.floatStatInput("DIST_SWIMMING", true)
+end)
+menu.add_feature("Time underwater", "action", generalStats.id, function() 
+    uFunctions.u64StatInput("TIME_UNDERWATER", true)
+end)
+menu.add_feature("Time walking", "action", generalStats.id, function() 
+    uFunctions.u64StatInput("TIME_WALKING", true)
+end)
+menu.add_feature("Distance traveled walking", "action", generalStats.id, function() 
+    uFunctions.floatStatInput("DIST_SWIMMING", true)
+end)
+menu.add_feature("Distance traveled running", "action", generalStats.id, function() 
+    uFunctions.floatStatInput("DIST_RUNNING", true)
+end)
+menu.add_feature("Farthest free-fall survived", "action", generalStats.id, function() 
+    uFunctions.floatStatInput("LONGEST_SURVIVED_FREEFALL", true)
+end)
+menu.add_feature("Time in cover", "action", generalStats.id, function() 
+    uFunctions.u64StatInput("TIME_IN_COVER", true)
+end)
+menu.add_feature("Photos taken", "action", generalStats.id, function() 
+    uFunctions.intStatInput("NO_PHOTOS_TAKEN", true)
+end)
+menu.add_feature("Private dances", "action", generalStats.id, function() 
+    uFunctions.intStatInput("LAP_DANCED_BOUGHT", true)
+end)
+menu.add_feature("Sex acts purchased", "action", generalStats.id, function() 
+    uFunctions.intStatInput("PROSTITUTES_FREQUENTED", true)
+end)
+menu.add_feature("Bounties placed on others", "action", generalStats.id, function() 
+    uFunctions.intStatInput("BOUNTSONU", true)
+end)
+menu.add_feature("Bounties placed on you", "action", generalStats.id, function() 
+    uFunctions.intStatInput("BOUNTPLACED", true)
+end)
+menu.add_feature("Highest Survival wave reached", "action", generalStats.id, function() 
+    
+end)
+menu.add_feature("MC Contribution", "action", generalStats.id, function() 
+    
+end)
+
+menu.add_feature("Cops killed", "action", crimeStats.id, function() 
+    uFunctions.intStatInput("KILLS_COP", true)
+end)
+menu.add_feature("NOOSE killed", "action", crimeStats.id, function() 
+    uFunctions.intStatInput("KILLS_SWAT", true)
+end)
+menu.add_feature("Times wanted", "action", crimeStats.id, function() 
+    uFunctions.intStatInput("NO_TIMES_WANTED_LEVEL", true)
+end)
+menu.add_feature("Wanted stars attained", "action", crimeStats.id, function() 
+    uFunctions.intStatInput("STARS_ATTAINED", true)
+end)
+menu.add_feature("Wanted stars evaded", "action", crimeStats.id, function() 
+    uFunctions.intStatInput("STARS_EVADED", true)
+end)
+menu.add_feature("Time spent with a Wanted Level", "action", crimeStats.id, function() 
+    uFunctions.u64StatInput("CHAR_WANTED_LEVEL_TIME", true)
+end)
+menu.add_feature("Last Wanted Level duration", "action", crimeStats.id, function() 
+    uFunctions.u64StatInput("TIME_LAST_WANTED_LEVEL", true)
+end)
+menu.add_feature("Longest Wanted Level duration", "action", crimeStats.id, function() 
+    
+end)
+menu.add_feature("Time spent with a 5 star Wanted Level", "action", crimeStats.id, function() 
+    uFunctions.u64StatInput("CHAR_WANTED_LEVEL_TIME5STAR", true)
+end)
+menu.add_feature("Drive-by kills as driver", "action", crimeStats.id, function() 
+    
+end)
+menu.add_feature("Drive-by kills as passenger", "action", crimeStats.id, function() 
+    
+end)
+menu.add_feature("Tires shot out", "action", crimeStats.id, function() 
+    uFunctions.intStatInput("TIRES_POPPED_BY_GUNSHOT", true)
+end)
+menu.add_feature("Vehicular kills", "action", crimeStats.id, function() 
+    --uFunctions.intStatInput
+end)
+menu.add_feature("Cars stolen", "action", crimeStats.id, function() 
+    uFunctions.intStatInput("NUMBER_STOLEN_CARS", true)
+end)
+menu.add_feature("Motorcycles stolen", "action", crimeStats.id, function() 
+    uFunctions.intStatInput("NUMBER_STOLEN_BIKES", true)
+end)
+menu.add_feature("Helicopters stolen", "action", crimeStats.id, function() 
+    uFunctions.intStatInput("NUMBER_STOLEN_HELIS", true)
+end)
+menu.add_feature("Planes stolen", "action", crimeStats.id, function() 
+    uFunctions.intStatInput("NUMBER_STOLEN_PLANES", true)
+end)
+menu.add_feature("Boats stolen", "action", crimeStats.id, function() 
+    uFunctions.intStatInput("NUMBER_STOLEN_BOATS", true)
+end)
+menu.add_feature("ATVs stolen", "action", crimeStats.id, function() 
+    uFunctions.intStatInput("NUMBER_STOLEN_QUADBIKES", true)
+end)
+menu.add_feature("Bicycles stolen", "action", crimeStats.id, function() 
+    uFunctions.intStatInput("NUMBER_STOLEN_BICYCLES", true)
+end)
+menu.add_feature("Cop vehicles stolen", "action", crimeStats.id, function() 
+    uFunctions.intStatInput("NUMBER_STOLEN_COP_VEHICLE", true)
+end)
+menu.add_feature("Store Hold Ups", "action", crimeStats.id, function() 
+    
+end)
+
+menu.add_feature("Favorite Bike", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Highest Hydraulic Jump", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Time driving cars", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Distance traveled in cars", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Time riding motorcycles", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Distance traveled on motorcycles", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Time flying helicopters", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Distance traveled in helicopters", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Time flying planes", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Distance traveled in plane", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Time sailing boats", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Distance traveled boats", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Time riding ATVs", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Distance traveled on ATVs", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Time riding bicycles", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Distance traveled on bicycles", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Highest speed in a road vehicle", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Road vehicle driven fastest", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Farthest stoppie", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Farthest wheelie", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Farthest driven without crashing", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Car crashes", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Motorcycle crashes", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("ATV crashes", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Bailed from a moving vehicle", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Farthest vehicle jump", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Highest vehicle jump", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Most flips in one vehicle jump", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Most spins in one vehicle jump", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Unique Stunt Jumps found", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Unique Stunt Jumps completed", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Near misses", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Cop cars blown up", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Motorcycles blown up", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Helicopters blown up", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Planes blown up", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Boats blown up", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("ATVs blown up", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Vehicles repaired", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Vehicles resprayed", "action", vehicleStats.id, function() 
+    
+end)
+menu.add_feature("Vehicles exported", "action", miscStats.id, function() 
+    uFunctions.intStatInput("VEHEXPORTED", true)
+end)
+
+-- FAVORITE_WEAPON_HELDTIME
 menu.add_feature("Least favorite radio station", "action", miscStats.id, function() 
 
 end)
-menu.add_feature("Lapdances bought  ", "action", miscStats.id, function() 
-    --LAP_DANCED_BOUGHT
+
+menu.add_feature("get", "action", miscStats.id, function() 
+    local piss = stats.stat_get_int(gameplay.get_hash_key(mpx2().."LAP_DANCED_BOUGHT"), -1)
+    menu.notify(tostring(piss))
 end)
 
 

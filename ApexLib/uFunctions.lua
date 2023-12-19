@@ -679,4 +679,14 @@ function uFunctions.u64StatInput(stat, perchar)
     end 
 end
 
+function uFunctions.dateStatInput(stat, perchar)
+    local value = helpers.getInput("Example input: 2011,09,12", "", 10, 0)
+
+    if not (perchar) then
+        native.call(0x2C29BFB64F4FCBE4, gameplay.get_hash_key(stat), native.ByteBuffer64(value) , true)
+    else
+        native.call(0x2C29BFB64F4FCBE4, gameplay.get_hash_key(mpx2() .. stat), native.ByteBuffer64(value) , true)
+    end
+end
+
 return uFunctions
