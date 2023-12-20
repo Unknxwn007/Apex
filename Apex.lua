@@ -66,10 +66,6 @@ local collectSub = menu.add_feature("Collectables", "parent", root.id)
 local teleportSub = menu.add_feature("Teleportation", "parent", root.id)
 local customSub = menu.add_feature("Custom Executions", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
-local apt15mSub = menu.add_feature("15M Apartment Heists", "parent", root.id, function()
-    menu.notify("Please use these within 30 seconds of entering the cut screen.", "Apex", 10, colors.yellow)
-    menu.notify("You HAVE TO choose the right difficulty or you won't get paid!!", "Apex", 10, colors.yellow)
-end)
 -- Subs
 local uAchievementSub = menu.add_feature("Achievement Manager", "parent", unlocksSub.id)
 local uWeaponsSub = menu.add_feature("Weapons", "parent", unlocksSub.id)
@@ -79,10 +75,16 @@ local uAwardsSub = menu.add_feature("Awards", "parent", unlocksSub.id)
 
 local heistCooldowns = menu.add_feature("Cooldowns", "parent", heistSub.id)
 local legacyHeist = menu.add_feature("Legacy Heists", "parent", heistSub.id)
+local apt15mSub = menu.add_feature("15M Apartment Heists", "parent", heistSub.id, function()
+    menu.notify("Please use these within 30 seconds of entering the cut screen.", "Apex", 10, colors.yellow)
+    menu.notify("You HAVE TO choose the right difficulty or you won't get paid!!", "Apex", 10, colors.yellow)
+end)
 local doomsdayHeist = menu.add_feature("The Doomsday Heist", "parent", heistSub.id)
 local casinoHeist = menu.add_feature("The Casino Heist", "parent", heistSub.id)
 local cayopericoHeist = menu.add_feature("The Cayo Perico Heist", "parent", heistSub.id)
 local salvageRobberies = menu.add_feature("Salvage Yard Robberies", "parent", heistSub.id)
+local instFinish = menu.add_feature("Instant Finish", "parent", heistSub.id)
+
 
 local carreerStats = menu.add_feature("Carreer", "parent", statSub.id)
 local generalStats = menu.add_feature("General", "parent", statSub.id)
@@ -978,4 +980,20 @@ end)
 
 menu.add_feature("Pacific Standard Hard", "action", apt15mSub.id, function()
     uFunctions.maxPacificHard()
+end)
+
+menu.add_feature("Cayo/Agency/Tuners", "action", instFinish.id, function()
+    uFunctions.instantFinish2020()
+end)
+
+menu.add_feature("Casino Aggressive", "action", instFinish.id, function()
+    uFunctions.instantFinishH3()
+end)
+
+menu.add_feature("Doomsday", "action", instFinish.id, function()
+    uFunctions.instantFinishH2()
+end)
+
+menu.add_feature("Classic", "action", instFinish.id, function()
+    uFunctions.instantFinishApt()
 end)
