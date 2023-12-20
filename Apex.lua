@@ -66,8 +66,10 @@ local collectSub = menu.add_feature("Collectables", "parent", root.id)
 local teleportSub = menu.add_feature("Teleportation", "parent", root.id)
 local customSub = menu.add_feature("Custom Executions", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
-
-
+local apt15mSub = menu.add_feature("15M Apartment Heists", "parent", root.id, function()
+    menu.notify("Please use these within 30 seconds of entering the cut screen.", "Apex", 10, colors.yellow)
+    menu.notify("You HAVE TO choose the right difficulty or you won't get paid!!", "Apex", 10, colors.yellow)
+end)
 -- Subs
 local uAchievementSub = menu.add_feature("Achievement Manager", "parent", unlocksSub.id)
 local uWeaponsSub = menu.add_feature("Weapons", "parent", unlocksSub.id)
@@ -936,3 +938,44 @@ end)
     end 
 end)
 schizoLog:toggle()--]]
+
+-- 15m apt
+menu.add_feature("Fleeca Normal", "action", apt15mSub.id, function()
+    uFunctions.maxFleecaNormal()
+end)
+
+menu.add_feature("Fleeca Hard", "action", apt15mSub.id, function()
+    uFunctions.maxFleecaHard()
+end)
+
+menu.add_feature("Prison Normal", "action", apt15mSub.id, function()
+    uFunctions.maxPrisonNormal()
+end)
+
+menu.add_feature("Prison Hard", "action", apt15mSub.id, function()
+    uFunctions.maxPrisonHard()
+end)
+
+menu.add_feature("Humane Lab Normal", "action", apt15mSub.id, function()
+    uFunctions.maxHumaneNormal()
+end)
+
+menu.add_feature("Humane Lab Hard", "action", apt15mSub.id, function()
+    uFunctions.maxHumaneHard()
+end)
+
+menu.add_feature("Series A Normal", "action", apt15mSub.id, function()
+    uFunctions.maxSAFNormal()
+end)
+
+menu.add_feature("Series A Hard", "action", apt15mSub.id, function()
+    uFunctions.maxSAFHard()
+end)
+
+menu.add_feature("Pacific Standard Normal", "action", apt15mSub.id, function()
+    uFunctions.maxPacificNormal()
+end)
+
+menu.add_feature("Pacific Standard Hard", "action", apt15mSub.id, function()
+    uFunctions.maxPacificHard()
+end)

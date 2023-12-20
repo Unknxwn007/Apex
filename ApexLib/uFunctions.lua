@@ -689,4 +689,91 @@ function uFunctions.dateStatInput(stat, perchar)
     end
 end
 
+function uFunctions.maxFleecaNormal()
+    script.set_global_i(1928235, 7453)
+    script.set_global_i(1928236, 7453)
+    script.set_global_i(1928237, -14806)
+    menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
+    system.wait()
+end
+
+function uFunctions.maxFleecaHard()
+    script.set_global_i(1928235, 5962)
+    script.set_global_i(1928236, 5962)
+    script.set_global_i(1928237, -11824)
+    menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
+end
+
+function uFunctions.maxPrisonNormal()
+    script.set_global_i(1928235, -8468)
+    script.set_global_i(1928236, 2142)
+    script.set_global_i(1928237, 2142)
+    script.set_global_i(1928238, 2142)
+    system.wait()
+    menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
+end
+
+function uFunctions.maxPrisonHard()
+    script.set_global_i(1928235, -6756)
+    script.set_global_i(1928236, 1714)
+    script.set_global_i(1928237, 1714)
+    script.set_global_i(1928238, 1714)
+    system.wait()
+    menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
+end
+
+function uFunctions.maxHumaneNormal()
+    script.set_global_i(1928235, -6248)
+    script.set_global_i(1928236, 1587)
+    script.set_global_i(1928237, 1587)
+    script.set_global_i(1928238, 1587)
+    system.wait()
+    menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
+end
+
+function uFunctions.maxHumaneHard()
+    script.set_global_i(1928235, -4976)
+    script.set_global_i(1928236, 1269)
+    script.set_global_i(1928237, 1269)
+    script.set_global_i(1928238, 1269)
+    system.wait()
+    menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
+end
+
+function uFunctions.maxSAFNormal()
+    script.set_global_i(1928235, -8384)
+    script.set_global_i(1928236, 2121)
+    script.set_global_i(1928237, 2121)
+    script.set_global_i(1928238, 2121)
+    system.wait()
+    menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
+end
+
+function uFunctions.maxSAFHard()
+    script.set_global_i(1928235, -6688)
+    script.set_global_i(1928236, 1697)
+    script.set_global_i(1928237, 1697)
+    script.set_global_i(1928238, 1697)
+    system.wait()
+    menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
+end
+
+function uFunctions.maxPacificNormal()
+    script.set_global_i(1928235, -3900)
+    script.set_global_i(1928236, 1000)
+    script.set_global_i(1928237, 1000)
+    script.set_global_i(1928238, 1000)
+    system.wait()
+    menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
+end
+
+function uFunctions.maxPacificHard()
+    script.set_global_i(1928235, -3096)
+    script.set_global_i(1928236, 799)
+    script.set_global_i(1928237, 799)
+    script.set_global_i(1928238, 799)
+    system.wait()
+    menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
+end
+
 return uFunctions
