@@ -83,7 +83,7 @@ local apt15mSub = menu.add_feature("15m payouts", "parent", legacyHeist.id, func
 end)
 local doomsdayHeist = menu.add_feature("The Doomsday Heist", "parent", heistSub.id)
 local casinoHeist = menu.add_feature("The Casino Heist", "parent", heistSub.id)
-local casinoPayout = menu.add_feature("Payout Editor", "parent", heistSub.id)
+local casinoPayout = menu.add_feature("Payout Editor", "parent", casinoHeist.id)
 local cayopericoHeist = menu.add_feature("The Cayo Perico Heist", "parent", heistSub.id)
 local salvageRobberies = menu.add_feature("Salvage Yard Robberies", "parent", heistSub.id)
 
@@ -164,21 +164,26 @@ menu.add_feature("Complete Setup - Act 3: Doomsday Scenario", "action", doomsday
 end)
 
 menu.add_feature("Player one", "action", casinoPayout.id, function()
+    uFunctions.getFMHost()
     local value = helpers.getInput("Enter payout value", "", 10, 0)
     script.set_global_i(1963945 + 1497 + 736 + 92 + 1, value)
 end)
 menu.add_feature("Player two", "action", casinoPayout.id, function()
+    uFunctions.getFMHost()
     local value = helpers.getInput("Enter payout value", "", 10, 0)
-    script.set_global_i(1963945 + 1497 + 736 + 92 + 1 + 1, value)
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 2, value)
 end)
 menu.add_feature("Player three", "action", casinoPayout.id, function()
+    uFunctions.getFMHost()
     local value = helpers.getInput("Enter payout value", "", 10, 0)
-    script.set_global_i(1963945 + 1497 + 736 + 92 + 1 + 1 + 1, value)
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 3, value)
 end)
 menu.add_feature("Player four", "action", casinoPayout.id, function()
+    uFunctions.getFMHost()
     local value = helpers.getInput("Enter payout value", "", 10, 0)
-    script.set_global_i(1963945 + 1497 + 736 + 92 + 1 + 1 + 1 + 1, value)
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 4, value)
 end)
+
 menu.add_feature("Auto Setup: Silent & Sneaky + Diamonds", "action", casinoHeist.id, function()
     uFunctions.casinoHeistSilentSneaky()
 end)
@@ -189,8 +194,17 @@ menu.add_feature("Auto Setup: Aggressive + Diamonds", "action", casinoHeist.id, 
     uFunctions.casinoHeistAggressive()
 end)
 
-menu.add_feature("#DEFAULT#Auto Setup: Panther + Hard Mode #FF0000FF#[Solo]", "action", cayopericoHeist.id, function()
+menu.add_feature("Auto Setup: Panther + Hard Mode", "action", cayopericoHeist.id, function()
     uFunctions.cayoPericoPantherHard()
+end)
+menu.add_feature("Set everyone's cut to 151%", "toggle", cayopericoHeist.id, function(f)
+    while f.on do
+        script.set_global_i(1970744 + 831 + 56 + 1, 151)
+        script.set_global_i(1970744 + 831 + 56 + 2, 151)
+        script.set_global_i(1970744 + 831 + 56 + 3, 151)
+        script.set_global_i(1970744 + 831 + 56 + 4, 151)
+        system.wait(0)
+    end
 end)
 --[[
 menu.add_feature("#DEFAULT#Auto Setup: Panther + Hard Mode #FF0000FF#[2P]", "action", cayopericoHeist.id, function()
@@ -203,13 +217,11 @@ menu.add_feature("#DEFAULT#Auto Setup: Panther + Hard Mode #FF0000FF#[4P]", "act
     uFunctions.cayoPericoPantherHard4()
 end)]]
 menu.add_feature("Remove All CCTV Camera's", "action", cayopericoHeist.id, function()
-    for _, ent in pairs(entities.get_all_objects_as_handles()) do
-        for __, cam in pairs(CamList) do
-            if ENTITY.GET_ENTITY_MODEL(ent) == cam then
-                ENTITY.SET_ENTITY_AS_MISSION_ENTITY(ent,true,true)
-                ENTITY.DELETE_ENTITY(ent)               
-            end
-        end
+    menu.get_feature_by_hierarchy_key("online.casinoperico_heist.remove_cameras"):toggle()
+end)
+menu.add_feature("Skip fingerprint", "action", cayopericoHeist.id, function()
+    if script.get_global_i(gameplay.get_hash_key("fm_mission_controller", 52985)) ~= 1 then 
+        script.set_global_i(gameplay.get_hash_key("fm_mission_controller", 52985, 5))
     end
 end)
 menu.add_feature("Reset Heist", "action", cayopericoHeist.id, function()
