@@ -776,4 +776,55 @@ function uFunctions.maxPacificHard()
     menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
 end
 
+function uFunctions.getFMHost()
+    menu.notify("Getting Script Host...", "Apex", 3, 0xFF00FFFF)
+    if player.is_player_valid(player.player_id()) then
+        native.call(0x6EB5F71AA68F2E8E, "freemode")
+        native.call(0x741A3D8380319A81)
+        system.wait(2000)
+    else
+        return menu.notify("Failed to get script host, please try again.", "Apex", 3, 0xFF00FFFF)
+    end
+end
+
+function uFunctions.instantFinish2020()
+    uFunctions.getFMHost()
+    script.set_local_i(gameplay.get_hash_key("fm_mission_controller_2020"), 48513 , 9)
+    script.set_local_i(gameplay.get_hash_key("fm_mission_controller_2020"), 48513 + 1765 + 1, 1337)
+    system.wait(2000)
+    script.set_local_i(gameplay.get_hash_key("fm_mission_controller_2020"), 48513 , 6)
+end 
+
+function uFunctions.instantFinishH3()
+    uFunctions.getFMHost()
+    for i = 0, 3, 1 do
+        script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 19728 + 2686, 10000000)
+        script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 31603 + i * 292 + 69, 1337)
+        script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 31603 + i * 292 + 86, math.ceil(player.player_count() / 10000))
+        system.wait()
+    end
+    script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 27489 + 859, 99999)
+end
+
+function uFunctions.instantFinishH2()
+    uFunctions.getFMHost()
+    for i = 0, 1 do
+        script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 31603 + i * 292 + 69, 1337)
+        script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 31603 + i * 292 + 86, math.ceil(player.player_count() / 10000))
+        script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 31603 + i * 292 + 91, math.ceil(player.player_count() / 10000))
+    end
+    script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 19728, 12)
+end
+
+function uFunctions.instantFinishApt()
+    uFunctions.getFMHost()
+    script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 19728 + 2686, 1875000)
+    for i = 0, 3, 1 do
+        script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 31603 + i * 292 + 69, 1337)
+        script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 31603 + i * 292 + 86, math.ceil(player.player_count() / 10000))
+        script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 31603 + i * 292 + 91, math.ceil(player.player_count() / 10000))
+    end
+    script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 19728, 12)
+end
+
 return uFunctions
