@@ -20,6 +20,17 @@ end
     - collectables -> trick or treat, halloween, stunt jumps, junk energy skydive
     - events -> ufo, bank shoot, ghost, taxi, christmas mug, armored truck, possessed animal, bar resupply, 
     - unlocks -> halloween decorations, navy revolv, stone hatchet, return player, trade price, halloween / taxi livery, office clutter, 
+
+        ### 1.3.6
+        - Additions
+            - In-depth stat editor
+            - 
+        - Removals
+            - u64test (not meant to be added)
+            - 
+        - Fixes
+        - Changes
+            - Script has been written, huge thanks to @Toph2T1
 ]]
 
 local colors = {
@@ -543,79 +554,80 @@ menu.add_feature("Store Hold Ups", "action", crimeStats.id, function()
 end)
 
 menu.add_feature("Favorite Bike", "action", vehicleStats.id, function() 
-    
+    uFunctions.setFavoriteBikeMC()
 end)
 menu.add_feature("Highest Hydraulic Jump", "action", vehicleStats.id, function() 
-    
+    uFunctions.floatStatInput("LOW_HYDRAULIC_JUMP", true)
 end)
 menu.add_feature("Time driving cars", "action", vehicleStats.id, function() 
-    
+    uFunctions.u64StatInput("TIME_DRIVING_CAR", true)
 end)
 menu.add_feature("Distance traveled in cars", "action", vehicleStats.id, function() 
-    
+    uFunctions.floatStatInput("DIST_DRIVING_CAR", true)
 end)
 menu.add_feature("Time riding motorcycles", "action", vehicleStats.id, function() 
-    
+    uFunctions.u64StatInput("TIME_DRIVING_BIKE", true)
 end)
 menu.add_feature("Distance traveled on motorcycles", "action", vehicleStats.id, function() 
-    
+    uFunctions.floatStatInput("DIST_DRIVING_BIKE", true)
 end)
 menu.add_feature("Time flying helicopters", "action", vehicleStats.id, function() 
-    
+    uFunctions.u64StatInput("TIME_DRIVING_HELI", true)
 end)
 menu.add_feature("Distance traveled in helicopters", "action", vehicleStats.id, function() 
-    
+    uFunctions.floatStatInput("DIST_DRIVING_HELI", true)
 end)
 menu.add_feature("Time flying planes", "action", vehicleStats.id, function() 
-    
+    uFunctions.u64StatInput("TIME_DRIVING_PLANE", true)
 end)
 menu.add_feature("Distance traveled in plane", "action", vehicleStats.id, function() 
-    
+    uFunctions.floatStatInput("DIST_DRIVING_PLANE", true)
 end)
 menu.add_feature("Time sailing boats", "action", vehicleStats.id, function() 
-    
+    uFunctions.u64StatInput("TIME_DRIVING_BOAT", true)
 end)
 menu.add_feature("Distance traveled boats", "action", vehicleStats.id, function() 
-    
+    uFunctions.floatStatInput("DIST_DRIVING_BOAT", true)
 end)
 menu.add_feature("Time riding ATVs", "action", vehicleStats.id, function() 
-    
+    uFunctions.u64StatInput("TIME_DRIVING_QUADBIKE", true)
 end)
 menu.add_feature("Distance traveled on ATVs", "action", vehicleStats.id, function() 
-    
+    uFunctions.floatStatInput("DIST_DRIVING_QUADBIKE", true)
 end)
 menu.add_feature("Time riding bicycles", "action", vehicleStats.id, function() 
-    
+    uFunctions.u64StatInput("TIME_DRIVING_BICYCLE", true)
 end)
 menu.add_feature("Distance traveled on bicycles", "action", vehicleStats.id, function() 
-    
+    uFunctions.floatStatInput("DIST_DRIVING_BICYCLE", true)
 end)
 menu.add_feature("Highest speed in a road vehicle", "action", vehicleStats.id, function() 
-    
+    uFunctions.floatStatInput("FASTEST_SPEED", true)
+    menu.notify("METERS PER SECOND!!", "Apex", 4, 257818)
 end)
 menu.add_feature("Road vehicle driven fastest", "action", vehicleStats.id, function() 
-    
+    --TOP_SPEED_CAR
 end)
 menu.add_feature("Farthest stoppie", "action", vehicleStats.id, function() 
-    
+    uFunctions.floatStatInput("LONGEST_STOPPIE_DIST", true)
 end)
 menu.add_feature("Farthest wheelie", "action", vehicleStats.id, function() 
-    
+    uFunctions.floatStatInput("LONGEST_WHEELIE_DIST", true)
 end)
 menu.add_feature("Farthest driven without crashing", "action", vehicleStats.id, function() 
     
 end)
 menu.add_feature("Car crashes", "action", vehicleStats.id, function() 
-    
+    uFunctions.intStatInput("NUMBER_CRASHES_CARS", true)
 end)
 menu.add_feature("Motorcycle crashes", "action", vehicleStats.id, function() 
-    
+    uFunctions.intStatInput("NUMBER_CRASHES_BIKES", true)
 end)
 menu.add_feature("ATV crashes", "action", vehicleStats.id, function() 
-    
+    uFunctions.intStatInput("NUMBER_CRASHES_QUADBIKES", true)
 end)
 menu.add_feature("Bailed from a moving vehicle", "action", vehicleStats.id, function() 
-    
+    uFunctions.intStatInput("BAILED_FROM_VEHICLE", true)
 end)
 menu.add_feature("Farthest vehicle jump", "action", vehicleStats.id, function() 
     
@@ -639,28 +651,28 @@ menu.add_feature("Near misses", "action", vehicleStats.id, function()
     
 end)
 menu.add_feature("Cop cars blown up", "action", vehicleStats.id, function() 
-    
+    uFunctions.intStatInput("CARS_COPS_EXPLODED", true)
 end)
 menu.add_feature("Motorcycles blown up", "action", vehicleStats.id, function() 
-    
+    uFunctions.intStatInput("BIKES_EXPLODED", true)
 end)
 menu.add_feature("Helicopters blown up", "action", vehicleStats.id, function() 
-    
+    uFunctions.intStatInput("HELIS_EXPLODED", true)
 end)
 menu.add_feature("Planes blown up", "action", vehicleStats.id, function() 
-    
+    uFunctions.intStatInput("PLANES_EXPLODED", true)
 end)
 menu.add_feature("Boats blown up", "action", vehicleStats.id, function() 
-    
+    uFunctions.intStatInput("BOATS_EXPLODED", true)
 end)
 menu.add_feature("ATVs blown up", "action", vehicleStats.id, function() 
-    
+    uFunctions.intStatInput("QUADBIKE_EXPLODED", true)
 end)
 menu.add_feature("Vehicles repaired", "action", vehicleStats.id, function() 
-    
+    uFunctions.intStatInput("NO_CARS_REPAIR", true)
 end)
 menu.add_feature("Vehicles resprayed", "action", vehicleStats.id, function() 
-    
+    uFunctions.intStatInput("VEHICLES_SPRAYED", true)
 end)
 menu.add_feature("Vehicles exported", "action", miscStats.id, function() 
     uFunctions.intStatInput("VEHEXPORTED", true)
@@ -899,9 +911,7 @@ end
 menu.add_feature("Set clear plate", "action", miscSub.id, function()
     vehicle.set_vehicle_number_plate_text(player.player_vehicle(), "-")
 end)
-menu.add_feature("Set favorite bike (int32)", "action", miscSub.id, function()
-    uFunctions.setFavoriteBikeMC()
-end)
+
 menu.add_feature("100% Complete Flightschool", "action", miscSub.id, function()
     uFunctions.completeFlightSchool()
 end)

@@ -14,3 +14,9 @@ I am not responsible for any suspensions / bans to your account. \
 ## Contributing
 Looking to contribute? You can [fork the repo](https://github.com/Unknxwn007/Apex/fork) and [open a pull-request](https://github.com/Unknxwn007/Apex/pulls) 😀 \
 Note: if your request is stupid it'll be ignored.
+
+### Contributors
+[Loled](https://github.com/Loled69) | [Toph](https://github.com/Toph2T1) | [BigSmoke](https://github.com/BigSmoke2T1) 
+
+#### People who have provided help directly
+femboy.lua | holyjoey 
