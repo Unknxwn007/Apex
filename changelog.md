@@ -6,6 +6,7 @@
     - Legacy heist 15million payout, thanks to @BigSmoke2T1
     - Casino payout editor, thanks to v0icepacket in the discord
     - Skip fingerprint in cayo, thanks to v0icepacket in the discord
+    - Set everyone's cut to 151% in cayo perico heist
 - Fixes
     - Remove all CCTV cameras in Cayo sub
     - Auto setups for casino heist
