@@ -66,6 +66,7 @@ local collectSub = menu.add_feature("Collectables", "parent", root.id)
 local teleportSub = menu.add_feature("Teleportation", "parent", root.id)
 local customSub = menu.add_feature("Custom Executions", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
+
 -- Subs
 local uAchievementSub = menu.add_feature("Achievement Manager", "parent", unlocksSub.id)
 local uWeaponsSub = menu.add_feature("Weapons", "parent", unlocksSub.id)
@@ -74,17 +75,17 @@ local uClothingSub = menu.add_feature("Clothing", "parent", unlocksSub.id)
 local uAwardsSub = menu.add_feature("Awards", "parent", unlocksSub.id)
 
 local heistCooldowns = menu.add_feature("Cooldowns", "parent", heistSub.id)
+local instFinish = menu.add_feature("Instant Finisher", "parent", heistSub.id)
 local legacyHeist = menu.add_feature("Legacy Heists", "parent", heistSub.id)
-local apt15mSub = menu.add_feature("15M Apartment Heists", "parent", heistSub.id, function()
-    menu.notify("Please use these within 30 seconds of entering the cut screen.", "Apex", 10, colors.yellow)
+local apt15mSub = menu.add_feature("15m payouts", "parent", legacyHeist.id, function()
+    menu.notify("Please use these within 30 seconds of entering the cutscene.", "Apex", 10, colors.yellow)
     menu.notify("You HAVE TO choose the right difficulty or you won't get paid!!", "Apex", 10, colors.yellow)
 end)
 local doomsdayHeist = menu.add_feature("The Doomsday Heist", "parent", heistSub.id)
 local casinoHeist = menu.add_feature("The Casino Heist", "parent", heistSub.id)
+local casinoPayout = menu.add_feature("Payout Editor", "parent", casinoHeist.id)
 local cayopericoHeist = menu.add_feature("The Cayo Perico Heist", "parent", heistSub.id)
 local salvageRobberies = menu.add_feature("Salvage Yard Robberies", "parent", heistSub.id)
-local instFinish = menu.add_feature("Instant Finish", "parent", heistSub.id)
-
 
 local carreerStats = menu.add_feature("Carreer", "parent", statSub.id)
 local generalStats = menu.add_feature("General", "parent", statSub.id)
@@ -132,6 +133,19 @@ menu.add_feature("Remove Chicken Farm Raid Cooldown", "action", heistCooldowns.i
     uFunctions.chickenCooldown()
 end)
 
+menu.add_feature("Cayo/Agency/Tuners", "action", instFinish.id, function()
+    uFunctions.instantFinish2020()
+end)
+menu.add_feature("Casino Aggressive", "action", instFinish.id, function()
+    uFunctions.instantFinishH3()
+end)
+menu.add_feature("Doomsday Heist", "action", instFinish.id, function()
+    uFunctions.instantFinishH2()
+end)
+menu.add_feature("Legacy Heist", "action", instFinish.id, function()
+    uFunctions.instantFinishApt()
+end)
+
 menu.add_feature("Skip Current Heist Setups", "action", legacyHeist.id, function()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "HEIST_PLANNING_STAGE"), -1, true)
 end)
@@ -149,6 +163,27 @@ menu.add_feature("Complete Setup - Act 3: Doomsday Scenario", "action", doomsday
     uFunctions.doomsDayActThree()
 end)
 
+menu.add_feature("Player one", "action", casinoPayout.id, function()
+    uFunctions.getFMHost()
+    local value = helpers.getInput("Enter payout value", "", 10, 0)
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 1, value)
+end)
+menu.add_feature("Player two", "action", casinoPayout.id, function()
+    uFunctions.getFMHost()
+    local value = helpers.getInput("Enter payout value", "", 10, 0)
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 2, value)
+end)
+menu.add_feature("Player three", "action", casinoPayout.id, function()
+    uFunctions.getFMHost()
+    local value = helpers.getInput("Enter payout value", "", 10, 0)
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 3, value)
+end)
+menu.add_feature("Player four", "action", casinoPayout.id, function()
+    uFunctions.getFMHost()
+    local value = helpers.getInput("Enter payout value", "", 10, 0)
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 4, value)
+end)
+
 menu.add_feature("Auto Setup: Silent & Sneaky + Diamonds", "action", casinoHeist.id, function()
     uFunctions.casinoHeistSilentSneaky()
 end)
@@ -159,8 +194,17 @@ menu.add_feature("Auto Setup: Aggressive + Diamonds", "action", casinoHeist.id, 
     uFunctions.casinoHeistAggressive()
 end)
 
-menu.add_feature("#DEFAULT#Auto Setup: Panther + Hard Mode #FF0000FF#[Solo]", "action", cayopericoHeist.id, function()
+menu.add_feature("Auto Setup: Panther + Hard Mode", "action", cayopericoHeist.id, function()
     uFunctions.cayoPericoPantherHard()
+end)
+menu.add_feature("Set everyone's cut to 151%", "toggle", cayopericoHeist.id, function(f)
+    while f.on do
+        script.set_global_i(1970744 + 831 + 56 + 1, 151)
+        script.set_global_i(1970744 + 831 + 56 + 2, 151)
+        script.set_global_i(1970744 + 831 + 56 + 3, 151)
+        script.set_global_i(1970744 + 831 + 56 + 4, 151)
+        system.wait(0)
+    end
 end)
 --[[
 menu.add_feature("#DEFAULT#Auto Setup: Panther + Hard Mode #FF0000FF#[2P]", "action", cayopericoHeist.id, function()
@@ -173,13 +217,11 @@ menu.add_feature("#DEFAULT#Auto Setup: Panther + Hard Mode #FF0000FF#[4P]", "act
     uFunctions.cayoPericoPantherHard4()
 end)]]
 menu.add_feature("Remove All CCTV Camera's", "action", cayopericoHeist.id, function()
-    for _, ent in pairs(entities.get_all_objects_as_handles()) do
-        for __, cam in pairs(CamList) do
-            if ENTITY.GET_ENTITY_MODEL(ent) == cam then
-                ENTITY.SET_ENTITY_AS_MISSION_ENTITY(ent,true,true)
-                ENTITY.DELETE_ENTITY(ent)               
-            end
-        end
+    menu.get_feature_by_hierarchy_key("online.casinoperico_heist.remove_cameras"):toggle()
+end)
+menu.add_feature("Skip fingerprint", "action", cayopericoHeist.id, function()
+    if script.get_global_i(gameplay.get_hash_key("fm_mission_controller", 52985)) ~= 1 then 
+        script.set_global_i(gameplay.get_hash_key("fm_mission_controller", 52985, 5))
     end
 end)
 menu.add_feature("Reset Heist", "action", cayopericoHeist.id, function()
@@ -194,6 +236,38 @@ menu.add_feature("Skip to finale", "action", salvageRobberies.id, function()
 end)
 menu.add_feature("Keep vehicle after robbery", "action", salvageRobberies.id, function()
     stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "SALV23_CAN_KEEP"), true, true)
+end)
+
+-- 15m apt
+menu.add_feature("Fleeca Normal", "action", apt15mSub.id, function()
+    uFunctions.maxFleecaNormal()
+end)
+menu.add_feature("Fleeca Hard", "action", apt15mSub.id, function()
+    uFunctions.maxFleecaHard()
+end)
+menu.add_feature("Prison Normal", "action", apt15mSub.id, function()
+    uFunctions.maxPrisonNormal()
+end)
+menu.add_feature("Prison Hard", "action", apt15mSub.id, function()
+    uFunctions.maxPrisonHard()
+end)
+menu.add_feature("Humane Lab Normal", "action", apt15mSub.id, function()
+    uFunctions.maxHumaneNormal()
+end)
+menu.add_feature("Humane Lab Hard", "action", apt15mSub.id, function()
+    uFunctions.maxHumaneHard()
+end)
+menu.add_feature("Series A Normal", "action", apt15mSub.id, function()
+    uFunctions.maxSAFNormal()
+end)
+menu.add_feature("Series A Hard", "action", apt15mSub.id, function()
+    uFunctions.maxSAFHard()
+end)
+menu.add_feature("Pacific Standard Normal", "action", apt15mSub.id, function()
+    uFunctions.maxPacificNormal()
+end)
+menu.add_feature("Pacific Standard Hard", "action", apt15mSub.id, function()
+    uFunctions.maxPacificHard()
 end)
 
 --[[menu.add_feature("get test", "action", salvageRobberies.id, function()
@@ -940,60 +1014,3 @@ end)
     end 
 end)
 schizoLog:toggle()--]]
-
--- 15m apt
-menu.add_feature("Fleeca Normal", "action", apt15mSub.id, function()
-    uFunctions.maxFleecaNormal()
-end)
-
-menu.add_feature("Fleeca Hard", "action", apt15mSub.id, function()
-    uFunctions.maxFleecaHard()
-end)
-
-menu.add_feature("Prison Normal", "action", apt15mSub.id, function()
-    uFunctions.maxPrisonNormal()
-end)
-
-menu.add_feature("Prison Hard", "action", apt15mSub.id, function()
-    uFunctions.maxPrisonHard()
-end)
-
-menu.add_feature("Humane Lab Normal", "action", apt15mSub.id, function()
-    uFunctions.maxHumaneNormal()
-end)
-
-menu.add_feature("Humane Lab Hard", "action", apt15mSub.id, function()
-    uFunctions.maxHumaneHard()
-end)
-
-menu.add_feature("Series A Normal", "action", apt15mSub.id, function()
-    uFunctions.maxSAFNormal()
-end)
-
-menu.add_feature("Series A Hard", "action", apt15mSub.id, function()
-    uFunctions.maxSAFHard()
-end)
-
-menu.add_feature("Pacific Standard Normal", "action", apt15mSub.id, function()
-    uFunctions.maxPacificNormal()
-end)
-
-menu.add_feature("Pacific Standard Hard", "action", apt15mSub.id, function()
-    uFunctions.maxPacificHard()
-end)
-
-menu.add_feature("Cayo/Agency/Tuners", "action", instFinish.id, function()
-    uFunctions.instantFinish2020()
-end)
-
-menu.add_feature("Casino Aggressive", "action", instFinish.id, function()
-    uFunctions.instantFinishH3()
-end)
-
-menu.add_feature("Doomsday", "action", instFinish.id, function()
-    uFunctions.instantFinishH2()
-end)
-
-menu.add_feature("Classic", "action", instFinish.id, function()
-    uFunctions.instantFinishApt()
-end)
