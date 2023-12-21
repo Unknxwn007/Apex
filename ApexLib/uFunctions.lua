@@ -844,5 +844,7 @@ function uFunctions.instantFinishApt()
     end
     system.wait(2000)
     script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 19728, 12)
+end
+
 
 return uFunctions
