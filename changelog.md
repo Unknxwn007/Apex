@@ -1,3 +1,9 @@
+### 1.3.5
+- Additions
+    - Instant Heist finish (Cayo, Casino, Doomsday and Legacy Heists)
+    - Heist presets (Cayo, Diamond, Doomsday and Legacy Heists)
+    - Unlock Armored Paragon (the car)
+
 ### 1.3.4
 - Additions
     - 100% Complete Flightschool
