@@ -1,8 +1,20 @@
 ### 1.3.5
 - Additions
-    - Instant Heist finish (Cayo, Casino, Doomsday and Legacy Heists)
-    - Heist presets (Cayo, Diamond, Doomsday and Legacy Heists)
-    - Unlock Armored Paragon (the car)
+    - In-depth stat editor (not 100% finished)
+    - Made the root sub red color
+    - Instant Heist finish (Cayo, Casino, Doomsday and Legacy Heists), thanks to @BigSmoke2T1
+    - Legacy heist 15million payout, thanks to @BigSmoke2T1
+    - Casino payout editor, thanks to v0icepacket in the discord
+    - Skip fingerprint in cayo, thanks to v0icepacket in the discord
+- Fixes
+    - Remove all CCTV cameras in Cayo sub
+    - Auto setups for casino heist
+- Removals
+    - Cringe notification for nightclub loop
+    - Cringe notification for Snowtruck event
+    - Nightclub Loop (temporarily)
+- Upcoming changes
+    - 'base' rewrite, huge thanks to @Toph2T1
 
 ### 1.3.4
 - Additions

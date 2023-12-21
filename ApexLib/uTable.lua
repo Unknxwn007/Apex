@@ -363,7 +363,6 @@ uTable.randomUsernames = {
     
 }
 
-
 function uTable.unlockAwards()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_FM_DM_WINS"), 50, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_FM_TDM_WINS"), 50, true)

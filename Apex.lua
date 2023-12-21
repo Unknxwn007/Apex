@@ -20,17 +20,6 @@ end
     - collectables -> trick or treat, halloween, stunt jumps, junk energy skydive
     - events -> ufo, bank shoot, ghost, taxi, christmas mug, armored truck, possessed animal, bar resupply, 
     - unlocks -> halloween decorations, navy revolv, stone hatchet, return player, trade price, halloween / taxi livery, office clutter, 
-
-        ### 1.3.6
-        - Additions
-            - In-depth stat editor
-            - 
-        - Removals
-            - u64test (not meant to be added)
-            - 
-        - Fixes
-        - Changes
-            - Script has been written, huge thanks to @Toph2T1
 ]]
 
 local colors = {
@@ -62,11 +51,10 @@ end
 
 
 -- Main Menu
-local root = menu.add_feature("Apex", "parent", 0) 
+local root = menu.add_feature("#FF0000FF#Apex", "parent", 0) 
 
-local charSub = menu.add_feature("Identity Theft", "parent", root.id)
 local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
-local fraudSub = menu.add_feature("#FF0000FF#[RISKY] #DEFAULT# Tax Fraud", "parent", root.id)
+--local fraudSub = menu.add_feature("#FF0000FF#[RISKY] #DEFAULT# Tax Fraud", "parent", root.id)
 -- local reputationSub = menu.add_feature("Reputation", "parent", root.id)
 local eventsSub = menu.add_feature("Events", "parent", root.id)
 local heistSub = menu.add_feature("Heist Manager", "parent", root.id)
@@ -104,7 +92,7 @@ local crimeStats = menu.add_feature("Crimes", "parent", statSub.id)
 local vehicleStats = menu.add_feature("Vehicles", "parent", statSub.id)
 local cashStats = menu.add_feature("Cash", "parent", statSub.id)
 local combatStats = menu.add_feature("Combat", "parent", statSub.id)
-local weaponStats = menu.add_feature("Weapons", "parent", statSub.id)
+-- local weaponStats = menu.add_feature("Weapons", "parent", statSub.id)
 local miscStats = menu.add_feature("Miscellaneous Stats", "parent", statSub.id)
 
 local serialKiller = menu.add_feature("Serial Killer", "parent", teleportSub.id)
@@ -115,22 +103,6 @@ local collectTrophy = menu.add_feature("Trophy Rewards", "parent", collectSub.id
 
 local tunableSub = menu.add_feature("Tunables", "parent", miscSub.id)
 local xenoSub = menu.add_feature("Xenophobia", "parent", miscSub.id)
-
-
--- Character Features
-menu.add_feature("Set creation date", "action", charSub.id, function()
-    uFunctions.setCreationDate()
-end)
---menu.add_feature("Set playtime (milliseconds)", "action", charSub.id, function()
-   -- uFunctions.setPlayTime()
---end)
-menu.add_feature("Set character as transferred", "action", charSub.id, function()
-    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."WAS_CHAR_TRANSFERED"), true, true)
-end)
-menu.add_feature("Set character name", "action", charSub.id, function()
-    local value = helpers.getInput("Enter the desired character name (has no filter)", "", 10, 0)
-    uFunctions.stat_set_string(gameplay.get_hash_key(mpx2() .. "CHAR_NAME"), value)
-end)
 
 
 -- Heist Manager
@@ -310,56 +282,6 @@ menu.add_feature("Trigger Alien Egg resupply mission", "action", missionSub.id, 
     uFunctions.triggerAlienBunker()
 end)
 
-menu.add_feature("STAT FIX", "action", statSub.id, function()
-    -- Carreer
-    stats.stat_set_int(gameplay.get_hash_key("MPPLY_KILLS_PLAYERS"), 35933, true)
-    stats.stat_set_int(gameplay.get_hash_key("MPPLY_DEATHS_PLAYER "), 10020, true)
-    stats.stat_set_float(gameplay.get_hash_key("MPPLY_CHAR_DIST_TRAVELLED"), 27, true)
-    -- General
-    -- Crimes
-    -- Vehicles
-    -- Cash
-    -- Combat
-    -- Weapons
-
-
-
-    --stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PHN"), -1, true)
-    stats.stat_set_int(gameplay.get_hash_key("MPPLY_TOTAL_RACES_WON"), 1028, true)
-    stats.stat_set_int(gameplay.get_hash_key("MPPLY_TOTAL_RACES_LOST"), 782, true)
-    stats.stat_set_int(gameplay.get_hash_key("MPPLY_TOTAL_DEATHMATCH_WON"), 2083, true)
-    stats.stat_set_int(gameplay.get_hash_key("MPPLY_TOTAL_DEATHMATCH_LOST"), 972, true)
-    stats.stat_set_int(gameplay.get_hash_key("MPPLY_TENNIS_MATCHES_WON "), 87, true)
-    stats.stat_set_int(gameplay.get_hash_key("MPPLY_TENNIS_MATCHES_LOST"), 27, true)
-
-    -- STARS_EVADED, AVERAGE_TIME_PER_SESSON
-    -- 
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."KILLS_COP"), 21833, true) 
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."KILLS_SWAT"), 4287, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."DIED_IN_EXPLOSION"), 2788, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."DIED_IN_FALL"), 1207, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."DIED_IN_FIRE"), 108, true)
-
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."DIED_IN_ROAD"), 1876, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."NO_TIMES_WANTED_LEVEL"), 20763, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."STARS_ATTAINED"), 37972, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."STARS_EVADED"), 23196, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."PLANE_LANDINGS"), 43, true)
-
-    --stats.stat_set_int(gameplay.get_hash_key(""), , true)
-    --stats.stat_set_int(gameplay.get_hash_key(""), , true)
-    --[[stats.stat_set_int(gameplay.get_hash_key(""), , true)
-    stats.stat_set_int(gameplay.get_hash_key(""), , true)
-    stats.stat_set_int(gameplay.get_hash_key(""), , true)--]]
-end)
-menu.add_feature("U64 test", "action", charSub.id, function()
-    stats.stat_set_u64(gameplay.get_hash_key("MPPLY_TOTAL_TIME_SPENT_RACES"), 2149200000, 2149200000) --597hrs
-    stats.stat_set_u64(gameplay.get_hash_key("MPPLY_TOTAL_TIME_MISSION_CREATO"), 36000000, 36000000)
-    stats.stat_set_u64(gameplay.get_hash_key("MPPLY_TOTAL_TIME_SPENT_ON_MISS"), 4352400000, 4352400000)
-    stats.stat_set_u64(gameplay.get_hash_key("MPPLY_TOTAL_TIME_SPENT_DEATHMAT"), 3189600000, 3189600000)
-    stats.stat_set_u64(gameplay.get_hash_key("MPPLY_TOTAL_TIME_SPENT_FREEMODE"), 14317200000, 14317200000)
-end)
-
 -- Stats Manager
 menu.add_feature("Total players killed", "action", carreerStats.id, function() 
     uFunctions.intStatInput("MPPLY_KILLS_PLAYER", false)
@@ -376,9 +298,9 @@ end)
 menu.add_feature("Time spent in GTA Online", "action", carreerStats.id, function() 
     uFunctions.u64StatInput("LEADERBOARD_PLAYING_TIME", true)
 end)
-menu.add_feature("Time spent in first person", "action", carreerStats.id, function() 
+--menu.add_feature("Time spent in first person", "action", carreerStats.id, function() 
     
-end)
+--end)
 menu.add_feature("Time spent in Deathmatches", "action", carreerStats.id, function() 
     uFunctions.u64StatInput("MPPLY_TOTAL_TIME_SPENT_DEATHMAT", false)
 end)
@@ -388,7 +310,7 @@ end)
 menu.add_feature("Time spent in Creator", "action", carreerStats.id, function() 
     uFunctions.u64StatInput("MPPLY_TOTAL_TIME_MISSION_CREATO", false)
 end)
-menu.add_feature("Deathmatches published", "action", carreerStats.id, function() 
+--[[menu.add_feature("Deathmatches published", "action", carreerStats.id, function() 
 
 end)
 menu.add_feature("Races published", "action", carreerStats.id, function() 
@@ -405,7 +327,7 @@ menu.add_feature("Community plays of your published content", "action", carreerS
 end)
 menu.add_feature("Thumbs up for your published content", "action", carreerStats.id, function() 
 
-end)
+end)--]]
 
 menu.add_feature("Time played as character", "action", generalStats.id, function() 
     uFunctions.u64StatInput("TOTAL_PLAYING_TIME", true)
@@ -479,12 +401,12 @@ end)
 menu.add_feature("Bounties placed on you", "action", generalStats.id, function() 
     uFunctions.intStatInput("BOUNTPLACED", true)
 end)
-menu.add_feature("Highest Survival wave reached", "action", generalStats.id, function() 
+--menu.add_feature("Highest Survival wave reached", "action", generalStats.id, function() 
     
-end)
-menu.add_feature("MC Contribution", "action", generalStats.id, function() 
+--end)
+---menu.add_feature("MC Contribution", "action", generalStats.id, function() 
     
-end)
+--end)
 
 menu.add_feature("Cops killed", "action", crimeStats.id, function() 
     uFunctions.intStatInput("KILLS_COP", true)
@@ -507,13 +429,13 @@ end)
 menu.add_feature("Last Wanted Level duration", "action", crimeStats.id, function() 
     uFunctions.u64StatInput("TIME_LAST_WANTED_LEVEL", true)
 end)
-menu.add_feature("Longest Wanted Level duration", "action", crimeStats.id, function() 
+--menu.add_feature("Longest Wanted Level duration", "action", crimeStats.id, function() 
     
-end)
+--end)
 menu.add_feature("Time spent with a 5 star Wanted Level", "action", crimeStats.id, function() 
     uFunctions.u64StatInput("CHAR_WANTED_LEVEL_TIME5STAR", true)
 end)
-menu.add_feature("Drive-by kills as driver", "action", crimeStats.id, function() 
+--[[menu.add_feature("Drive-by kills as driver", "action", crimeStats.id, function() 
     
 end)
 menu.add_feature("Drive-by kills as passenger", "action", crimeStats.id, function() 
@@ -524,7 +446,7 @@ menu.add_feature("Tires shot out", "action", crimeStats.id, function()
 end)
 menu.add_feature("Vehicular kills", "action", crimeStats.id, function() 
     --uFunctions.intStatInput
-end)
+end)--]]
 menu.add_feature("Cars stolen", "action", crimeStats.id, function() 
     uFunctions.intStatInput("NUMBER_STOLEN_CARS", true)
 end)
@@ -549,9 +471,9 @@ end)
 menu.add_feature("Cop vehicles stolen", "action", crimeStats.id, function() 
     uFunctions.intStatInput("NUMBER_STOLEN_COP_VEHICLE", true)
 end)
-menu.add_feature("Store Hold Ups", "action", crimeStats.id, function() 
+--menu.add_feature("Store Hold Ups", "action", crimeStats.id, function() 
     
-end)
+--end)
 
 menu.add_feature("Favorite Bike", "action", vehicleStats.id, function() 
     uFunctions.setFavoriteBikeMC()
@@ -605,18 +527,18 @@ menu.add_feature("Highest speed in a road vehicle", "action", vehicleStats.id, f
     uFunctions.floatStatInput("FASTEST_SPEED", true)
     menu.notify("METERS PER SECOND!!", "Apex", 4, 257818)
 end)
-menu.add_feature("Road vehicle driven fastest", "action", vehicleStats.id, function() 
+--menu.add_feature("Road vehicle driven fastest", "action", vehicleStats.id, function() 
     --TOP_SPEED_CAR
-end)
+--end)
 menu.add_feature("Farthest stoppie", "action", vehicleStats.id, function() 
     uFunctions.floatStatInput("LONGEST_STOPPIE_DIST", true)
 end)
 menu.add_feature("Farthest wheelie", "action", vehicleStats.id, function() 
     uFunctions.floatStatInput("LONGEST_WHEELIE_DIST", true)
 end)
-menu.add_feature("Farthest driven without crashing", "action", vehicleStats.id, function() 
+--menu.add_feature("Farthest driven without crashing", "action", vehicleStats.id, function() 
     
-end)
+--end)
 menu.add_feature("Car crashes", "action", vehicleStats.id, function() 
     uFunctions.intStatInput("NUMBER_CRASHES_CARS", true)
 end)
@@ -629,7 +551,7 @@ end)
 menu.add_feature("Bailed from a moving vehicle", "action", vehicleStats.id, function() 
     uFunctions.intStatInput("BAILED_FROM_VEHICLE", true)
 end)
-menu.add_feature("Farthest vehicle jump", "action", vehicleStats.id, function() 
+--[[menu.add_feature("Farthest vehicle jump", "action", vehicleStats.id, function() 
     
 end)
 menu.add_feature("Highest vehicle jump", "action", vehicleStats.id, function() 
@@ -649,7 +571,7 @@ menu.add_feature("Unique Stunt Jumps completed", "action", vehicleStats.id, func
 end)
 menu.add_feature("Near misses", "action", vehicleStats.id, function() 
     
-end)
+end)--]]
 menu.add_feature("Cop cars blown up", "action", vehicleStats.id, function() 
     uFunctions.intStatInput("CARS_COPS_EXPLODED", true)
 end)
@@ -674,19 +596,134 @@ end)
 menu.add_feature("Vehicles resprayed", "action", vehicleStats.id, function() 
     uFunctions.intStatInput("VEHICLES_SPRAYED", true)
 end)
-menu.add_feature("Vehicles exported", "action", miscStats.id, function() 
+menu.add_feature("Cars exported", "action", vehicleStats.id, function() 
     uFunctions.intStatInput("VEHEXPORTED", true)
 end)
 
--- FAVORITE_WEAPON_HELDTIME
-menu.add_feature("Least favorite radio station", "action", miscStats.id, function() 
-
+menu.add_feature("Spent on weapons & armor", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_SPENT_WEAPON_ARMOR", true) 
+end)
+menu.add_feature("Spent on vehicles & maintenance", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_SPENT_VEH_MAINTENANCE", true)   
+end)
+menu.add_feature("Spent on style & entertainment", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_SPENT_STYLE_ENT", true)  
+end)
+menu.add_feature("Spent on property & utilities", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_SPENT_PROPERTY_UTIL", true)  
+end)
+menu.add_feature("Spent on Job & Activity entry fees", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_SPENT_JOB_ACTIVITY", true)  
+end)
+menu.add_feature("Spent on contact services", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_SPENT_CONTACT_SERVICE", true)  
+end)
+menu.add_feature("Spent on healthcare & bail", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_SPENT_HEALTHCARE", true)  
+end)
+menu.add_feature("Dropped or stolen", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_SPENT_DROPPED_STOLEN", true)  
+end)
+menu.add_feature("Given to others", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_SPENT_SHARED", true)  
+end) 
+menu.add_feature("Job cash shared with others", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_SPENT_JOBSHARED", true)  
+end)
+menu.add_feature("Earned from Jobs", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_EARN_JOBS", true)  
+end) 
+menu.add_feature("Earned from selling vehicles", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_EARN_SELLING_VEH", true)  
+end)
+menu.add_feature("Earned from betting", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_EARN_BETTING", true)   
+end) 
+menu.add_feature("Earned from Good Sport reward", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_EARN_GOOD_SPORT", true)  
+end)
+menu.add_feature("Picked up", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_EARN_PICKED_UP", true)   
+end)
+menu.add_feature("Received from others", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_EARN_SHARED", true)  
+end)
+menu.add_feature("Job cash shared by others", "action", cashStats.id, function() 
+    uFunctions.intStatInput("MONEY_EARN_JOBSHARED", true)  
 end)
 
-menu.add_feature("get", "action", miscStats.id, function() 
+menu.add_feature("Shots", "action", combatStats.id, function() 
+    uFunctions.intStatInput("SHOTS", true)
+end)
+menu.add_feature("Hits", "action", combatStats.id, function() 
+    uFunctions.intStatInput("HITS", true)
+end)
+menu.add_feature("Accuracy", "action", combatStats.id, function() 
+    uFunctions.floatStatInput("WEAPON_ACCURACY", true)
+end)
+menu.add_feature("Kills", "action", combatStats.id, function() 
+    uFunctions.intStatInput("KILLS", true)
+end)
+menu.add_feature("Headshot kills", "action", combatStats.id, function() 
+    uFunctions.intStatInput("HEADSHOTS", true)
+end)
+menu.add_feature("Armed kills", "action", combatStats.id, function() 
+    uFunctions.intStatInput("KILLS_ARMED", true)
+end)
+menu.add_feature("Free Aim kills", "action", combatStats.id, function() 
+    uFunctions.intStatInput("KILLS_IN_FREE_AIM", true)
+end)
+menu.add_feature("Stealth kills", "action", combatStats.id, function() 
+    uFunctions.intStatInput("KILLS_STEALTH", true)
+end)
+--menu.add_feature("Counter attacks", "action", combatStats.id, function() 
+    --uFunctions.intStatInput("", true)
+--end)
+menu.add_feature("Player kills", "action", combatStats.id, function() 
+    uFunctions.intStatInput("KILLS_PLAYERS", true)
+end)
+menu.add_feature("Player headshot kills", "action", combatStats.id, function() 
+    uFunctions.intStatInput("PLAYER_HEADSHOTS", true)
+end)
+--menu.add_feature("Survival kills", "action", combatStats.id, function() 
+    --uFunctions.intStatInput("", true)
+--end)
+--menu.add_feature("Gang Attack kills", "action", combatStats.id, function() 
+    --uFunctions.intStatInput("", true)
+--end)
+menu.add_feature("Highest killstreak in Deathmatch", "action", combatStats.id, function() 
+    uFunctions.intStatInput("DM_HIGHEST_KILLSTREAK", true)
+end)
+--menu.add_feature("Archenemy", "action", combatStats.id, function() 
+    -- uFunctions ARCHENEMY_NAME
+--end)
+menu.add_feature("Times killed by Archenemy", "action", combatStats.id, function() 
+    uFunctions.intStatInput("ARCHENEMY_KILLS", true)
+end)
+--menu.add_feature("Victim", "action", combatStats.id, function() 
+    -- uFunctions BIGGEST_VICTIM_NAME
+--end)
+menu.add_feature("Victim kills", "action", combatStats.id, function() 
+    uFunctions.intStatInput("BIGGEST_VICTIM_KILLS", true)
+end)
+
+-- FAVORITE_WEAPON_HELDTIME
+--menu.add_feature("Least favorite radio station", "action", miscStats.id, function() 
+
+--end)
+menu.add_feature("Set character as transferred", "action", miscStats.id, function()
+    stats.stat_set_bool(gameplay.get_hash_key(mpx2().."WAS_CHAR_TRANSFERED"), true, true)
+end)
+menu.add_feature("Set character name", "action", miscStats.id, function()
+    local value = helpers.getInput("Enter the desired character name (has no filter)", "", 10, 0)
+    uFunctions.stat_set_string(gameplay.get_hash_key(mpx2() .. "CHAR_NAME"), value)
+end)
+
+
+--[[ menu.add_feature("get", "action", miscStats.id, function() 
     local piss = stats.stat_get_int(gameplay.get_hash_key(mpx2().."LAP_DANCED_BOUGHT"), -1)
     menu.notify(tostring(piss))
-end)
+end)--]]
 
 
 
@@ -875,12 +912,12 @@ end
 
 
 -- Tax Fraud Features
-menu.add_feature("Nightclub Loop", "toggle", fraudSub.id, function(f)
-    helpers.iconNotification("CHAR_BANK_MAZE", "1 Million per minute!")
+--[[menu.add_feature("Nightclub Loop", "toggle", fraudSub.id, function(f)
     while f.on do
-        uFunctions.nightClubLoopFunc()
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "CLUB_POPULARITY"), 1000, true)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "CLUB_PAY_TIME_LEFT"), -1, true)
     end 
-end)
+end)--]]
 
 
 -- Misc
