@@ -663,9 +663,9 @@ function uFunctions.intStatInput(stat, perchar)
     local value = helpers.getInput("Integer value", "", 10, 0)
 
     if not (perchar) then
-        stats.stat_set_int(gameplay.get_hash_key(stat), value, value)
+        stats.stat_set_int(gameplay.get_hash_key(stat), value, true)
     else
-        stats.stat_set_int(gameplay.get_hash_key(mpx2()..stat), value, value)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2()..stat), value, true)
     end
 end
 
@@ -673,9 +673,9 @@ function uFunctions.floatStatInput(stat, perchar)
     local value = helpers.getInput("Float value", "", 10, 0)
 
     if not (perchar) then
-        stats.stat_set_float(gameplay.get_hash_key(stat), value, value)
+        stats.stat_set_float(gameplay.get_hash_key(stat), value, true)
     else
-        stats.stat_set_float(gameplay.get_hash_key(mpx2()..stat), value, value)
+        stats.stat_set_float(gameplay.get_hash_key(mpx2()..stat), value, true)
     end
 end
 
