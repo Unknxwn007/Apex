@@ -19,4 +19,4 @@ Note: if your request is stupid it'll be ignored.
 [Loled](https://github.com/Loled69) | [Toph](https://github.com/Toph2T1) | [BigSmoke](https://github.com/BigSmoke2T1) 
 
 #### People who have provided help directly
-femboy.lua | holyjoey 
+femboy.lua | holyjoey | ilana
