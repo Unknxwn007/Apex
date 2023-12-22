@@ -1,3 +1,22 @@
+### 1.3.5.5
+- Additions
+    - Mission Manager -> Skip ULP missions
+    - Stats editor -> Archenemy, Victim, MC Contribution, Survival & Gang Attack kills, Longest Wanted Level duration, Counter attacks, 
+    LTS, DM, Captures & races published, store hold ups, tires shot out, farthest drive without crashing, 
+    Community plays & Thumbs Up of your published content, Drive-by kills by driver & passenger, Road vehicle driven fastest,
+    Unique Stunt Jumps found and completed, Most flips & spins in one vehicle jump, Near misses, vehicular kills & highest survival reached
+    - Remove Cash (thanks ilana!)
+- Fixes
+    -  Stats editor -> Hits, total players killed, favorite radio station
+- Removals
+    - Set Kills, deaths & KDR in Miscellaneous
+- Changes
+    - Renamed Complete setup to Auto setup in the doomsday heist
+    - Integrated teleportation in collectables sub
+    - reworked the source a little bit
+- Notes
+    - HUGE thanks to ilana for helping me out with the stats editor
+
 ### 1.3.5
 - Additions
     - In-depth stat editor (not 100% finished)

@@ -196,42 +196,6 @@ function uFunctions.basicUnlocks()
     menu.get_feature_by_hierarchy_key("online.recovery.arena_unlocks"):toggle()
  end -- i forgot :toggle() thanks toph        -Lol
       
-function uFunctions.setKills()
-      local input_stat, input_val = input.get("Enter desired kills (Max. 2147483647)", "", 10, 3)
-    if input_stat == 1 then
-        return HANDLER_CONTINUE
-    end
-    if input_stat == 2 then
-        return HANDLER_POP
-    end
-	menu.notify("Might require a double click")
-stats.stat_set_int(gameplay.get_hash_key("MPPLY_KILLS_PLAYERS"), input_val, true)
- end
-
-function uFunctions.setDeaths()
-      local input_stat, input_val = input.get("Enter desired deaths (Max. 2147483647)", "", 10, 3)
-    if input_stat == 1 then
-        return HANDLER_CONTINUE
-    end
-    if input_stat == 2 then
-        return HANDLER_POP
-    end
-	menu.notify("Might require a double click")
-stats.stat_set_int(gameplay.get_hash_key("MPPLY_DEATHS_PLAYER"), input_val, true)
- end
- 
-function uFunctions.setKD()
-      local input_stat, input_val = input.get("Enter desired K/D (Max. 2147483647)", "", 10, 3)
-    if input_stat == 1 then
-        return HANDLER_CONTINUE
-    end
-    if input_stat == 2 then
-        return HANDLER_POP
-    end
-stats.stat_set_float(gameplay.get_hash_key("MPPLY_KILL_DEATH_RATIO"), input_val, true)
-stats.stat_set_int(gameplay.get_hash_key("MPPLY_DEATHS_PLAYER"), 0, true)
-end
-
 function uFunctions.unlockArenaCars()
   	stats.stat_set_int(gameplay.get_hash_key(mpx2().."ARENAWARS_AP_TIER"), 999, true)
 	stats.stat_set_int(gameplay.get_hash_key(mpx2().."ARENAWARS_AP"), 10039, true)
@@ -699,6 +663,16 @@ function uFunctions.dateStatInput(stat, perchar)
     end
 end
 
+function uFunctions.stringStatInput(stat, perchar)
+    local value = helpers.getInput("String value", "", 12, 0)
+
+    if not (perchar) then
+        native.call(0xA87B2335D12531D7, gameplay.get_hash_key(stat), value , true)
+    else
+        native.call(0xA87B2335D12531D7, gameplay.get_hash_key(mpx2() .. stat), value , true)
+    end
+end
+
 function uFunctions.maxFleecaNormal()
     script.set_global_i(1928235, 7453)
     script.set_global_i(1928236, 7453)
@@ -841,5 +815,8 @@ function uFunctions.instantFinishApt()
     script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 19728, 12)
 end
 
+function uFunctions.setAchievement(achievementId)
+    native.call(0xBEC7076D64130195, achievementId)
+end
 
 return uFunctions
