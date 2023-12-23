@@ -6,7 +6,6 @@
     - Call Gun Van
     - Reset car club level
     - Car Club Exploit
-    - Arena Level
     - Reset arena level
     - Unlock Navy revolver
     - Unlock  Halloween decorations in penthouse
