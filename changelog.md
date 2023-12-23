@@ -1,3 +1,29 @@
+### 1.3.6
+- Additions
+    - Restore removed vehicles
+    - Force cloud save
+    - Bypass LSC sell amount
+    - Call Gun Van
+    - Reset car club level
+    - Car Club Exploit
+    - Arena Level
+    - Reset arena level
+    - Unlock Navy revolver
+    - Unlock  Halloween decorations in penthouse
+    - Unlock SA Mercenaries & Drug Wars Clothing
+    - Unlock Dildodude Camo
+    - Unlock All vehicle trade prices
+- Removals
+    - Tunables Sub (forgot to remove this entry)
+- Fixes
+    - Set favorite bike
+    - General input system improvement 
+- Changes
+    - Moved Tunables to misc sub
+    - Improved the alien tattoo & fast run unlocks
+    - Better names for unlocks
+    - Integrated Party Hats & Outfits unlocks in Chop Shop unlock
+
 ### 1.3.5.5
 - Additions
     - Mission Manager -> Skip ULP missions
