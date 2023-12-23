@@ -18,11 +18,12 @@ end
 function helpers.getInput(title, default, maxChar, flags)
     local r, s
     repeat
-      r, s = input.get(title, default, maxChar, flags)
-      if r == 2 then return end
-      system.wait()
+        r, s = input.get(title, default, maxChar, flags)
+        if r == 2 then return end
+        system.wait()
     until r == 0
-    if s == nil or s == "" then return end
+    if s == "" then return default end
+    if s == nil then return default end
     return s
 end
 

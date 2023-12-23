@@ -171,16 +171,6 @@ function uFunctions.independenceDaySpecialAdditionalClothing2()
     end
 end
 
-function uFunctions.unlockFastRun()
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_1_UNLCK"), -1, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_2_UNLCK"), -1, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_3_UNLCK"), -1, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_1_UNLCK"), -1, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_2_UNLCK"), -1, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_3_UNLCK"), -1, true)
-    menu.notify("Please change sessions.", "Apex")
-end
-
 function uFunctions.basicUnlocks()
     menu.get_feature_by_hierarchy_key("online.recovery.stat_unlocks"):toggle()
     menu.get_feature_by_hierarchy_key("online.recovery.tattoo_unlocks"):toggle()
@@ -451,25 +441,19 @@ end
 
 function uFunctions.weaponLiveryChristmas23()
     for index = 42068, 42069 do
-        script.set_global_i(262145 + index, 1)
-	script.set_global_i(262145 + 42122, 1)
+        script.set_global_i(262145 + 42122, 1)
     end
     stats.stat_set_int(-7648559, 5, true)
 end
 
 function uFunctions.setFavoriteBikeMC()
-    local input_stat, input_val = input.get("Enter int32 of desired vehicle", "", 10, 3)
-    if input_stat == 1 then
-        return HANDLER_CONTINUE
-    end
-    if input_stat == 2 then
-        return HANDLER_POP
-    end
-    menu.notify("Might require a double click")
-    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "FAVOUTFITBIKETIMECURRENT"), input_val, true) 
-    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "FAVOUTFITBIKETIME1ALLTIME"), input_val, true) 
-    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "FAVOUTFITBIKETYPECURRENT"), input_val, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "FAVOUTFITBIKETYPEALLTIME"), input_val, true)
+    local value = helpers.getInput("Enter int32 of desired vehicle", "", 20, 0)
+    system.wait(200)
+
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "FAVOUTFITBIKETIMECURRENT"), value, true) 
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "FAVOUTFITBIKETIME1ALLTIME"), value, true) 
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "FAVOUTFITBIKETYPECURRENT"), value, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "FAVOUTFITBIKETYPEALLTIME"), value, true)
 end
 
 function uFunctions.unlockArmoredParagon()
@@ -485,30 +469,6 @@ function uFunctions.unlockArmoredParagon()
     stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "CAS_VEHICLE_REWARD"), false, true)
     stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "CASINOPSTAT_BOOL0"), true, true)
     stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "CASINOPSTAT_BOOL1"), true, true)
-end
-
-function uFunctions.setCreationDate()
-    local input_stat, input_val = input.get("Example input: 2011,09,12 (year/month/day)", "", 10, 0)
-    if input_stat == 1 then
-        return HANDLER_CONTINUE
-    end
-    if input_stat == 2 then
-        return HANDLER_POP
-    end
-    menu.notify("Might require a double click")
-    native.call(0x2C29BFB64F4FCBE4, gameplay.get_hash_key(mpx2() .. "CHAR_DATE_CREATED"), native.ByteBuffer64(input_val) , true)
-end
-
-function uFunctions.setPlayTime()
-    local input_stat, input_val = input.get("Example input: 50400000000 (14,000hrs)", "", 10, 0)
-    if input_stat == 1 then
-        return HANDLER_CONTINUE
-    end
-    if input_stat == 2 then
-        return HANDLER_POP
-    end
-    menu.notify("Might require a double click")
-    stats.stat_set_i64(gameplay.get_hash_key(mpx2() .. "TOTAL_PLAYING_TIME"), input_val, true)
 end
 
 function uFunctions.skipYachtMissions()
@@ -626,6 +586,7 @@ end
 
 function uFunctions.intStatInput(stat, perchar)
     local value = helpers.getInput("Integer value", "", 10, 0)
+    system.wait(200)
 
     if not (perchar) then
         stats.stat_set_int(gameplay.get_hash_key(stat), value, true)
@@ -635,7 +596,8 @@ function uFunctions.intStatInput(stat, perchar)
 end
 
 function uFunctions.floatStatInput(stat, perchar)
-    local value = helpers.getInput("Float value", "", 10, 0)
+    local value = helpers.getInput("Float value", "", 70, 0)
+    system.wait(200)
 
     if not (perchar) then
         stats.stat_set_float(gameplay.get_hash_key(stat), value, true)
@@ -645,7 +607,8 @@ function uFunctions.floatStatInput(stat, perchar)
 end
 
 function uFunctions.u64StatInput(stat, perchar)
-    local value = helpers.getInput("Integer value", "", 10, 0)
+    local value = helpers.getInput("Integer value", "", 70, 0)
+    system.wait(200)
 
     if not (perchar) then
         stats.stat_set_u64(gameplay.get_hash_key(stat), value, value)
@@ -655,7 +618,8 @@ function uFunctions.u64StatInput(stat, perchar)
 end
 
 function uFunctions.dateStatInput(stat, perchar)
-    local value = helpers.getInput("Example input: 2011,09,12", "", 10, 0)
+    local value = helpers.getInput("Example input: 2011,09,12", "", 70, 0)
+    system.wait(200)
 
     if not (perchar) then
         native.call(0x2C29BFB64F4FCBE4, gameplay.get_hash_key(stat), native.ByteBuffer64(value) , true)
@@ -665,7 +629,8 @@ function uFunctions.dateStatInput(stat, perchar)
 end
 
 function uFunctions.stringStatInput(stat, perchar)
-    local value = helpers.getInput("String value", "", 12, 0)
+    local value = helpers.getInput("String value", "", 70, 0)
+    system.wait(200)
 
     if not (perchar) then
         native.call(0xA87B2335D12531D7, gameplay.get_hash_key(stat), value , true)
@@ -792,6 +757,36 @@ function uFunctions.instantFinishH3()
     script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 27489 + 859, 99999)
 end
 
+function uFunctions.tradePricesVEH()
+    stats.stat_set_int(1488257575, 65535, true)
+    stats.stat_set_int(3591169109, 48, true)
+    stats.stat_set_int(2560268979, 48, true)
+    stats.stat_set_int(458266029, 48, true)
+    stats.stat_set_int(4138114680, 48, true)
+    stats.stat_set_int(2467433633, 48, true)
+    stats.stat_set_int(1572570883, 32, true)
+    stats.stat_set_int(2103187252, 255, true)
+    stats.stat_set_int(2605433233, 255, true)
+    stats.stat_set_int(2848245310, -1, true)
+    stats.stat_set_int(3090440989, -1, true)
+    stats.stat_set_int(2389315465, -1, true)
+    stats.stat_set_int(4064576850, 8388607, true)
+    stats.stat_set_int(1646017533, -1, true)
+    stats.stat_set_int(1986818418, 127, true)
+    stats.stat_set_int(2812264742, 8388576, true)
+    stats.stat_set_int(3208705583, 5, true)
+    stats.stat_set_int(3820516274, 10, true)
+    stats.stat_set_int(2183656009, 10, true)
+    native.call(0xDB8A58AEAA67CD07, 32366, true, mpx2())
+    native.call(0xDB8A58AEAA67CD07, 34373, true, mpx2())
+    native.call(0xDB8A58AEAA67CD07, 34374, true, mpx2())
+    native.call(0xDB8A58AEAA67CD07, 41656, true, mpx2())
+    native.call(0xDB8A58AEAA67CD07, 41671, true, mpx2())
+    native.call(0x1581503AE529CD2E, 22063, 20, mpx2())
+    native.call(0x1581503AE529CD2E, 22050, 5, mpx2())
+    native.call(0x1581503AE529CD2E, 158, 158, mpx2())
+end
+
 function uFunctions.instantFinishH2()
     uFunctions.getFMHost()
     for i = 0, 1, 1 do
@@ -819,5 +814,7 @@ end
 function uFunctions.setAchievement(achievementId)
     native.call(0xBEC7076D64130195, achievementId)
 end
+
+
 
 return uFunctions

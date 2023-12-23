@@ -53,8 +53,8 @@ end
 local root = menu.add_feature("#FF0000FF#Apex", "parent", 0) 
 
 local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
---local fraudSub = menu.add_feature("#FF0000FF#[RISKY] #DEFAULT# Tax Fraud", "parent", root.id)
--- local reputationSub = menu.add_feature("Reputation", "parent", root.id)
+local fraudSub = menu.add_feature("#FF0000FF#[RISKY]#DEFAULT# Tax Fraud", "parent", root.id)
+local reputationSub = menu.add_feature("Reputation", "parent", root.id)
 local eventsSub = menu.add_feature("Events", "parent", root.id)
 local heistSub = menu.add_feature("Heist Manager", "parent", root.id)
 local missionSub = menu.add_feature("Mission Manager", "parent", root.id)
@@ -63,17 +63,25 @@ local usefulSub = menu.add_feature("Useful Features", "parent", root.id)
 local collectSub = menu.add_feature("Collectables", "parent", root.id) 
 local customSub = menu.add_feature("Custom Executions", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
---[[local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
+local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
 
 
 -- dev stuff
 menu.add_feature("GET INT-STAT VALUE", "action", devSub.id, function() 
     system.wait(300)
-    local value = helpers.getInput("STAT NAME", "", 20, 0)
+    local value = helpers.getInput("STAT NAME", "", 30, 0)
 
     local piss = stats.stat_get_int(gameplay.get_hash_key(mpx2()..value), -1)
     menu.notify(tostring(piss))
-end)--]]
+end)
+menu.add_feature("SET INT-STAT VALUE", "action", devSub.id, function() 
+    -- stats.stat_set_u64(gameplay.get_hash_key(mpx2().."TOTAL_PLAYING_TIME"), 528035702983, 528035702983)
+
+    local value = helpers.getInput("String value", "", 70, 0)
+    native.call(0xA87B2335D12531D7, gameplay.get_hash_key(mpx2() .. "_ACIDLAB_PRODUCT_NAME"), value , true)
+    native.call(0xA87B2335D12531D7, gameplay.get_hash_key(mpx2() .. "_ACIDLAB_PRODUCT_NAME2"), value , true)
+end)
+
 
 
 -- Subs
@@ -112,7 +120,6 @@ local yetiHunt = menu.add_feature("Yeti Hunt", "parent", teleportSub.id)
 local collectMusic = menu.add_feature("Media Sticks", "parent", collectSub.id)
 local collectTrophy = menu.add_feature("Trophy Rewards", "parent", collectSub.id)
 
-local tunableSub = menu.add_feature("Tunables", "parent", miscSub.id)
 local xenoSub = menu.add_feature("Xenophobia", "parent", miscSub.id)
 
 
@@ -136,6 +143,10 @@ end)
 menu.add_feature("Snow Cannon", "action", uWeaponsSub.id, function()
     uFunctions.unlockSnowCannon()
 end)  
+menu.add_feature("Dildodude Camo", "action", uWeaponsSub.id, function()
+    native.call(0xDB8A58AEAA67CD07, 36787, true, mpx2())
+    native.call(0xDB8A58AEAA67CD07, 36788, true, mpx2())
+end) 
 menu.add_feature("Christmas 2023 Liveries", "action", uWeaponsSub.id, function()
     uFunctions.weaponLiveryChristmas23()
 end)   
@@ -143,8 +154,12 @@ menu.add_feature("Stone Hatchet", "action", uWeaponsSub.id, function()
     stats.stat_set_bool(gameplay.get_hash_key("MPPLY_MELEECHLENGECOMPLETED"), true, true)
     stats.stat_set_bool(gameplay.get_hash_key("MPPLY_HEADSHOTCHLENGECOMPLETED"), true, true)
 end) 
+menu.add_feature("Navy revolver", "action", uWeaponsSub.id, function()
+    native.call(0xDB8A58AEAA67CD07, 28158, true, mpx2())
+    menu.notify("Please change sessions.", "Apex")
+end) 
 -- vehicles
-menu.add_feature("Unlock 'Best Lap' Paint Colors", "action", uVehiclesSub.id, function()
+menu.add_feature("'Best Lap' Paint Colors", "action", uVehiclesSub.id, function()
     local bestLapStat = gameplay.get_hash_key("MP0_AWD_FM_RACES_FASTEST_LAP")
     if not (stats.stat_get_int(bestLapStat, -1) >= 101) then
         stats.stat_set_int(bestLapStat, 101, true)
@@ -153,62 +168,102 @@ menu.add_feature("Unlock 'Best Lap' Paint Colors", "action", uVehiclesSub.id, fu
         menu.notify("You already have all of the 'Best Lap' colors unlocked.")
     end
 end)
+menu.add_feature("All trade prices", "action", uVehiclesSub.id, function()
+    uFunctions.tradePricesVEH()
+end)
 menu.add_feature("Arena Wars vehicles", "action", uVehiclesSub.id, function()
     uFunctions.unlockArenaCars()
 end)
 menu.add_feature("Some Liveries", "action", uVehiclesSub.id, function()
     uFunctions.unlockLiveries()
 end)
-menu.add_feature("Unlock Chop Shop Cars", "action", uVehiclesSub.id, function()
+menu.add_feature("Chop Shop Cars", "action", uVehiclesSub.id, function()
     uFunctions.unlockChopShopCars()
     menu.notify("Unlocked Police Gauntlet too.", "Apex", 6, colors.green)
 end)
-menu.add_feature("Unlock Shotaro", "action", uVehiclesSub.id, function()
+menu.add_feature("Shotaro", "action", uVehiclesSub.id, function()
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."CRDEADLINE"), 32768, true)
 end)
-menu.add_feature("Unlock Armored Paragon R", "action", uVehiclesSub.id, function()
+menu.add_feature("Armored Paragon R", "action", uVehiclesSub.id, function()
     uFunctions.unlockArmoredParagon()
 end)
-menu.add_feature("Cunning Stunts Figures", "action", uClothingSub.id, function()
-    uFunctions.cunningStuntsFigures()
-end)
-menu.add_feature("Doomsday Heist Bodysuits", "action", uClothingSub.id, function()
-    uFunctions.doomsdayHeistBodysuits()
-end)
-menu.add_feature("Diamond Casino Heist Bodysuits", "action", uClothingSub.id, function()
-    uFunctions.diamondCasinoHeistBodysuits()
-end)
-menu.add_feature("Los Santos Tuners Clothing", "action", uClothingSub.id, function()
-    uFunctions.losSantosTunersClothing()
-end)
-menu.add_feature("Criminal Enterprises Clothing", "action", uClothingSub.id, function()
-    uFunctions.criminalEnterprisesClothing()
-end)
-menu.add_feature("Festive Surprise 2014 Clothing", "action", uClothingSub.id, function()
-    uFunctions.festiveSurprise2014Clothing()
-end)
-menu.add_feature("Independence Day Special Clothing", "action", uClothingSub.id, function()
+-- clothing
+-- Beach Bum Update
+-- Holiday Gifts
+-- The Valentine's Day Massacre Special
+-- The Business Update
+-- The High Life Update
+-- The "I'm Not a Hipster" Update
+menu.add_feature("Independence Day Special", "action", uClothingSub.id, function()
     uFunctions.independenceDaySpecialClothing()
-end)
-menu.add_feature("Lowriders Clothing", "action", uClothingSub.id, function()
-    uFunctions.lowridersClothing()
-end)
-menu.add_feature("Criminal Enterprises Additional Clothing", "action", uClothingSub.id, function()
-    uFunctions.criminalEnterprisesAdditionalClothing()
-end)
-menu.add_feature("Independence Day Special Additional Clothing", "action", uClothingSub.id, function()
     uFunctions.independenceDaySpecialAdditionalClothing()
-end)
-menu.add_feature("Cayo Perico Heist Clothing", "action", uClothingSub.id, function()
-    uFunctions.cayoPericoHeistClothing()
-end)
-menu.add_feature("Independence Day Special Additional Clothing 2", "action", uClothingSub.id, function()
     uFunctions.independenceDaySpecialAdditionalClothing2()
 end)
-menu.add_feature("Chop Shop Clothing", "action", uClothingSub.id, function()
-    uFunctions.packedChopShopClothes()
+-- The San Andreas Flight School Update
+-- The Last Team Standing Update
+menu.add_feature("Festive Surprise 2014", "action", uClothingSub.id, function()
+    uFunctions.festiveSurprise2014Clothing()
 end)
-menu.add_feature("Unlock Party Clothing", "action", uClothingSub.id, function()
+-- Legacy Heists
+-- Ill-Gotten Gains Part 1
+-- Ill-Gotten Gains Part 2
+-- Freemode Events Update
+menu.add_feature("Lowriders", "action", uClothingSub.id, function()
+    uFunctions.lowridersClothing()
+end)
+-- Halloween Surprise
+-- Executives and Other Criminals
+-- Festive Surprise 2015
+-- January 2016 Update
+-- Be My Valentine
+-- Lowrider: Custom Classics
+-- Further Adventures in Finance and Felony
+menu.add_feature("Cunning Stunts", "action", uClothingSub.id, function()
+    uFunctions.cunningStuntsFigures()
+end)
+-- bikers
+-- import export
+-- Cunning stunts special vehicle circuit
+-- Gunrunning
+-- Smuggler's Run
+menu.add_feature("Doomsday Heist", "action", uClothingSub.id, function()
+    uFunctions.doomsdayHeistBodysuits()
+end)
+-- Southern San Andreas Super Sport Series
+-- after hours
+-- arena wars   
+-- diamond casino and resort
+menu.add_feature("Diamond Casino Heist", "action", uClothingSub.id, function()
+    uFunctions.diamondCasinoHeistBodysuits()
+end)
+-- 2020 Summer special
+menu.add_feature("The Cayo Perico Heist", "action", uClothingSub.id, function()
+    uFunctions.cayoPericoHeistClothing()
+end)
+menu.add_feature("Los Santos Tuners", "action", uClothingSub.id, function()
+    uFunctions.losSantosTunersClothing()
+end)
+menu.add_feature("The Contract", "action", uClothingSub.id, function()
+    for i = 32184, 32195 do
+        script.set_global_i(262145 + i, 1)
+    end
+end)
+menu.add_feature("Criminal Enterprises", "action", uClothingSub.id, function()
+    uFunctions.criminalEnterprisesAdditionalClothing()
+    uFunctions.criminalEnterprisesClothing()
+end)
+menu.add_feature("Drug Wars", "action", uClothingSub.id, function()
+    for i =  36699, 36770 do
+        native.call(0xDB8A58AEAA67CD07, i, true, mpx2())
+    end
+end)
+menu.add_feature("San Andreas Mercenaries", "action", uClothingSub.id, function()
+    for i = 41943, 41945 do
+        native.call(0xDB8A58AEAA67CD07, i, true, mpx2())
+    end
+end)
+menu.add_feature("Chop Shop", "action", uClothingSub.id, function()
+    uFunctions.packedChopShopClothes()
     uFunctions.unlockPartyClothes()
 end)
 -- awards
@@ -226,9 +281,6 @@ end)
 menu.add_feature("Basic Unlock All", "action", unlocksSub.id, function(f)
     uFunctions.basicUnlocks()
 end)
-menu.add_feature("Unlock Fast Run and Reload", "action", unlocksSub.id, function()
-    uFunctions.unlockFastRun()
-end)
 menu.add_feature("Returning Player Bonus", "action", unlocksSub.id, function()
     stats.stat_set_int(gameplay.get_hash_key("MPPLY_UNLOCK_EXCLUS_CONTENT"), -1, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."SP_UNLOCK_EXCLUS_CONTENT"), -1, true)
@@ -236,13 +288,63 @@ end)
 menu.add_feature("All Contacts", "action", unlocksSub.id, function()
     uFunctions.unlockContacts()
 end)
-menu.add_feature("Alien Tattoo (Male)", "action", unlocksSub.id, function()
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."TATTOO_FM_CURRENT_32"), 32768, true, true)
-    menu.notify("Unlocked Alien Tattoo, requires new session", "Apex", 4, 257818)
+menu.add_feature("Halloween decorations in penthouse", "action", unlocksSub.id, function()
+    script.set_global_i(262145 + 28288, 18200)
+    script.set_global_i(262145+ 28222, 22500)
+    for i = 28477, 28482 do
+        script.set_global_i(262145 + i, 22500)
+    end
 end)
-menu.add_feature("Alien Tattoo (Female)", "action", unlocksSub.id, function()
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."TATTOO_FM_CURRENT_32"), 67108864, true, true)
-    menu.notify("Unlocked Alien Tattoo, requires new session", "Apex", 4, 257818)
+menu.add_feature("Fast Run and Reload", "action_value_str", unlocksSub.id, function(f) 
+    if f.value == 0 then
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_1_UNLCK"), -1, true)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_2_UNLCK"), -1, true)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_3_UNLCK"), -1, true)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_1_UNLCK"), -1, true)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_2_UNLCK"), -1, true)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_3_UNLCK"), -1, true)
+    else
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_1_UNLCK"), 0, true)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_2_UNLCK"), 0, true)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_3_UNLCK"), 0, true)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_1_UNLCK"), 0, true)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_2_UNLCK"), 0, true)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_FM_ABILITY_3_UNLCK"), 0, true)
+    end
+    menu.notify("Please change sessions.", "Apex")
+end):set_str_data({"ON", "OFF"})
+menu.add_feature("Unlock Alien Tattoo", "action_value_str", unlocksSub.id, function(f) 
+    if f.value == 0 then
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."TATTOO_FM_CURRENT_32"), 32768, true, true)
+    else
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."TATTOO_FM_CURRENT_32"), 67108864, true, true)
+    end
+    menu.notify("Please change sessions.", "Apex")
+end):set_str_data({"Male", "Female"})
+
+
+-- Tax fraud
+menu.add_feature("Bypass LSC sell amount", "toggle", fraudSub.id, function(f)
+    while f.on do
+        script.set_global_i(262145 + 175, 999999999)
+        system.wait()
+    end
+end)
+
+
+-- Reputation
+menu.add_feature("Car Club level Exploit", "toggle", reputationSub.id, function(f)
+    while f.on do
+        for i = 31944, 31971 do
+            script.set_global_i(262145 + i, 90000)
+        end
+        script.set_global_i(2751023, 1)
+        system.wait()
+    end
+    menu.notify("Buy clothing or customize your vehicle!", "Apex", 6, 0x00ff00)
+end)
+menu.add_feature("Reset car club level", "action", reputationSub.id, function() 
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CAR_CLUB_REP"), 5, true)
 end)
 
 
@@ -278,7 +380,7 @@ end)
 menu.add_feature("Doomsday Heist", "action", instFinish.id, function()
     uFunctions.instantFinishH2()
 end)
-menu.add_feature("Legacy Heist", "action", instFinish.id, function()
+menu.add_feature("Legacy Heists", "action", instFinish.id, function()
     uFunctions.instantFinishApt()
 end)
 -- legacy heists -> 15m apt
@@ -891,10 +993,6 @@ end)
 
 
 -- Useful Features
-menu.add_feature("Remove Cash", "action", usefulSub.id, function()
-    local value = helpers.getInput("Amount of cash to remove", "", 20, 0)
-    script.set_global_i(2707037 + 36, value)
-end)
 menu.add_feature("Remove transaction error", "toggle", usefulSub.id, function(f)
     while f.on do
         script.set_global_i(4537356, 0)
@@ -902,6 +1000,19 @@ menu.add_feature("Remove transaction error", "toggle", usefulSub.id, function(f)
         script.set_global_i(4537358, 0)
         system.wait(0)
     end
+end)
+menu.add_feature("Force cloud save", "action", usefulSub.id, function()
+    native.call(0xE07BCA305B82D2FD, 0, false, 3, false)
+end)
+menu.add_feature("Call Gun Van", "action", usefulSub.id, function()
+    local coords = player.get_player_coords(player.player_id())
+    script.set_global_f(1948900, coords.x)
+    script.set_global_f(1948900 + 1, coords.y)
+    script.set_global_f(1948900 + 2, coords.z)
+end)
+menu.add_feature("Remove Cash", "action", usefulSub.id, function()
+    local value = helpers.getInput("Amount of cash to remove", "", 20, 0)
+    script.set_global_i(2707037 + 36, value)
 end)
 menu.add_feature("Reset vehicle sell timer", "action", usefulSub.id, function()
     stats.stat_set_int(gameplay.get_hash_key("MPPLY_VEHICLE_SELL_TIME"), 0, true)
@@ -1012,8 +1123,14 @@ end)--]]
 
 
 -- Misc
-menu.add_feature("Enable Snow", "toggle", tunableSub.id, function(f)
+menu.add_feature("Enable Snow", "toggle", miscSub.id, function(f)
     menu.get_feature_by_hierarchy_key("online.tunables.snow").on = f.on
+end)
+menu.add_feature("Restore removed vehicles", "action", miscSub.id, function()
+    for _, index in ipairs(uTable.unreleasedVehicles) do
+        script.set_global_i(262145 + index, 1)
+        system.wait(2)
+    end
 end)
 for k, v in pairs(uTable.regionKick) do
     menu.add_feature("Byebye " .. v, "toggle", xenoSub.id, function(f)
@@ -1040,9 +1157,6 @@ end)
 menu.add_feature("100% Complete Flightschool", "action", miscSub.id, function()
     uFunctions.completeFlightSchool()
 end)
-menu.add_feature("-----------------------------", "action", miscSub.id, function()
-    menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
-end)
 vanityPlateFunc = menu.add_feature("Vanity Plates", "autoaction_value_str", miscSub.id, function(f, pid)
     vehicle.set_vehicle_number_plate_index(player.player_vehicle(), f.value + 6)
 end)
@@ -1060,3 +1174,30 @@ end)
     end 
 end)
 schizoLog:toggle()--]]  
+
+--[[### 1.3.6
+- Additions
+    - Restore removed vehicles
+    - Force cloud save
+    - Bypass LSC sell amount
+    - Call Gun Van
+    - Reset car club level
+    - Car Club Exploit
+    - Arena Level
+    - Reset arena level
+    - Unlock Navy revolver
+    - Unlock  Halloween decorations in penthouse
+    - Unlock SA Mercenaries & Drug Wars Clothing
+    - Unlock Dildodude Camo
+    - Unlock All vehicle trade prices
+- Removals
+    - Tunables Sub (forgot to remove this entry)
+- Fixes
+    - Set favorite bike
+    - General input system improvement 
+- Changes
+    - Moved Tunables to misc sub
+    - Improved the alien tattoo & fast run unlocks
+    - Better names for unlocks
+    - Integrated Party Hats & Outfits unlocks in Chop Shop unlock
+--]]
