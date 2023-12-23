@@ -10,9 +10,7 @@ end
 
 --[[
     TODO List
-
     - make modded acc presets
-    - at a random interval show random name from an array "leaving" the game
     - stop paying house keeping charges
     - collectable drop
     - collectables -> ghost photo, action figure, ld organics, play cards, signal jammer, usb stick, movie prop, burried stashes, hidden cache, treasure chest, shipwreck (daily)
@@ -30,8 +28,8 @@ local colors = {
 
 -- Welcome
 menu.create_thread(function()
-    -- menu.notify("Welcome to Apex!", "Apex", 6, 0x00ff00)
     helpers.iconNotification("CHAR_MP_FM_CONTACT", "Welcome!")
+    --helpers.verCheck()
 end)
 
 -- Checks
@@ -56,6 +54,7 @@ local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
 local fraudSub = menu.add_feature("#FF0000FF#[RISKY]#DEFAULT# Tax Fraud", "parent", root.id)
 local reputationSub = menu.add_feature("Reputation", "parent", root.id)
 local eventsSub = menu.add_feature("Events", "parent", root.id)
+--local accPresets = menu.add_feature("Account Presets", "parent", root.id) -- yes/no? | debating whether or not to include presets for different kind of player stats
 local heistSub = menu.add_feature("Heist Manager", "parent", root.id)
 local missionSub = menu.add_feature("Mission Manager", "parent", root.id)
 local statSub = menu.add_feature("Stats Manager", "parent", root.id)
@@ -63,11 +62,11 @@ local usefulSub = menu.add_feature("Useful Features", "parent", root.id)
 local collectSub = menu.add_feature("Collectables", "parent", root.id) 
 local customSub = menu.add_feature("Custom Executions", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
-local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
+--local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
 
 
 -- dev stuff
-menu.add_feature("GET INT-STAT VALUE", "action", devSub.id, function() 
+--[[menu.add_feature("GET INT-STAT VALUE", "action", devSub.id, function() 
     system.wait(300)
     local value = helpers.getInput("STAT NAME", "", 30, 0)
 
@@ -78,9 +77,7 @@ menu.add_feature("SET INT-STAT VALUE", "action", devSub.id, function()
     -- stats.stat_set_u64(gameplay.get_hash_key(mpx2().."TOTAL_PLAYING_TIME"), 528035702983, 528035702983)
 
     local value = helpers.getInput("String value", "", 70, 0)
-    native.call(0xA87B2335D12531D7, gameplay.get_hash_key(mpx2() .. "_ACIDLAB_PRODUCT_NAME"), value , true)
-    native.call(0xA87B2335D12531D7, gameplay.get_hash_key(mpx2() .. "_ACIDLAB_PRODUCT_NAME2"), value , true)
-end)
+end)--]]
 
 
 

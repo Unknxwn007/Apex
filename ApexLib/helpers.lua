@@ -27,4 +27,15 @@ function helpers.getInput(title, default, maxChar, flags)
     return s
 end
 
+--[[function helpers.verCheck()
+    local webVersion = web.get("https://raw.githubusercontent.com/Unknxwn007/Apex/main/version.txt")
+    local localVersion = "donkeykong"
+
+    if webVersion == localVersion then
+        menu.notify("success", "Apex", 10, FF00FFFF)
+    else
+        menu.notify("fail", "Apex", 10, FF00FFFF)
+    end
+end--]]
+
 return helpers
