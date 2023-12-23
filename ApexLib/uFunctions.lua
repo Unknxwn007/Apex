@@ -452,8 +452,8 @@ end
 function uFunctions.weaponLiveryChristmas23()
     for index = 42068, 42069 do
         script.set_global_i(262145 + index, 1)
-	script.set_global_i(262145 + 42122, 1)
     end
+    script.set_global_i(262145 + 42122, 1)
     stats.stat_set_int(-7648559, 5, true)
 end
 
