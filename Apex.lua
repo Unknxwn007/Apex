@@ -49,6 +49,7 @@ end
 
 -- Main Menu
 local root = menu.add_feature("#FF0000FF#Apex", "parent", 0) 
+local playerRoot = menu.add_player_feature("#FF0000FF#Apex", "parent", 0) 
 
 local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
 local fraudSub = menu.add_feature("#FF0000FF#[RISKY]#DEFAULT# Tax Fraud", "parent", root.id)
@@ -64,6 +65,7 @@ local customSub = menu.add_feature("Custom Executions", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
 --local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
 
+local playerusefulSub = menu.add_player_feature("Useful Features", "parent", playerRoot.id)
 
 -- dev stuff
 --[[menu.add_feature("GET INT-STAT VALUE", "action", devSub.id, function() 
@@ -1159,7 +1161,15 @@ vanityPlateFunc = menu.add_feature("Vanity Plates", "autoaction_value_str", misc
 end)
 vanityPlateFunc:set_str_data({"E-Cola", "Las Venturas", "Liberty City", "LS Car Meet", "Panic", "Pounders", "Sprunk"})
 
-
+menu.add_player_feature("Give RP", "toggle", playerusefulSub.id, function(f,pid)
+while f.on do
+for i = 0, 24 do
+script.trigger_script_event(968269233, pid, {1, 1, 4, i, 1, 1, 1})
+script.trigger_script_event(968269233, pid, {1, 1, 8, -5, 1, 1, 1})
+system.wait(0)
+    end
+  end
+end)
 
 -- wjopwefjwoefjewf
 menu.add_player_feature("Xenophobia Test", "action", 0, function(feat, pid)
