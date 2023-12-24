@@ -508,30 +508,6 @@ function uFunctions.enablePodiumMcTonyRob()
     script.set_global_i(262145 + 34080 + 2, 4) -- The McTony Robbery | slot 2
 end
 
-function uFunctions.customInteger()
-    local val1 = helpers.getInput("Example input: KILLS_COP", "", 10, 0)
-    local val2 = helpers.getInput("Any integer value", "", 10, 0)
-    local stat = gameplay.get_hash_key(mpx2() .. val1)
-
-    stats.stat_set_int(stat, val2, true)
-end
-
-function uFunctions.customBoolean()
-    local val1 = helpers.getInput("Example input: WAREHOUSEVISITED", "", 10, 0)
-    local val2 = helpers.getInput("TRUE or FALSE", "", 10, 0)
-    local stat = gameplay.get_hash_key(mpx2() .. val1)
-
-    stats.stat_set_bool(stat, val2, true)
-end
-
-function uFunctions.schizoLog()
-    local random = math.random(5000, 10000) 
-    system.yield(random)
-
-    ui.notify_above_map("~b~penis left.", "", 40)
-    -- clear the feed
-end
-
 function uFunctions.skipSalvageMissions()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "SALV23_SCOPE_BS"), -1, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "SALV23_FM_PROG"), -1, true)

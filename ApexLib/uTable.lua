@@ -345,22 +345,6 @@ uTable.vanityPlates = {
     {name = "Sprunk", id = 12}
 }
 
-uTable.regionKick = {
-    [0] = "English",
-    [1] = "French",
-    [2] = "German",
-    [3] = "Italian",
-    [4] = "Spanish",
-    [5] = "Brazilian",
-    [6] = "Polish",
-    [7] = "Russian",
-    [8] = "Korean",
-    [9] = "Chinese Traditional",
-    [10] = "Japanese",
-    [11] = "Mexican",
-    [12] = "Chinese Simplified",
-}
-
 uTable.unreleasedVehicles = {
     23096, 14944, 35450, 35452, 35530, 35428, 35606, 35612, 17686, 17702, 35668, 35492, 35494, 35496, 35544, 
     35652, 35578, 35574, 35572, 35590, 28910, 35580, 35412, 35630, 35632, 35488, 35444, 35648, 35650, 24303, 
@@ -378,8 +362,24 @@ uTable.unreleasedVehicles = {
     17684, 26054, 35678
 }
 
-uTable.randomUsernames = {
-    
+uTable.autoShopRobberies = {
+    {name = "The Union Depository Contract", subName = "unionContract" },
+    {name = "The Superdollar Deal", subName = "superDollar" },
+    {name = "The Bank Contract", subName = "bankContract" },
+    {name = "The ECU Job", subName = "ecuJob" },
+    {name = "The Prison Contract", subName = "prisonContract" },
+    {name = "The Agency Deal", subName = "agencyDeal" },
+    {name = "The Lost Contract", subName = "lostContract" },
+    {name = "The Data Contract", subName = "dataContract" },
+}
+
+uTable.agencyContracts = {
+    { name = "Asset Protection", stat = "FIXER_SC_ASSETS_PROTECTED" },
+    { name = "Gang Termination", stat = "FIXER_SC_GANG_TERMINATED" },
+    { name = "Liquidize Assets", stat = "FIXER_SC_EQ_DESTROYED" },
+    { name = "Recover Valuables", stat = "FIXER_SC_VAL_RECOVERED" },
+    { name = "Rescue Operation", stat = "FIXER_SC_VIP_RESCUED" },
+    { name = "Vehicle Recovery", stat = "FIXER_SC_VEH_RECOVERED" },
 }
 
 function uTable.unlockAwards()

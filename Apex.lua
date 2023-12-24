@@ -30,7 +30,7 @@ local colors = {
 menu.create_thread(function()
     helpers.iconNotification("CHAR_MP_FM_CONTACT", "Welcome!")
     --helpers.verCheck()
-end)
+end)    
 
 -- Checks
 if not menu.is_trusted_mode_enabled(1 << 1) then 
@@ -49,10 +49,9 @@ end
 
 -- Main Menu
 local root = menu.add_feature("#FF0000FF#Apex", "parent", 0) 
-local playerRoot = menu.add_player_feature("#FF0000FF#Apex", "parent", 0) 
 
 local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
-local fraudSub = menu.add_feature("#FF0000FF#[RISKY]#DEFAULT# Tax Fraud", "parent", root.id)
+local fraudSub = menu.add_feature("#FF0000FF#[BAN RISK]#DEFAULT# Tax Fraud", "parent", root.id)
 local reputationSub = menu.add_feature("Reputation", "parent", root.id)
 local eventsSub = menu.add_feature("Events", "parent", root.id)
 --local accPresets = menu.add_feature("Account Presets", "parent", root.id) -- yes/no? | debating whether or not to include presets for different kind of player stats
@@ -61,14 +60,14 @@ local missionSub = menu.add_feature("Mission Manager", "parent", root.id)
 local statSub = menu.add_feature("Stats Manager", "parent", root.id)
 local usefulSub = menu.add_feature("Useful Features", "parent", root.id)
 local collectSub = menu.add_feature("Collectables", "parent", root.id) 
-local customSub = menu.add_feature("Custom Executions", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
---local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
+local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
 
 local playerusefulSub = menu.add_player_feature("Useful Features", "parent", playerRoot.id)
 
+
 -- dev stuff
---[[menu.add_feature("GET INT-STAT VALUE", "action", devSub.id, function() 
+menu.add_feature("GET INT-STAT VALUE", "action", devSub.id, function() 
     system.wait(300)
     local value = helpers.getInput("STAT NAME", "", 30, 0)
 
@@ -79,8 +78,11 @@ menu.add_feature("SET INT-STAT VALUE", "action", devSub.id, function()
     -- stats.stat_set_u64(gameplay.get_hash_key(mpx2().."TOTAL_PLAYING_TIME"), 528035702983, 528035702983)
 
     local value = helpers.getInput("String value", "", 70, 0)
-end)--]]
-
+end)
+menu.add_feature("NATIVE TEST", "action", devSub.id, function() 
+    local piss = native.call(0xFCA9373EF340AC0A)
+    menu.notify(tostring(piss))
+end)
 
 
 -- Subs
@@ -99,10 +101,13 @@ local apt15mSub = menu.add_feature("15m payouts", "parent", legacyHeist.id, func
 end)
 local doomsdayHeist = menu.add_feature("The Doomsday Heist", "parent", heistSub.id)
 local casinoHeist = menu.add_feature("The Casino Heist", "parent", heistSub.id)
-local casinoPayout = menu.add_feature("Payout Editor", "parent", casinoHeist.id)
 --local casinoModdedPresets = menu.add_feature("Modded Presets", "parent", casinoHeist.id)
 local cayopericoHeist = menu.add_feature("The Cayo Perico Heist", "parent", heistSub.id)
+local autoShopRobberies = menu.add_feature("Auto Shop Robberies", "parent", heistSub.id)
+local autoShopPayout = menu.add_feature("Payout Editor", "parent", autoShopRobberies.id)
 local salvageRobberies = menu.add_feature("Salvage Yard Robberies", "parent", heistSub.id)
+
+local contractMissions = menu.add_feature("Agency security contracts", "parent", missionSub.id)
 
 local carreerStats = menu.add_feature("Carreer", "parent", statSub.id)
 local generalStats = menu.add_feature("General", "parent", statSub.id)
@@ -118,8 +123,6 @@ local serialKiller = menu.add_feature("Serial Killer", "parent", teleportSub.id)
 local yetiHunt = menu.add_feature("Yeti Hunt", "parent", teleportSub.id)
 local collectMusic = menu.add_feature("Media Sticks", "parent", collectSub.id)
 local collectTrophy = menu.add_feature("Trophy Rewards", "parent", collectSub.id)
-
-local xenoSub = menu.add_feature("Xenophobia", "parent", miscSub.id)
 
 
 -- Unlocks
@@ -187,6 +190,7 @@ menu.add_feature("Armored Paragon R", "action", uVehiclesSub.id, function()
     uFunctions.unlockArmoredParagon()
 end)
 -- clothing
+
 -- Beach Bum Update
 -- Holiday Gifts
 -- The Valentine's Day Massacre Special
@@ -294,6 +298,9 @@ menu.add_feature("Halloween decorations in penthouse", "action", unlocksSub.id, 
         script.set_global_i(262145 + i, 22500)
     end
 end)
+menu.add_feature("100% Complete Flightschool", "action", unlocksSub.id, function()
+    uFunctions.completeFlightSchool()
+end)
 menu.add_feature("Fast Run and Reload", "action_value_str", unlocksSub.id, function(f) 
     if f.value == 0 then
         stats.stat_set_int(gameplay.get_hash_key(mpx2().."CHAR_ABILITY_1_UNLCK"), -1, true)
@@ -369,6 +376,15 @@ end)
 menu.add_feature("Remove Chicken Farm Raid Cooldown", "action", heistCooldowns.id, function()
     uFunctions.chickenCooldown()
 end)
+menu.add_feature("Remove Cayo Cooldown", "action_value_str", heistCooldowns.id, function(f) 
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."H4_COOLDOWN"), 0, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."H4_COOLDOWN_HARD"), 0, true)
+    if f.value == 0 then
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."H4_TARGET_POSIX"), 1659643454, true)
+    else
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."H4_TARGET_POSIX"), 1659429119, true)
+    end
+end):set_str_data({"Solo", "Friends"})
 -- instant finisher
 menu.add_feature("Cayo / Agency / Tuners", "action", instFinish.id, function()
     uFunctions.instantFinish2020()
@@ -383,36 +399,41 @@ menu.add_feature("Legacy Heists", "action", instFinish.id, function()
     uFunctions.instantFinishApt()
 end)
 -- legacy heists -> 15m apt
-menu.add_feature("Fleeca Normal", "action", apt15mSub.id, function()
-    uFunctions.maxFleecaNormal()
-end)
-menu.add_feature("Fleeca Hard", "action", apt15mSub.id, function()
-    uFunctions.maxFleecaHard()
-end)
-menu.add_feature("Prison Normal", "action", apt15mSub.id, function()
-    uFunctions.maxPrisonNormal()
-end)
-menu.add_feature("Prison Hard", "action", apt15mSub.id, function()
-    uFunctions.maxPrisonHard()
-end)
-menu.add_feature("Humane Lab Normal", "action", apt15mSub.id, function()
-    uFunctions.maxHumaneNormal()
-end)
-menu.add_feature("Humane Lab Hard", "action", apt15mSub.id, function()
-    uFunctions.maxHumaneHard()
-end)
-menu.add_feature("Series A Normal", "action", apt15mSub.id, function()
-    uFunctions.maxSAFNormal()
-end)
-menu.add_feature("Series A Hard", "action", apt15mSub.id, function()
-    uFunctions.maxSAFHard()
-end)
-menu.add_feature("Pacific Standard Normal", "action", apt15mSub.id, function()
-    uFunctions.maxPacificNormal()
-end)
-menu.add_feature("Pacific Standard Hard", "action", apt15mSub.id, function()
-    uFunctions.maxPacificHard()
-end)
+menu.add_feature("The Fleeca Job", "action_value_str", apt15mSub.id, function(f) 
+    if f.value == 0 then
+        uFunctions.maxFleecaNormal()
+    else
+        uFunctions.maxFleecaHard()
+    end
+end):set_str_data({"Normal", "Hard"})
+menu.add_feature("The Prison Break", "action_value_str", apt15mSub.id, function(f) 
+    if f.value == 0 then
+        uFunctions.maxPrisonNormal()
+    else
+        uFunctions.maxPrisonHard()
+    end
+end):set_str_data({"Normal", "Hard"})
+menu.add_feature("The Humane Labs Raid", "action_value_str", apt15mSub.id, function(f) 
+    if f.value == 0 then
+        uuFunctions.maxHumaneNormal()
+    else
+        uFunctions.maxHumaneHard()
+    end
+end):set_str_data({"Normal", "Hard"})
+menu.add_feature("Series A Funding", "action_value_str", apt15mSub.id, function(f) 
+    if f.value == 0 then
+        uFunctions.maxSAFNormal()
+    else
+        uFunctions.maxSAFHard()
+    end
+end):set_str_data({"Normal", "Hard"})
+menu.add_feature("Pacific Standard Job", "action_value_str", apt15mSub.id, function(f) 
+    if f.value == 0 then
+        uFunctions.maxPacificNormal()
+    else
+        uFunctions.maxPacificHard()
+    end
+end):set_str_data({"Normal", "Hard"})
 -- legacy heists
 menu.add_feature("Skip Current Heist Setups", "action", legacyHeist.id, function()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "HEIST_PLANNING_STAGE"), -1, true)
@@ -421,35 +442,14 @@ menu.add_feature("Reset Setups", "action", legacyHeist.id, function()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "HEIST_PLANNING_STAGE"), 0, true)
 end)
 -- the doomsday heist
-menu.add_feature("Auto Setup - Act 1: The Data Breaches", "action", doomsdayHeist.id, function()
+menu.add_feature("Auto Setup: Act 1: The Data Breaches", "action", doomsdayHeist.id, function()
     uFunctions.doomsDayActOne()
 end)
-menu.add_feature("Auto Setup - Act 2: The Bodgan Problem", "action", doomsdayHeist.id, function()
+menu.add_feature("Auto Setup: Act 2: The Bodgan Problem", "action", doomsdayHeist.id, function()
     uFunctions.doomsDayActTwo()
 end)
-menu.add_feature("Auto Setup - Act 3: Doomsday Scenario", "action", doomsdayHeist.id, function()
+menu.add_feature("Auto Setup: Act 3: Doomsday Scenario", "action", doomsdayHeist.id, function()
     uFunctions.doomsDayActThree()
-end)
--- the casino heist -> payout editor
-menu.add_feature("Player one", "action", casinoPayout.id, function()
-    uFunctions.getFMHost()
-    local value = helpers.getInput("Enter payout value", "", 10, 0)
-    script.set_global_i(1963945 + 1497 + 736 + 92 + 1, value)
-end)
-menu.add_feature("Player two", "action", casinoPayout.id, function()
-    uFunctions.getFMHost()
-    local value = helpers.getInput("Enter payout value", "", 10, 0)
-    script.set_global_i(1963945 + 1497 + 736 + 92 + 2, value)
-end)
-menu.add_feature("Player three", "action", casinoPayout.id, function()
-    uFunctions.getFMHost()
-    local value = helpers.getInput("Enter payout value", "", 10, 0)
-    script.set_global_i(1963945 + 1497 + 736 + 92 + 3, value)
-end)
-menu.add_feature("Player four", "action", casinoPayout.id, function()
-    uFunctions.getFMHost()
-    local value = helpers.getInput("Enter payout value", "", 10, 0)
-    script.set_global_i(1963945 + 1497 + 736 + 92 + 4, value)
 end)
 -- the casino heist -> modded presets
 --[[
@@ -476,6 +476,21 @@ menu.add_feature("Diamond - 3.6M for players 2, 3 and 4", "toggle", casinoModded
     helpers.iconNotification("CHAR_MP_FM_CONTACT", "ONLY WORKS IF YOU SELECT LOW LEVEL BUYER!!")
 end)--]]
 -- the casino heist
+menu.add_feature("Change Payout for", "action_value_str", casinoHeist.id, function(f) 
+    uFunctions.getFMHost()
+    local value = helpers.getInput("Enter payout value", "", 10, 0)
+    if f.value == 0 then
+        script.set_global_i(1963945 + 1497 + 736 + 92 + 1, value)
+    elseif f.value == 1 then
+        script.set_global_i(1963945 + 1497 + 736 + 92 + 2, value)
+    elseif f.value == 2 then
+        script.set_global_i(1963945 + 1497 + 736 + 92 + 3, value)
+    elseif f.value == 3 then
+        script.set_global_i(1963945 + 1497 + 736 + 92 + 4, value)
+    else
+        menu.notify("Error 0x42069", "Apex", 10, colors.red)
+    end
+end):set_str_data({"Player 1", "Player 2", "Player 3", "Player 4"})
 menu.add_feature("Auto Setup: Silent & Sneaky + Diamonds", "action", casinoHeist.id, function()
     uFunctions.casinoHeistSilentSneaky()
 end)
@@ -509,6 +524,13 @@ end)
 menu.add_feature("Reset Heist", "action", cayopericoHeist.id, function()
     uFunctions.resetCayoPerico()
 end)
+-- auto shop robberies
+menu.add_feature("Skip current preps", "action", autoShopRobberies.id, function()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "TUNER_GEN_BS"), 12543, true)
+end)
+menu.add_feature("Reset current preps", "action", autoShopRobberies.id, function()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "TUNER_GEN_BS"), 12467, true)
+end)
 -- salvage yard robberies
 menu.add_feature("Enable unreleased missions", "action", salvageRobberies.id, function()
     uFunctions.enablePodiumMcTonyRob()
@@ -522,6 +544,15 @@ end)
 
 
 -- Mission Manager
+for i, v in pairs(uTable.agencyContracts) do
+    local contracts = menu.add_feature(v.name, "action_value_i", contractMissions.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.stat), f.value, true)
+    end)
+    contracts.min = 0
+    contracts.max = 500
+    contracts.mod = 5
+    contracts.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), -1)
+end
 menu.add_feature("Enable Vincent contact missions", "action", missionSub.id, function()
     uFunctions.enableVincent()
 end)
@@ -542,6 +573,12 @@ end)
 
 -- Stats Manager
 -- carreer
+menu.add_feature("Overall Income", "action", carreerStats.id, function()
+    uFunctions.intStatInput("MPPLY_TOTAL_EVC", false)
+end)
+menu.add_feature("Overall Expenses", "action", carreerStats.id, function()
+    uFunctions.intStatInput("MPPLY_TOTAL_SVC", false)
+end)
 menu.add_feature("Total players killed", "action", carreerStats.id, function() 
     uFunctions.intStatInput("MPPLY_KILLS_PLAYERS", false)
 end)
@@ -1042,84 +1079,6 @@ menu.add_feature("Set Lowrider Cutscenes Seen", "action", usefulSub.id, function
     uFunctions.setCutscenesSeen()
 end)
 
--- Collectables
--- teleportation
-for i, v in pairs(uTable.YetiClues) do
-    menu.add_feature(v.name, "action", yetiHunt.id, function()
-        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v.coord)
-    end)
-end
--- seperation line
-for i, v in pairs(uTable.SerialKillerClues) do
-    menu.add_feature(v.name, "action", serialKiller.id, function()
-        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v.coord)
-    end)
-end
-menu.add_feature("-----------------------------", "action", serialKiller.id, function()
-    menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
-end)
-for i, v in pairs(uTable.SerialKillerCluesRandom) do
-    menu.add_feature(v.name, "action", serialKiller.id, function()
-        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v.coord)
-        menu.notify("The LS Slasher will appear from 7PM-5AM, Kill him! (GTA$ 50,000 Reward)", "Apex", 4, 257818)
-    end)
-end
--- main
-menu.add_feature("All Arcade Trophies", "action", collectTrophy.id, function()
-    uFunctions.unlockArcadeTrophies()
-end)
--- LS Tuners
-for i, v in pairs(uTable.CircoLocoMusic) do
-    menu.add_feature(v.name, "action", collectMusic.id, function()
-        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v.coord)
-        menu.notify("You now unlocked the Circoloco Tee & Media!", "Apex", 5, 3578712200220)
-    end)
-end
-menu.add_feature("-----------------------------", "action", collectMusic.id, function()
-    menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
-end)
-for i, v in pairs(uTable.KennyMusic) do
-    menu.add_feature(v.name, "action", collectMusic.id, function()
-        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v.coord)
-        menu.notify("The LS Slasher will appear from 7PM-5AM, Kill him! (GTA$ 50,000 Reward)", "Apex", 4, 257818)
-    end)
-end
-menu.add_feature("-----------------------------", "action", collectMusic.id, function()
-    menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
-end)
--- Contract DLC
-for i, v in pairs(uTable.NezMusic) do
-    menu.add_feature(v.name, "action", collectMusic.id, function()
-        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v.coord)
-        menu.notify("You need to complete the VIP missions\nIt'll be on your desk in the Agency", "Apex", 5, 3578712200220)
-    end)
-end
-menu.add_feature("-----------------------------", "action", collectMusic.id, function()
-    menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
-end)
--- Chop Shop DLC
-menu.add_feature("DâM-FunK - Even the Score", "action", collectMusic.id, function()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-56.656, -1089.496, 26.422))
-end)
-
-
--- Custom Execution
-menu.add_feature("Integer", "action", customSub.id, function()
-    uFunctions.customInteger()
-end)
- menu.add_feature("Boolean", "action", customSub.id, function()
-    uFunctions.customBoolean()
-end)
-
-
--- Tax Fraud Features
---[[menu.add_feature("Nightclub Loop", "toggle", fraudSub.id, function(f)
-    while f.on do
-        stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "CLUB_POPULARITY"), 1000, true)
-        stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "CLUB_PAY_TIME_LEFT"), -1, true)
-    end 
-end)--]]
-
 
 -- Misc
 menu.add_feature("Enable Snow", "toggle", miscSub.id, function(f)
@@ -1131,80 +1090,22 @@ menu.add_feature("Restore removed vehicles", "action", miscSub.id, function()
         system.wait(2)
     end
 end)
-for k, v in pairs(uTable.regionKick) do
-    menu.add_feature("Byebye " .. v, "toggle", xenoSub.id, function(f)
-        while f.on do
-            if not network.is_session_started() then
-                return
-            end
-    
-            for i = 0, 31 do
-                if player.is_player_valid(i) and i ~= player.player_id() then
-                    if script.get_global_i(1886967 + 1 + (i * 609) + 10 + 121) == k then
-                        menu.notify("Getting rid of " .. player.get_player_name(i).. " for being inferior")
-                        menu.get_feature_by_hierarchy_key("online.online_players.player_"..i..".fragment_crash"):toggle() -- sends crash
-                    end
-                end
-            end
-            system.wait()
-        end
-    end)
-end
 menu.add_feature("Set clear plate", "action", miscSub.id, function()
     vehicle.set_vehicle_number_plate_text(player.player_vehicle(), "-")
-end)
-menu.add_feature("100% Complete Flightschool", "action", miscSub.id, function()
-    uFunctions.completeFlightSchool()
 end)
 vanityPlateFunc = menu.add_feature("Vanity Plates", "autoaction_value_str", miscSub.id, function(f, pid)
     vehicle.set_vehicle_number_plate_index(player.player_vehicle(), f.value + 6)
 end)
 vanityPlateFunc:set_str_data({"E-Cola", "Las Venturas", "Liberty City", "LS Car Meet", "Panic", "Pounders", "Sprunk"})
 
+
+-- Selected Player
 menu.add_player_feature("Give RP", "toggle", playerusefulSub.id, function(f,pid)
-while f.on do
-for i = 0, 24 do
-script.trigger_script_event(968269233, pid, {1, 1, 4, i, 1, 1, 1})
-script.trigger_script_event(968269233, pid, {1, 1, 8, -5, 1, 1, 1})
-system.wait(0)
-    end
-  end
-end)
-
--- wjopwefjwoefjewf
-menu.add_player_feature("Xenophobia Test", "action", 0, function(feat, pid)
-    menu.notify("Xenophobia Test Result: " .. uTable.regionKick[script.get_global_i(1886967 + 1 + (pid * 609) + 10 + 121)])
-end)
---[[local schizoLog = menu.add_feature("Schizo Log", "toggle", miscSub.id, function(f)
     while f.on do
-        uFunctions.schizoLog()
-    end 
+        for i = 0, 24 do
+            script.trigger_script_event(968269233, pid, {1, 1, 4, i, 1, 1, 1})
+            script.trigger_script_event(968269233, pid, {1, 1, 8, -5, 1, 1, 1})
+            system.wait(0)
+        end
+    end
 end)
-schizoLog:toggle()--]]  
-
---[[### 1.3.6
-- Additions
-    - Restore removed vehicles
-    - Force cloud save
-    - Bypass LSC sell amount
-    - Call Gun Van
-    - Reset car club level
-    - Car Club Exploit
-    - Arena Level
-    - Reset arena level
-    - Unlock Navy revolver
-    - Unlock  Halloween decorations in penthouse
-    - Unlock SA Mercenaries & Drug Wars Clothing
-    - Unlock Dildodude Camo
-    - Unlock All vehicle trade prices
-- Removals
-    - Tunables Sub (forgot to remove this entry)
-- Fixes
-    - Set favorite bike
-    - General input system improvement 
-- Changes
-    - Moved Tunables to misc sub
-    - Improved the alien tattoo & fast run unlocks
-    - Better names for unlocks
-    - Integrated Party Hats & Outfits unlocks in Chop Shop unlock
---]]
