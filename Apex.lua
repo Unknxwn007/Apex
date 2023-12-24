@@ -10,13 +10,10 @@ end
 
 --[[
     TODO List
-    - make modded acc presets
     - stop paying house keeping charges
-    - collectable drop
     - collectables -> ghost photo, action figure, ld organics, play cards, signal jammer, usb stick, movie prop, burried stashes, hidden cache, treasure chest, shipwreck (daily)
     - collectables -> trick or treat, halloween, stunt jumps, junk energy skydive
     - events -> ufo, bank shoot, ghost, taxi, christmas mug, armored truck, possessed animal, bar resupply, 
-    - unlocks -> halloween decorations, navy revolv, stone hatchet, return player, trade price, halloween / taxi livery, office clutter, 
 ]]
 
 local colors = {
@@ -54,20 +51,19 @@ local playerRoot = menu.add_player_feature("#FF0000FF#Apex", "parent", 0)
 local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
 local fraudSub = menu.add_feature("#FF0000FF#[BAN RISK]#DEFAULT# Tax Fraud", "parent", root.id)
 local reputationSub = menu.add_feature("Reputation", "parent", root.id)
-local eventsSub = menu.add_feature("Events", "parent", root.id)
---local accPresets = menu.add_feature("Account Presets", "parent", root.id) -- yes/no? | debating whether or not to include presets for different kind of player stats
+local cluesSub = menu.add_feature("Clues", "parent", root.id)
 local heistSub = menu.add_feature("Heist Manager", "parent", root.id)
 local missionSub = menu.add_feature("Mission Manager", "parent", root.id)
 local statSub = menu.add_feature("Stats Manager", "parent", root.id)
 local usefulSub = menu.add_feature("Useful Features", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
-local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
+--local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
 
 local playerusefulSub = menu.add_player_feature("Useful Features", "parent", playerRoot.id)
 
 
 -- dev stuff
-menu.add_feature("GET INT-STAT VALUE", "action", devSub.id, function() 
+--[[menu.add_feature("GET INT-STAT VALUE", "action", devSub.id, function() 
     system.wait(300)
     local value = helpers.getInput("STAT NAME", "", 30, 0)
 
@@ -82,7 +78,7 @@ end)
 menu.add_feature("NATIVE TEST", "action", devSub.id, function() 
     local piss = native.call(0xFCA9373EF340AC0A)
     menu.notify(tostring(piss))
-end)
+end)--]]
 
 
 -- Subs
@@ -103,7 +99,7 @@ local casinoHeist = menu.add_feature("The Casino Heist", "parent", heistSub.id)
 --local casinoModdedPresets = menu.add_feature("Modded Presets", "parent", casinoHeist.id)
 local cayopericoHeist = menu.add_feature("The Cayo Perico Heist", "parent", heistSub.id)
 local autoShopRobberies = menu.add_feature("Auto Shop Robberies", "parent", heistSub.id)
-local autoShopPayout = menu.add_feature("Payout Editor", "parent", autoShopRobberies.id)
+--local autoShopPayout = menu.add_feature("Payout Editor", "parent", autoShopRobberies.id)
 local salvageRobberies = menu.add_feature("Salvage Yard Robberies", "parent", heistSub.id)
 
 local theChopShopDLC = menu.add_feature("The Chop Shop", "parent", missionSub.id)
@@ -116,7 +112,6 @@ local cashStats = menu.add_feature("Cash", "parent", statSub.id)
 local combatStats = menu.add_feature("Combat", "parent", statSub.id)
 -- local weaponStats = menu.add_feature("Weapons", "parent", statSub.id)
 local miscStats = menu.add_feature("Miscellaneous Stats", "parent", statSub.id)
-
 local theContractDLC = menu.add_feature("The Contract", "parent", miscStats.id)
 
 
@@ -358,15 +353,47 @@ menu.add_feature("Reset car club level", "action", reputationSub.id, function()
 end)
 
 
--- Events
-menu.add_feature("Christmas Truck event", "action", eventsSub.id, function() -- thanks ShinyWasabi
-    uFunctions.triggerSnowTruckEvent()
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(247.353, -986.255, 28.828 ))
+-- Clues
+menu.add_feature("Serial Killer", "action_value_str", cluesSub.id, function(f) 
+    if f.value == 0 then
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-678.9984, 5797.6851, 17.3309))
+    elseif f.value == 1 then
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(1901.4042, 4911.5479, 48.6951))
+    elseif f.value == 2 then
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(1111.7750, 3142.0457, 38.4241))
+    elseif f.value == 3 then
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-136.5509, 1912.8038, 197.2982))
+    end
+end):set_str_data({"Bloody Handprint", "Machete", "Severed Hand", "Message"})
+menu.add_feature("Black Van", "action_value_str", cluesSub.id, function(f) 
+    if f.value == 0 then
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(2576.0391, 1251.7494, 43.6099))
+    elseif f.value == 1 then
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(2903.4150, 3644.0413, 43.8774))
+    elseif f.value == 2 then
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(2432.3904, 5846.0757, 58.8891))
+    elseif f.value == 3 then
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-1567.880, 4424.6104, 7.2154))
+    elseif f.value == 4 then
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-1715.793, 2618.7686, 2.9409))
+    end
+end):set_str_data({"1", "2", "3", "4", "5"})
+menu.add_feature("", "action", cluesSub.id, function() 
+    -- penis feature
 end)
-menu.add_feature("Yeti Event", "action", eventsSub.id, function(f)
-    script.set_global_i(262145+36054, 1)
-    entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-1409.0927, 4492.598, 23.707672))
-end)
+menu.add_feature("Yeti Clues", "action_value_str", cluesSub.id, function(f) 
+    if f.value == 0 then
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-1562.69, 4699.04, 50.426))
+    elseif f.value == 1 then
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-1359.869, 4733.429, 46.919))
+    elseif f.value == 2 then
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-1715.398, 4501.203, 0.096))
+    elseif f.value == 3 then
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-1282.18, 4487.826, 12.643))
+    elseif f.value == 4 then
+        entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-1569.107, 4478.335, 21.157))
+    end
+end):set_str_data({"Camp", "Clothes", "Dead Deer", "Car Wreck", "Body Parts"})
 
 
 -- Heist Manager
@@ -441,16 +468,19 @@ end)
 menu.add_feature("Reset Setups", "action", legacyHeist.id, function()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "HEIST_PLANNING_STAGE"), 0, true)
 end)
+
 -- the doomsday heist
-menu.add_feature("Auto Setup: Act 1: The Data Breaches", "action", doomsdayHeist.id, function()
-    uFunctions.doomsDayActOne()
-end)
-menu.add_feature("Auto Setup: Act 2: The Bodgan Problem", "action", doomsdayHeist.id, function()
-    uFunctions.doomsDayActTwo()
-end)
-menu.add_feature("Auto Setup: Act 3: Doomsday Scenario", "action", doomsdayHeist.id, function()
-    uFunctions.doomsDayActThree()
-end)
+menu.add_feature("Auto Setup:", "action_value_str", doomsdayHeist.id, function(f) 
+    if f.value == 0 then
+        uFunctions.doomsDayActOne()
+    elseif f.value == 1 then 
+        Functions.doomsDayActTwo()
+    elseif f.value == 2 then 
+        uFunctions.doomsDayActThree()
+    else
+        menu.notify("Error 0x42069", "Apex", 10, colors.red)
+    end
+end):set_str_data({"Act 1: The Data Breaches", "Act 2: The Bodgan Problem", "Act 3: Doomsday Scenario"})
 -- the casino heist -> modded presets
 --[[
 menu.add_feature("Gold - 3.6M for players 2, 3 and 4", "toggle", casinoModdedPresets.id, function(f)
@@ -475,6 +505,7 @@ menu.add_feature("Diamond - 3.6M for players 2, 3 and 4", "toggle", casinoModded
     system.wait(0)
     helpers.iconNotification("CHAR_MP_FM_CONTACT", "ONLY WORKS IF YOU SELECT LOW LEVEL BUYER!!")
 end)--]]
+
 -- the casino heist
 menu.add_feature("Change Payout for", "action_value_str", casinoHeist.id, function(f) 
     uFunctions.getFMHost()
@@ -491,19 +522,82 @@ menu.add_feature("Change Payout for", "action_value_str", casinoHeist.id, functi
         menu.notify("Error 0x42069", "Apex", 10, colors.red)
     end
 end):set_str_data({"Player 1", "Player 2", "Player 3", "Player 4"})
-menu.add_feature("Auto Setup: Silent & Sneaky + Diamonds", "action", casinoHeist.id, function()
-    uFunctions.casinoHeistSilentSneaky()
+menu.add_feature("Auto Setup:", "action_value_str", casinoHeist.id, function(f) 
+    if f.value == 0 then
+        uFunctions.casinoHeistSilentSneaky()
+    elseif f.value == 1 then 
+        uFunctions.casinoHeistBigCon()
+    elseif f.value == 2 then 
+        uFunctions.casinoHeistAggressive()
+    else
+        menu.notify("Error 0x42069", "Apex", 10, colors.red)
+    end
+    menu.notify("YOU NEED TO SELECT A TARGET YOURSELF!", "Apex", 10, colors.red)
+end):set_str_data({"Silent & Sneaky", "The Big Con", "Aggressive"})
+menu.add_feature("Target", "action_value_str", casinoHeist.id, function(f) 
+    if f.value == 0 then
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_TARGET"), 3, true)
+    elseif f.value == 1 then 
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_TARGET"), 1, true)
+    elseif f.value == 2 then 
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_TARGET"), 2, true)
+    elseif f.value == 3 then 
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_TARGET"), 0, true)
+    else
+        menu.notify("Error 0x42069", "Apex", 10, colors.red)
+    end
+end):set_str_data({"Diamonds", "Gold", "Artworkwd", "Cash"})
+menu.add_feature("Skip", "action_value_str", casinoHeist.id, function(f) 
+    if f.value == 0 then
+        if script.get_global_i(gameplay.get_hash_key("fm_mission_controller", 52985)) == 3 or script.get_global_i(gameplay.get_hash_key("fm_mission_controller", 52985)) == 4 then 
+            script.set_global_i(gameplay.get_hash_key("fm_mission_controller", 52985, 5))
+        end
+    elseif f.value == 1 then -- keypad
+        if script.get_global_i(gameplay.get_hash_key("fm_mission_controller", 54047)) == 3 or  script.get_global_i(gameplay.get_hash_key("fm_mission_controller", 54047)) < 100 then 
+            script.set_global_i(gameplay.get_hash_key("fm_mission_controller", 54047, 5))
+        end
+    else
+        menu.notify("Error 0x42069", "Apex", 10, colors.red)
+    end
+end):set_str_data({"Fingerprints", "Keypads"})
+menu.add_feature("Remove All CCTV Camera's", "action", casinoHeist.id, function()
+    menu.get_feature_by_hierarchy_key("online.casinoperico_heist.remove_cameras"):toggle()
 end)
-menu.add_feature("Auto Setup: The Big Con + Diamonds", "action", casinoHeist.id, function()
-    uFunctions.casinoHeistBigCon()
-end)
-menu.add_feature("Auto Setup: Aggressive + Diamonds", "action", casinoHeist.id, function()
-    uFunctions.casinoHeistAggressive()
+menu.add_feature("Reset Board", "action", casinoHeist.id, function()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_BITSET0"), 0, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_BITSET1"), 0, true)
 end)
 -- the cayo perico heist
-menu.add_feature("Auto Setup: Panther + Hard Mode", "action", cayopericoHeist.id, function()
-    uFunctions.cayoPericoPantherHard()
+menu.add_feature("Auto Setup:", "action_value_str", cayopericoHeist.id, function(f) 
+    if f.value == 0 then
+        uFunctions.cayoPericoNormal()
+    elseif f.value == 1 then 
+        uFunctions.cayoPericoHard()
+    else
+        menu.notify("Error 0x42069", "Apex", 10, colors.red)
+    end
+    menu.notify("YOU NEED TO SELECT A TARGET YOURSELF!", "Apex", 10, colors.red)
+end):set_str_data({"Normal", "Hard"})
+menu.add_feature("Target", "action_value_str", cayopericoHeist.id, function(f) 
+    if f.value == 0 then
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_TARGET"), 5, true)
+    elseif f.value == 1 then 
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_TARGET"), 5, true)
+    elseif f.value == 2 then 
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_TARGET"), 5, true)
+    elseif f.value == 3 then 
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_TARGET"), 5, true)
+    else
+        menu.notify("Error 0x42069", "Apex", 10, colors.red)
+    end
+end):set_str_data({"Panther Statue", "Pink Diamond", "Bearer Bonds", "Ruby Necklace", "Sinsimito Tequila", "Madrazo Files"})
+local cayoBagSize = menu.add_feature("Bag Size", "action_value_i", cayopericoHeist.id, function(f)
+    script.set_global_i(1859395035, f.value)
 end)
+cayoBagSize.min = 1800
+cayoBagSize.max = 100000
+cayoBagSize.mod = 1000
+cayoBagSize.value = 1800
 menu.add_feature("Set everyone's cut to 151%", "toggle", cayopericoHeist.id, function(f)
     while f.on do
         script.set_global_i(1970744 + 831 + 56 + 1, 151)
@@ -1046,6 +1140,13 @@ menu.add_feature("Set character name", "action", miscStats.id, function()
     local value = helpers.getInput("Enter the desired character name (has no filter)", "", 10, 0)
     uFunctions.stat_set_string(gameplay.get_hash_key(mpx2() .. "CHAR_NAME"), value)
 end)
+local driftRacesWon = menu.add_feature("Drift races played", "action_value_i", miscStats.id, function(f)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().. "DRIFT_RACE_PLAY_COUNT"), f.value, true)
+end)
+cayoBagSize.min = 1800
+cayoBagSize.max = 100000
+cayoBagSize.mod = 1000
+cayoBagSize.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. "DRIFT_RACE_PLAY_COUNT"), -1)
 menu.add_feature("Set Lowrider cutscenes as seen", "action", miscStats.id, function()
     uFunctions.setCutscenesSeen()
 end)
@@ -1101,6 +1202,16 @@ end)
 
 
 -- Misc
+menu.add_feature("Start Event", "action_value_str", miscSub.id, function(f) 
+    if f.value == 0 then
+        script.set_global_i(262145 + 36157, 3600000)
+        script.set_global_i(262145 + 36158, 1800000)
+        script.set_global_i(262145 + 36055, 1)
+    else
+        script.set_global_i(262145+36054, 1)
+    end
+    menu.notify("Please change sessions.", "Apex")
+end):set_str_data({"Christmas Truck", "Yeti"})
 menu.add_feature("Enable Snow", "toggle", miscSub.id, function(f)
     menu.get_feature_by_hierarchy_key("online.tunables.snow").on = f.on
 end)

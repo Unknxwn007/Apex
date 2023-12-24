@@ -1,5 +1,3 @@
-
-
 ### 1.3.6.1
 - Additions
     - New player options tab (Player>Script Features>Apex)
