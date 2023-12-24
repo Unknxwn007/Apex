@@ -60,7 +60,6 @@ local heistSub = menu.add_feature("Heist Manager", "parent", root.id)
 local missionSub = menu.add_feature("Mission Manager", "parent", root.id)
 local statSub = menu.add_feature("Stats Manager", "parent", root.id)
 local usefulSub = menu.add_feature("Useful Features", "parent", root.id)
-local collectSub = menu.add_feature("Collectables", "parent", root.id) 
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
 local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
 
@@ -93,10 +92,9 @@ local uVehiclesSub = menu.add_feature("Vehicles", "parent", unlocksSub.id)
 local uClothingSub = menu.add_feature("Clothing", "parent", unlocksSub.id)
 local uAwardsSub = menu.add_feature("Awards", "parent", unlocksSub.id)
 
-local heistCooldowns = menu.add_feature("Cooldowns", "parent", heistSub.id)
 local instFinish = menu.add_feature("Instant Finisher", "parent", heistSub.id)
 local legacyHeist = menu.add_feature("Legacy Heists", "parent", heistSub.id)
-local apt15mSub = menu.add_feature("15m payouts", "parent", legacyHeist.id, function()
+local apt15mSub = menu.add_feature("15 Mil payouts", "parent", legacyHeist.id, function()
     menu.notify("Please use these within 30 seconds of entering the cutscene.", "Apex", 10, colors.yellow)
     menu.notify("You HAVE TO choose the right difficulty or you won't get paid!!", "Apex", 10, colors.yellow)
 end)
@@ -108,7 +106,7 @@ local autoShopRobberies = menu.add_feature("Auto Shop Robberies", "parent", heis
 local autoShopPayout = menu.add_feature("Payout Editor", "parent", autoShopRobberies.id)
 local salvageRobberies = menu.add_feature("Salvage Yard Robberies", "parent", heistSub.id)
 
-local contractMissions = menu.add_feature("Agency security contracts", "parent", missionSub.id)
+local theChopShopDLC = menu.add_feature("The Chop Shop", "parent", missionSub.id)
 
 local carreerStats = menu.add_feature("Carreer", "parent", statSub.id)
 local generalStats = menu.add_feature("General", "parent", statSub.id)
@@ -119,11 +117,7 @@ local combatStats = menu.add_feature("Combat", "parent", statSub.id)
 -- local weaponStats = menu.add_feature("Weapons", "parent", statSub.id)
 local miscStats = menu.add_feature("Miscellaneous Stats", "parent", statSub.id)
 
-local teleportSub = menu.add_feature("Teleportation", "parent", collectSub.id)
-local serialKiller = menu.add_feature("Serial Killer", "parent", teleportSub.id)
-local yetiHunt = menu.add_feature("Yeti Hunt", "parent", teleportSub.id)
-local collectMusic = menu.add_feature("Media Sticks", "parent", collectSub.id)
-local collectTrophy = menu.add_feature("Trophy Rewards", "parent", collectSub.id)
+local theContractDLC = menu.add_feature("The Contract", "parent", miscStats.id)
 
 
 -- Unlocks
@@ -131,37 +125,58 @@ local collectTrophy = menu.add_feature("Trophy Rewards", "parent", collectSub.id
 menu.add_feature("Every Achievement", "action", uAchievementSub.id, function()
     uFunctions.unlockAllAchievements()
 end)
-menu.add_feature("-----------------------------", "action", uAchievementSub.id, function()
-    menu.notify("BLANK_MSG", "Apex", 5, 3578712200220)
-end)
 for id, achievementName in pairs(uTable.Achievements) do
     menu.add_feature(achievementName, "action", uAchievementSub.id, function()
         Functions.setAchievement(id)
     end)
 end
 -- weapons
+menu.add_feature("Unlock finish", "action_value_str", uWeaponsSub.id, function(f) 
+    if f.value == 0 then
+        uFunctions.daxCooldown()
+    elseif f.value == 1 then
+        native.call(0xDB8A58AEAA67CD07, 41657, true, mpx2())
+    elseif f.value == 2 then
+        native.call(0xDB8A58AEAA67CD07, 41658, true, mpx2())
+    elseif f.value == 3 then
+        native.call(0xDB8A58AEAA67CD07, 41659, true, mpx2())
+    elseif f.value == 4 then
+        uFunctions.weaponLiveryChristmas23()
+    else
+        menu.notify("Error 0x42069", "Apex", 10, colors.red)
+    end
+end):set_str_data({"Dildodude", "Employee of the Month", "Suede Bucks", "Uncle T", "Christmas 2023"})
+menu.add_feature("Unlock Weapon", "action_value_str", uWeaponsSub.id, function(f) 
+    if f.value == 0 then
+        uFunctions.unlockSnowCannon()
+    elseif f.value == 1 then
+        stats.stat_set_bool(gameplay.get_hash_key("MPPLY_MELEECHLENGECOMPLETED"), true, true)
+        stats.stat_set_bool(gameplay.get_hash_key("MPPLY_HEADSHOTCHLENGECOMPLETED"), true, true)
+    elseif f.value == 2 then
+        native.call(0xDB8A58AEAA67CD07, 28158, true, mpx2())
+    else
+        menu.notify("Error 0x42069", "Apex", 10, colors.red)
+    end
+end):set_str_data({"Snow Cannon", "Stone Hatchet", "Navy revolver"})
 menu.add_feature("Knife and Bat skins (Gun Van)", "action", uWeaponsSub.id, function()
     uFunctions.unlockMeleeWeaponSkins()
-end)  
-menu.add_feature("Snow Cannon", "action", uWeaponsSub.id, function()
-    uFunctions.unlockSnowCannon()
-end)  
-menu.add_feature("Dildodude Camo", "action", uWeaponsSub.id, function()
-    native.call(0xDB8A58AEAA67CD07, 36787, true, mpx2())
-    native.call(0xDB8A58AEAA67CD07, 36788, true, mpx2())
 end) 
-menu.add_feature("Christmas 2023 Liveries", "action", uWeaponsSub.id, function()
-    uFunctions.weaponLiveryChristmas23()
-end)   
-menu.add_feature("Stone Hatchet", "action", uWeaponsSub.id, function()
-    stats.stat_set_bool(gameplay.get_hash_key("MPPLY_MELEECHLENGECOMPLETED"), true, true)
-    stats.stat_set_bool(gameplay.get_hash_key("MPPLY_HEADSHOTCHLENGECOMPLETED"), true, true)
-end) 
-menu.add_feature("Navy revolver", "action", uWeaponsSub.id, function()
-    native.call(0xDB8A58AEAA67CD07, 28158, true, mpx2())
-    menu.notify("Please change sessions.", "Apex")
-end) 
+
 -- vehicles
+menu.add_feature("Unlock Vehicle", "action_value_str", uVehiclesSub.id, function(f) 
+    if f.value == 0 then
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."CRDEADLINE"), 32768, true)
+    elseif f.value == 1 then
+        uFunctions.unlockArmoredParagon()
+    elseif f.value == 2 then
+        uFunctions.unlockChopShopCars()
+        menu.notify("Unlocked Police Gauntlet too.", "Apex", 6, colors.green)
+    elseif f.value == 3 then
+        uFunctions.unlockArenaCars()
+    else
+        menu.notify("Error 0x42069", "Apex", 10, colors.red)
+    end
+end):set_str_data({"Shotaro", "Armored Paragon R", "Chop Shop Cars", "Arena War Cars"})
 menu.add_feature("'Best Lap' Paint Colors", "action", uVehiclesSub.id, function()
     local bestLapStat = gameplay.get_hash_key("MP0_AWD_FM_RACES_FASTEST_LAP")
     if not (stats.stat_get_int(bestLapStat, -1) >= 101) then
@@ -174,22 +189,10 @@ end)
 menu.add_feature("All trade prices", "action", uVehiclesSub.id, function()
     uFunctions.tradePricesVEH()
 end)
-menu.add_feature("Arena Wars vehicles", "action", uVehiclesSub.id, function()
-    uFunctions.unlockArenaCars()
-end)
 menu.add_feature("Some Liveries", "action", uVehiclesSub.id, function()
     uFunctions.unlockLiveries()
 end)
-menu.add_feature("Chop Shop Cars", "action", uVehiclesSub.id, function()
-    uFunctions.unlockChopShopCars()
-    menu.notify("Unlocked Police Gauntlet too.", "Apex", 6, colors.green)
-end)
-menu.add_feature("Shotaro", "action", uVehiclesSub.id, function()
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CRDEADLINE"), 32768, true)
-end)
-menu.add_feature("Armored Paragon R", "action", uVehiclesSub.id, function()
-    uFunctions.unlockArmoredParagon()
-end)
+
 -- clothing
 
 -- Beach Bum Update
@@ -367,25 +370,21 @@ end)
 
 
 -- Heist Manager
--- cooldowns
-menu.add_feature("Remove Dax Cooldown", "action", heistCooldowns.id, function()
-    uFunctions.daxCooldown()
-end)
-menu.add_feature("Remove Salvage Yard Cooldown", "action", heistCooldowns.id, function()
-    uFunctions.salvageYardRobberyCooldown()
-end)
-menu.add_feature("Remove Chicken Farm Raid Cooldown", "action", heistCooldowns.id, function()
-    uFunctions.chickenCooldown()
-end)
-menu.add_feature("Remove Cayo Cooldown", "action_value_str", heistCooldowns.id, function(f) 
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."H4_COOLDOWN"), 0, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."H4_COOLDOWN_HARD"), 0, true)
+menu.add_feature("Remove cooldown for", "action_value_str", heistSub.id, function(f) 
     if f.value == 0 then
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."H4_COOLDOWN"), 0, true)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."H4_COOLDOWN_HARD"), 0, true)
         stats.stat_set_int(gameplay.get_hash_key(mpx2().."H4_TARGET_POSIX"), 1659643454, true)
-    else
+    elseif f.value == 1 then
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."H4_COOLDOWN"), 0, true)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().."H4_COOLDOWN_HARD"), 0, true)
         stats.stat_set_int(gameplay.get_hash_key(mpx2().."H4_TARGET_POSIX"), 1659429119, true)
+    elseif f.value == 2 then
+        uFunctions.salvageYardRobberyCooldown()
+    else
+        menu.notify("Error 0x42069", "Apex", 10, colors.red)
     end
-end):set_str_data({"Solo", "Friends"})
+end):set_str_data({"Cayo Solo", "Cayo Friends", "Salvage Yard Robbery"})
 -- instant finisher
 menu.add_feature("Cayo / Agency / Tuners", "action", instFinish.id, function()
     uFunctions.instantFinish2020()
@@ -545,28 +544,30 @@ end)
 
 
 -- Mission Manager
-for i, v in pairs(uTable.agencyContracts) do
-    local contracts = menu.add_feature(v.name, "action_value_i", contractMissions.id, function(f)
-        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.stat), f.value, true)
-    end)
-    contracts.min = 0
-    contracts.max = 500
-    contracts.mod = 5
-    contracts.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), -1)
-end
-menu.add_feature("Enable Vincent contact missions", "action", missionSub.id, function()
+menu.add_feature("Remove cooldown for", "action_value_str", missionSub.id, function(f) 
+    if f.value == 0 then
+        uFunctions.daxCooldown()
+    elseif f.value == 1 then
+        uFunctions.chickenCooldown()
+    else
+        menu.notify("Error 0x42069", "Apex", 10, colors.red)
+    end
+end):set_str_data({"Dax", "Chicken Farm Raid"})
+menu.add_feature("Enable Vincent contact missions", "action", theChopShopDLC.id, function()
     uFunctions.enableVincent()
 end)
-menu.add_feature("Skip Yacht missions", "action", missionSub.id, function()
-    uFunctions.skipYachtMissions()
-end)
-menu.add_feature("Skip Benny missions", "action", missionSub.id, function()
-    uFunctions.skipBennyMissions()
-end)
-menu.add_feature("Skip ULP missions", "action", missionSub.id, function()
-    stats.stat_set_int(gameplay.get_hash_key("ULP_MISSION_PROGRESS"), 127, true)
-    stats.stat_set_int(gameplay.get_hash_key("ULP_MISSION_CURRENT"), 0, true)
-end)
+menu.add_feature("Skip missions for", "action_value_str", missionSub.id, function(f) 
+    if f.value == 0 then
+        uFunctions.skipYachtMissions()
+    elseif f.value == 1 then
+        uFunctions.skipBennyMissions()
+    elseif f.value == 2 then
+        stats.stat_set_int(gameplay.get_hash_key("ULP_MISSION_PROGRESS"), 127, true)
+        stats.stat_set_int(gameplay.get_hash_key("ULP_MISSION_CURRENT"), 0, true)
+    else
+        menu.notify("Error 0x42069", "Apex", 10, colors.red)
+    end
+end):set_str_data({"Yacht", "Benny", "ULP"})
 menu.add_feature("Trigger Alien Egg resupply mission", "action", missionSub.id, function()
     uFunctions.triggerAlienBunker()
 end)
@@ -635,10 +636,10 @@ menu.add_feature("Time played as character", "action", generalStats.id, function
     uFunctions.u64StatInput("TOTAL_PLAYING_TIME", true)
 end)
 menu.add_feature("Character created", "action", generalStats.id, function() 
-    uFunctions.dateStatInput("CHAR_DATE_CREATED", true)
+    uFunctions.dateStatInput("_CHAR_DATE_CREATED", true)
 end)
 menu.add_feature("Last ranked up", "action", generalStats.id, function() 
-    uFunctions.dateStatInput("CHAR_DATE_RANKUP", true)
+    uFunctions.dateStatInput("_CHAR_DATE_RANKUP", true)
 end)
 menu.add_feature("Longest single game session", "action", generalStats.id, function() 
     uFunctions.u64StatInput("LONGEST_PLAYING_TIME", true)
@@ -1020,12 +1021,33 @@ end)
 
 --end)
 -- misc stats
+for i, v in pairs(uTable.agencyContracts2) do
+    local contracts = menu.add_feature(v.name, "action_value_i", theContractDLC.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.stat), f.value, true)
+    end)
+    contracts.min = 0
+    contracts.max = 1000000
+    contracts.mod = 100
+    contracts.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), -1)
+end
+for i, v in pairs(uTable.agencyContracts) do
+    local contracts = menu.add_feature(v.name, "action_value_i", theContractDLC.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.stat), f.value, true)
+    end)
+    contracts.min = 0
+    contracts.max = 1000
+    contracts.mod = 5
+    contracts.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), -1)
+end
 menu.add_feature("Set character as transferred", "action", miscStats.id, function()
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."WAS_CHAR_TRANSFERED"), true, true)
 end)
 menu.add_feature("Set character name", "action", miscStats.id, function()
     local value = helpers.getInput("Enter the desired character name (has no filter)", "", 10, 0)
     uFunctions.stat_set_string(gameplay.get_hash_key(mpx2() .. "CHAR_NAME"), value)
+end)
+menu.add_feature("Set Lowrider cutscenes as seen", "action", miscStats.id, function()
+    uFunctions.setCutscenesSeen()
 end)
 
 
@@ -1076,9 +1098,6 @@ menu.add_feature("Spawn ped for weapon challenges", "action", usefulSub.id, func
     network.request_control_of_entity(ped)
     entity.freeze_entity(ped, true)
 end)
-menu.add_feature("Set Lowrider Cutscenes Seen", "action", usefulSub.id, function()
-    uFunctions.setCutscenesSeen()
-end)
 
 
 -- Misc
@@ -1094,6 +1113,20 @@ end)
 menu.add_feature("Set clear plate", "action", miscSub.id, function()
     vehicle.set_vehicle_number_plate_text(player.player_vehicle(), "-")
 end)
+menu.add_feature("Bad Sport", "action_value_str", miscSub.id, function(f) 
+    if f.value == 0 then
+        stats.stat_set_float(gameplay.get_hash_key("MPPLY_OVERALL_BADSPORT"), 120000, true)
+        stats.stat_set_bool(gameplay.get_hash_key("MPPLY_CHAR_IS_BADSPORT"), true, true)
+        stats.stat_set_int(gameplay.get_hash_key("MPPLY_BECAME_BADSPORT_NUM"), 1, true)
+        stats.stat_set_int(gameplay.get_hash_key("MPPLY_BADSPORT_MESSAGE"), 1, true)
+    else
+        stats.stat_set_float(gameplay.get_hash_key("MPPLY_OVERALL_BADSPORT"), 0, true)
+        stats.stat_set_bool(gameplay.get_hash_key("MPPLY_CHAR_IS_BADSPORT"), false, true)
+        stats.stat_set_int(gameplay.get_hash_key("MPPLY_BECAME_BADSPORT_NUM"), 0, true)
+        stats.stat_set_int(gameplay.get_hash_key("MPPLY_BADSPORT_MESSAGE"), 0, true)
+    end
+    menu.notify("Change sessions.", "Apex")
+end):set_str_data({"Become", "Remove"})
 vanityPlateFunc = menu.add_feature("Vanity Plates", "autoaction_value_str", miscSub.id, function(f, pid)
     vehicle.set_vehicle_number_plate_index(player.player_vehicle(), f.value + 6)
 end)

@@ -380,7 +380,14 @@ uTable.agencyContracts = {
     { name = "Recover Valuables", stat = "FIXER_SC_VAL_RECOVERED" },
     { name = "Rescue Operation", stat = "FIXER_SC_VIP_RESCUED" },
     { name = "Vehicle Recovery", stat = "FIXER_SC_VEH_RECOVERED" },
+
+    { name = "Payphone Hits", stat = "FIXERTELEPHONEHITSCOMPL"},
 }
+uTable.agencyContracts2 = {
+    { name = "Contracts done", stat = "TUNER_COUNT"},
+    { name = "Contracts earnings", stat = "TUNER_EARNINGS"},
+}
+
 
 function uTable.unlockAwards()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_FM_DM_WINS"), 50, true)
