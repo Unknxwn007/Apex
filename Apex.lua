@@ -49,6 +49,7 @@ end
 
 -- Main Menu
 local root = menu.add_feature("#FF0000FF#Apex", "parent", 0) 
+local playerRoot = menu.add_player_feature("#FF0000FF#Apex", "parent", 0) 
 
 local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
 local fraudSub = menu.add_feature("#FF0000FF#[BAN RISK]#DEFAULT# Tax Fraud", "parent", root.id)
