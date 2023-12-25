@@ -1,4 +1,24 @@
-
+### 1.3.7
+- Additions
+    - Reset & Skip current preps (Auto Shop)
+    - Remove Cayo Perico Cooldown
+    - Agency Contracts Editor (Stat Manager -> Misc)
+    - Overall Income & Expenses (Stat Manager)
+    - Bad Sport (Misc)
+    - Modded Casino payout
+    - Auto Shop payout editor
+    - Bag size (Cayo Perico)
+- Removals 
+    - Xenophobia
+    - Custom Executions
+    - Collectables sub
+- Fixes
+    - Character created & Last ranked up stats
+- Changes
+    - Moved 100% Complete flightschool to Unlocks
+    - Renamed some stuff
+    - General script improvements
+    - Moved a lot of stuff around
 
 ### 1.3.6.1
 - Additions
