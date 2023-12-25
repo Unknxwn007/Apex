@@ -67,7 +67,7 @@ local playerusefulSub = menu.add_player_feature("Useful Features", "parent", pla
     system.wait(300)
     local value = helpers.getInput("STAT NAME", "", 30, 0)
 
-    local piss = stats.stat_get_int(gameplay.get_hash_key(mpx2()..value), -1)
+    local piss = stats.stat_get_int(gameplay.get_hash_key(value), -1) --stats.stat_get_int(gameplay.get_hash_key(mpx2()..value), -1)
     menu.notify(tostring(piss))
 end)
 menu.add_feature("SET INT-STAT VALUE", "action", devSub.id, function() 
@@ -76,7 +76,7 @@ menu.add_feature("SET INT-STAT VALUE", "action", devSub.id, function()
     local value = helpers.getInput("String value", "", 70, 0)
 end)
 menu.add_feature("NATIVE TEST", "action", devSub.id, function() 
-    local piss = native.call(0xFCA9373EF340AC0A)
+    local piss = native.call(0x76EF28DA05EA395A)
     menu.notify(tostring(piss))
 end)--]]
 
@@ -339,6 +339,7 @@ end)
 
 -- Reputation
 menu.add_feature("Car Club level Exploit", "toggle", reputationSub.id, function(f)
+    menu.notify("Buy clothing or customize your vehicle!", "Apex", 6, 0x00ff00)
     while f.on do
         for i = 31944, 31971 do
             script.set_global_i(262145 + i, 90000)
@@ -346,7 +347,6 @@ menu.add_feature("Car Club level Exploit", "toggle", reputationSub.id, function(
         script.set_global_i(2751023, 1)
         system.wait()
     end
-    menu.notify("Buy clothing or customize your vehicle!", "Apex", 6, 0x00ff00)
 end)
 menu.add_feature("Reset car club level", "action", reputationSub.id, function() 
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."CAR_CLUB_REP"), 5, true)
@@ -1143,10 +1143,10 @@ end)
 local driftRacesWon = menu.add_feature("Drift races played", "action_value_i", miscStats.id, function(f)
     stats.stat_set_int(gameplay.get_hash_key(mpx2().. "DRIFT_RACE_PLAY_COUNT"), f.value, true)
 end)
-cayoBagSize.min = 1800
-cayoBagSize.max = 100000
-cayoBagSize.mod = 1000
-cayoBagSize.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. "DRIFT_RACE_PLAY_COUNT"), -1)
+driftRacesWon.min = 0
+driftRacesWon.max = 99999999999999
+driftRacesWon.mod = 1
+driftRacesWon.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. "DRIFT_RACE_PLAY_COUNT"), -1)
 menu.add_feature("Set Lowrider cutscenes as seen", "action", miscStats.id, function()
     uFunctions.setCutscenesSeen()
 end)
@@ -1161,6 +1161,15 @@ menu.add_feature("Remove transaction error", "toggle", usefulSub.id, function(f)
         system.wait(0)
     end
 end)
+--[[menu.add_feature("Move all money to", "action_value_str", usefulSub.id, function(f) 
+    if f.value == 0 then
+        local amount = native.call(0x76EF28DA05EA395A)
+        native.call(0xD47A2C1BA117471D, mpx2(), amount) -- bank -> wallet
+    else
+        local amount = native.call(0xA40F9C2623F6A8B5, mpx2())
+        native.call(0xC2F7FE5309181C7D, mpx2(), amount) -- wallet -> bank
+    end
+end):set_str_data({"Wallet", "Bank"})--]]
 menu.add_feature("Force cloud save", "action", usefulSub.id, function()
     native.call(0xE07BCA305B82D2FD, 0, false, 3, false)
 end)
