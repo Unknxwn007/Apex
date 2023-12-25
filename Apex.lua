@@ -338,6 +338,7 @@ end)
 
 
 -- Reputation
+
 menu.add_feature("Car Club level Exploit", "toggle", reputationSub.id, function(f)
     menu.notify("Buy clothing or customize your vehicle!", "Apex", 6, 0x00ff00)
     while f.on do
