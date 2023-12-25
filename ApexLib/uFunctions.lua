@@ -308,16 +308,25 @@ function uFunctions.unlockChopShopAwards()
 end
 
 function uFunctions.doomsDayActOne()
-    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_MISSION_PROG"), 7, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FM_MISSION_PROG"), 7, true)
+    --stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_MISSION_PROG"), 7, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_MISSION_PROG"), 503, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_HEIST_STATUS"), -229383, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_NOTIFICATIONS"), 1557, true)
+    script.set_local_i(gameplay.get_hash_key("GB_GANG_OPS_PLANNING"), 182, 6)
 end
+
 function uFunctions.doomsDayActTwo()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_MISSION_PROG"), 240, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FM_MISSION_PROG"), 248, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_HEIST_STATUS"), -229378, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_NOTIFICATIONS"), 1557, true)
+    script.set_local_i(gameplay.get_hash_key("GB_GANG_OPS_PLANNING"), 182, 6)
 end
+
 function uFunctions.doomsDayActThree()
-    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_MISSION_PROG"), 15872, true)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FM_MISSION_PROG"), 16128, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_MISSION_PROG"), 16368, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_HEIST_STATUS"), -229380, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_NOTIFICATIONS"), 1557, true)
+    script.set_local_i(gameplay.get_hash_key("GB_GANG_OPS_PLANNING"), 182, 6)
 end
 
 function uFunctions.casinoHeistSilentSneaky()
@@ -815,6 +824,39 @@ function uFunctions.setAchievement(achievementId)
     native.call(0xBEC7076D64130195, achievementId)
 end
 
+function uFunctions.maxPayoutH3DNormal()
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 1, 58)
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 2, 141)
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 3, 141)
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 4, 141)
+    script.set_global_i(262145 + 29085, 1410065408)
+end
 
+function uFunctions.maxPayoutH3DHard()
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 1, 58)
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 2, 131)
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 3, 131)
+    script.set_global_i(1963945 + 1497 + 736 + 92 + 4, 131)
+    script.set_global_i(262145 + 29085, 1410065408)
+end
+
+function uFunctions.maxPayoutH2Smart()
+    local pslot = stats.stat_get_int(gameplay.get_hash_key("mpply_last_mp_char"), 0)
+    local statCheckH2 = stats.stat_get_int(gameplay.get_hash_key("MP" .. pslot .. "_GANGOPS_FLOW_MISSION_PROG"), 0)
+    local statCheckH2S = stats.stat_get_int(gameplay.get_hash_key("MP" .. pslot .. "_GANGOPS_HEIST_STATUS"), 0)
+    if statCheckH2 == 503 and statCheckH2S == -229383 then --Act I
+        for i = 0, 3 do
+            script.set_global_i(1960728 + i, 209)
+        end
+    elseif statCheckH2 == 240 and statCheckH2S == -229378 then --Act II
+        for i = 0, 3 do
+            script.set_global_i(1960728 + i, 142)
+        end
+    elseif statCheckH2 == 16368 and statCheckH2S == -229380 then --Act III
+        for i = 0, 3 do
+            script.set_global_i(1960728 + i, 112)
+        end
+    end
+end
 
 return uFunctions

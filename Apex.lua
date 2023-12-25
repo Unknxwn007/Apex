@@ -471,17 +471,22 @@ menu.add_feature("Reset Setups", "action", legacyHeist.id, function()
 end)
 
 -- the doomsday heist
-menu.add_feature("Auto Setup:", "action_value_str", doomsdayHeist.id, function(f) 
+menu.add_feature("Auto Setup:", "autoaction_value_str", doomsdayHeist.id, function(f) 
     if f.value == 0 then
         uFunctions.doomsDayActOne()
     elseif f.value == 1 then 
-        Functions.doomsDayActTwo()
+        uFunctions.doomsDayActTwo()
     elseif f.value == 2 then 
         uFunctions.doomsDayActThree()
     else
         menu.notify("Error 0x42069", "Apex", 10, colors.red)
     end
 end):set_str_data({"Act 1: The Data Breaches", "Act 2: The Bodgan Problem", "Act 3: Doomsday Scenario"})
+
+menu.add_feature("Max Payout", "action", doomsdayHeist.id, function()
+    uFunctions.maxPayoutH2Smart()
+end)
+
 -- the casino heist -> modded presets
 --[[
 menu.add_feature("Gold - 3.6M for players 2, 3 and 4", "toggle", casinoModdedPresets.id, function(f)
@@ -561,6 +566,16 @@ menu.add_feature("Skip", "action_value_str", casinoHeist.id, function(f)
         menu.notify("Error 0x42069", "Apex", 10, colors.red)
     end
 end):set_str_data({"Fingerprints", "Keypads"})
+
+menu.add_feature("Max Payout For All (Diamond)", "action_value_str", casinoHeist.id, function(f)
+    if f.value == 0 then
+        uFunctions.maxPayoutH3DNormal()
+    elseif f.value == 1 then
+        uFunctions.maxPayoutH3DHard()
+    else
+    end
+end):set_str_data({"Normal", "Hard"})
+
 menu.add_feature("Remove All CCTV Camera's", "action", casinoHeist.id, function()
     menu.get_feature_by_hierarchy_key("online.casinoperico_heist.remove_cameras"):toggle()
 end)
