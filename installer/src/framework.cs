@@ -132,10 +132,10 @@ namespace src
 
         public static void Download()
         {
-            string apexLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/main/Apex.lua";
-            string funcLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/main/ApexLib/uFunctions.lua";
-            string tableLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/main/ApexLib/uTable.lua";
-            string helpLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/main/ApexLib/helpers.lua";
+            string apexLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/Apex.lua";
+            string funcLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/ApexLib/uFunctions.lua";
+            string tableLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/ApexLib/uTable.lua";
+            string helpLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/ApexLib/helpers.lua";
 
 
             using (WebClient wc = new WebClient())
@@ -156,7 +156,10 @@ namespace src
         {
             if(!uninstall) 
             { 
-                if (!Directory.Exists(apexLib)) { Download(); }
+                if (!Directory.Exists(apexLib)) {
+                    Directory.CreateDirectory(apexLib);
+                    Download(); 
+                }
                 WritePrefixText("Apex has been installed!", "suc", true);
             }
             else
