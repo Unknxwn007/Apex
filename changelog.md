@@ -1,3 +1,7 @@
+### 1.3.7.1
+- Fixes
+    - Car Club exploit
+    
 ### 1.3.7
 - Additions
     - Reset & Skip current preps (Auto Shop)
