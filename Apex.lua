@@ -67,7 +67,7 @@ local playerusefulSub = menu.add_player_feature("Useful Features", "parent", pla
     system.wait(300)
     local value = helpers.getInput("STAT NAME", "", 30, 0)
 
-    local piss = stats.stat_get_int(gameplay.get_hash_key(value), -1) --stats.stat_get_int(gameplay.get_hash_key(mpx2()..value), -1)
+    local piss = stats.stat_get_int(gameplay.get_hash_key(mpx2()..value), -1)
     menu.notify(tostring(piss))
 end)
 menu.add_feature("SET INT-STAT VALUE", "action", devSub.id, function() 
@@ -338,18 +338,20 @@ end)
 
 
 -- Reputation
+
 menu.add_feature("Car Club level Exploit", "toggle", reputationSub.id, function(f)
-    menu.notify("Buy clothing or customize your vehicle!", "Apex", 6, 0x00ff00)
+    menu.notify("Buy clothing or customize your vehicle!", "Apex", 6, colors.red)
     while f.on do
-        for i = 31944, 31971 do
-            script.set_global_i(262145 + i, 90000)
+        for i = 31944, 31973 do
+            script.set_global_f(262145 + i, 99999)
         end
-        script.set_global_i(2751023, 1)
         system.wait()
     end
+    menu.notify("Find a new session to apply max level!", "Apex", 5, colors.yellow)
 end)
 menu.add_feature("Reset car club level", "action", reputationSub.id, function() 
-    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CAR_CLUB_REP"), 5, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."CAR_CLUB_REP"), 0, true) -- i got 0 from doing a get stat int + CAR_CLUB_REP
+    menu.notify("Find a new session to apply level!", "Apex", 5, colors.yellow)
 end)
 
 
