@@ -366,6 +366,214 @@ uTable.agencyContracts2 = {
     { name = "Contracts earnings", stat = "TUNER_EARNINGS"},
 }
 
+uTable.compStats = {
+    { name = "Races Won", stat = "MPPLY_TOTAL_RACES_WON"},
+    { name = "Races Lost", stat = "MPPLY_TOTAL_RACES_LOST"},
+    { name = "Custom Race Wins", stat = "MPPLY_TOTAL_CUSTOM_RACES_WON"},
+    { name = "Golf Wins", stat = "MPPLY_GOLF_WINS"},
+    { name = "Golf Losses", stat = "MPPLY_GOLF_LOSSES"},
+    { name = "Dart Wins", stat = "MPPLY_DARTS_TOTAL_WINS"},
+    { name = "Tennis Matches Won", stat = "MPPLY_TENNIS_MATCHES_WON"},
+    { name = "Tennis Matches Lost", stat = "MPPLY_TENNIS_MATCHES_LOST"},
+    { name = "Base Jump Wins", stat = "MPPLY_BJ_WINS"},
+    { name = "Base Jump Losses", stat = "MPPLY_BJ_LOST"},
+    { name = "Deathmatch Wins", stat = "MPPLY_TOTAL_DEATHMATCH_WON"},
+    { name = "Deathmatch Losses", stat = "MPPLY_TOTAL_DEATHMATCH_LOST"},
+    { name = "Team Deathmatch Wins", stat = "MPPLY_TOTAL_TDEATHMATCH_WON"},
+    { name = "Team Deathmatch Losses", stat = "MPPLY_TOTAL_TDEATHMATCH_LOST"},
+    --{ name = "", stat = ""},
+}
+uTable.compStatsPP = { -- per player
+    { name = "Impromptu Races Won", stat = "IMPROMPTU_RACES_WON"},
+}
+
+--RAILGUN_KILLS | ASLTR_MK2_KILLS | CBNR_MK2_KILLS | HCK_DVE_KILLS | YACHT_NAME, YACHT_NAME2 |  | BLRIFLE_MK2_KILLS | MKRIFLE_MK2_KILLS | 
+--REV_MK2_KILLS | REV_DA_KILLS | 
+uTable.meleeStats = {
+    { name = "Antique Cavalry Dagger", killsWith = "DAGGER_KILLS", deathsBy = "DAGGER_DEATHS" },
+    { name = "Baseball Bat", killsWith = "BAT_KILLS", deathsBy = "BAT_DEATHS" },
+    { name = "Bottle", killsWith = "BOTTLE_KILLS", deathsBy = "BOTTLE_DEATHS"},
+    { name = "Crowbar", killsWith = "CROWBAR_KILLS", deathsBy = "CROWBAR_DEATHS"},
+    { name = "Flashlight", killsWith = "FLASHLIGHT_KILLS", deathsBy = "FLASHLIGHT_DEATHS"},
+    { name = "Golf Club", killsWith = "GCLUB_KILLS", deathsBy = "GCLUB_DEATHS"},
+    { name = "Hammer", killsWith = "HAMMER_KILLS", deathsBy = "HAMMER_DEATHS"},
+    { name = "Hatchet", killsWith = "HATCHET_KILLS", deathsBy = "HATCHET_DEATHS"},
+    { name = "Knuckle Duster", killsWith = "KNUCKLE_KILLS", deathsBy = "KNUCKLE_DEATHS"},
+    { name = "Knife", killsWith = "KNIFE_KILLS", deathsBy = "KNIFE_DEATHS"},
+    { name = "Machete", killsWith = "MACHETE_KILLS", deathsBy = "MACHETE_DEATHS"},
+    { name = "Switchblade", killsWith = "SWBLADE_KILLS", deathsBy = "SWBLADE_DEATHS"},
+    { name = "Nightstick", killsWith = "NIGHTSTICK_KILLS", deathsBy = "NIGHTSTICK_DEATHS"},
+    { name = "Wrench", killsWith = "WRENCH_KILLS", deathsBy = "WRENCH_DEATHS"},
+    { name = "Battle Axe", killsWith = "BATTLEAXE_KILLS", deathsBy = "BATTLEAXE_KILLS"},
+    { name = "Pool Cue", killsWith = "POOLCUE_KILLS", deathsBy = "POOLCUE_DEATHS"},
+    { name = "Stone Hatchet", killsWith = "SHATCHET_KILLS", deathsBy = "SHATCHET_DEATHS"},
+    --{ name = "Candy Cane", killsWith = "", deathsBy = ""},
+}
+uTable.pistolStats = {
+    { name = "Pistol", killsWith = "PISTOL_KILLS", deathsBy = "PISTOL_DEATHS", headshots = "PISTOL_HEADSHOTS", shots = "PISTOL_SHOTS", hits = "PISTOL_HITS" },
+    { name = "Pistol MK II", killsWith = "PIST_MK2_KILLS", deathsBy = "PIST_MK2_DEATHS", headshots = "PIST_MK2_HEADSHOTS", shots = "PIST_MK2_SHOTS", hits = "PIST_MK2_HITS" },
+    { name = "Combat Pistol", killsWith = "CMBTPISTOL_KILLS", deathsBy = "CMBTPISTOL_DEATHS", headshots = "CMBTPISTOL_HEADSHOTS", shots = "CMBTPISTOL_SHOTS", hits = "CMBTPISTOL_HITS" },
+    { name = "AP Pistol", killsWith = "APPISTOL_KILLS", deathsBy = "APPISTOL_DEATHS", headshots = "APPISTOL_HEADSHOTS", shots = "APPISTOL_SHOTS", hits = "APPISTOL_HITS" },
+    { name = "Pistol .50", killsWith = "PISTOL50_KILLS", deathsBy = "PISTOL50_DEATHS", headshots = "PISTOL50_HEADSHOTS", shots = "PISTOL50_SHOTS", hits = "PISTOL50_HITS" },
+    { name = "SNS Pistol", killsWith = "SNSPISTOL_KILLS", deathsBy = "SNSPISTOL_DEATHS", headshots = "SNSPISTOL_HEADSHOTS", shots = "SNSPISTOL_SHOTS", hits = "SNSPISTOL_HITS" },
+    { name = "SNS Pistol MK II", killsWith = "SNSPIST_MK2_KILLS", deathsBy = "SNSPIST_MK2_DEATHS", headshots = "SNSPIST_MK2_HEADSHOTS", shots = "SNSPIST_MK2_SHOTS", hits = "SNSPIST_MK2_HITS" },
+    { name = "Heavy Pistol", killsWith = "HVYPISTOL_KILLS", deathsBy = "HVYPISTOL_DEATHS", headshots = "HVYPISTOL_HEADSHOTS", shots = "HVYPISTOL_SHOTS", hits = "HVYPISTOL_HITS" },
+    { name = "Vintage Pistol", killsWith = "VPISTOL_KILLS", deathsBy = "VPISTOL_DEATHS", headshots = "VPISTOL_HEADSHOTS", shots = "VPISTOL_SHOTS", hits = "VPISTOL_HITS" },
+    { name = "Flare Gun", killsWith = "FLAREGUN_KILLS", deathsBy = "FLAREGUN_DEATHS", headshots = "FLAREGUN_HEADSHOTS", shots = "FLAREGUN_SHOTS", hits = "FLAREGUN_HITS" },
+    --Marksman Pistol
+    { name = "Heavy Revolver", killsWith = "REVOLVER_KILLS", deathsBy = "REVOLVER_DEATHS", headshots = "REVOLVER_HEADSHOTS", shots = "REVOLVER_SHOTS", hits = "REVOLVER_HITS" },
+    --Heavy Revolver MK II
+    --Double Action Revolver
+    { name = "Up-n-Atomizer", killsWith = "RAYPISTOL_KILLS", deathsBy = "RAYPISTOL_DEATHS", headshots = "RAYPISTOL_HEADSHOTS", shots = "RAYPISTOL_SHOTS", hits = "RAYPISTOL_HITS" },
+    { name = "Ceramic Pistol", killsWith = "CERPST_KILLS", deathsBy = "CERPST_DEATHS", headshots = "CERPST_HEADSHOTS", shots = "CERPST_SHOTS", hits = "CERPST_HITS" },
+    --Navy Revolver
+    { name = "Perico Pistol", killsWith = "GDGTPST_KILLS", deathsBy = "GDGTPST_DEATHS", headshots = "GDGTPST_HEADSHOTS", shots = "GDGTPST_SHOTS", hits = "GDGTPST_HITS" },
+    { name = "Stun Gun", killsWith = "STNGNMP_KILLS", deathsBy = "STNGNMP_DEATHS", headshots = "STNGNMP_HEADSHOTS", shots = "STNGNMP_SHOTS", hits = "STNGNMP_HITS" },    
+    { name = "WM 29 Pistol", killsWith = "PISTOLXM3_KILLS", deathsBy = "PISTOLXM3_DEATHS", headshots = "PISTOLXM3_HEADSHOTS", shots = "PISTOLXM3_SHOTS", hits = "PISTOLXM3_HITS" },   
+}
+uTable.smgStats = {
+    { name = "Micro SMG", killsWith = "MICROSMG_KILLS", deathsBy = "MICROSMG_DEATHS", headshots = "MICROSMG_HEADSHOTS", shots = "MICROSMG_SHOTS", hits = "MICROSMG_HITS" },
+    { name = "SMG", killsWith = "SMG_KILLS", deathsBy = "SMG_DEATHS", headshots = "SMG_HEADSHOTS", shots = "SMG_SHOTS", hits = "SMG_HITS" },
+    { name = "SMG MK II", killsWith = "SMG_MK2_KILLS", deathsBy = "SMG_MK2_DEATHS", headshots = "SMG_MK2_HEADSHOTS", shots = "SMG_MK2_SHOTS", hits = "SMG_MK2_HITS" },
+    { name = "Assault SMG", killsWith = "ASLTSMG_KILLS", deathsBy = "ASLTSMG_DEATHS", headshots = "ASLTSMG_HEADSHOTS", shots = "ASLTSMG_SHOTS", hits = "ASLTSMG_HITS" },
+    { name = "Combat PDW", killsWith = "COMBATPDW_KILLS", deathsBy = "COMBATPDW_DEATHS", headshots = "COMBATPDW_HEADSHOTS", shots = "COMBATPDW_SHOTS", hits = "COMBATPDW_HITS" },
+    --Machine Pistol
+    --Mini SMG
+    { name = "Unholy Hellbringer", killsWith = "RAYCARBINE_KILLS", deathsBy = "RAYCARBINE_DEATHS", headshots = "RAYCARBINE_HEADSHOTS", shots = "RAYCARBINE_SHOTS", hits = "RAYCARBINE_HITS" },
+    { name = "Tactical SMG", killsWith = "TECPISTOL_KILLS", deathsBy = "TECPISTOL_DEATHS", headshots = "TECPISTOL_HEADSHOTS", shots = "TECPISTOL_SHOTS", hits = "TECPISTOL_HITS" },
+}
+uTable.shotgunStats = {
+    { name = "Pump Shotgun", killsWith = "PUMP_KILLS", deathsBy = "PUMP_DEATHS", headshots = "PUMP_HEADSHOTS", shots = "PUMP_SHOTS", hits = "PUMP_HITS" },
+    { name = "Pump Shotgun MK II", killsWith = "PUMP_MK2_KILLS", deathsBy = "PUMP_MK2_DEATHS", headshots = "PUMP_MK2_HEADSHOTS", shots = "PUMP_MK2_SHOTS", hits = "PUMP_MK2_HITS" },
+    { name = "Sawn-Off Shotgun", killsWith = "SAWNOFF_KILLS", deathsBy = "SAWNOFF_DEATHS", headshots = "SAWNOFF_HEADSHOTS", shots = "SAWNOFF_SHOTS", hits = "SAWNOFF_HITS" },
+    { name = "Assault Shotgun", killsWith = "ASLTSHTGN_KILLS", deathsBy = "ASLTSHTGN_DEATHS", headshots = "ASLTSHTGN_HEADSHOTS", shots = "ASLTSHTGN_SHOTS", hits = "ASLTSHTGN_HITS" },
+    { name = "Bullpup Shotgun", killsWith = "BULLPUP_KILLS", deathsBy = "BULLPUP_DEATHS", headshots = "BULLPUP_HEADSHOTS", shots = "BULLPUP_SHOTS", hits = "BULLPUP_HITS" },
+    { name = "Musket", killsWith = "MUSKET_KILLS", deathsBy = "MUSKET_DEATHS", headshots = "MUSKET_HEADSHOTS", shots = "MUSKET_SHOTS", hits = "MUSKET_HITS" },
+    { name = "Heavy Shotgun", killsWith = "HVYSHGN_KILLS", deathsBy = "HVYSHGN_DEATHS", headshots = "HVYSHGN_HEADSHOTS", shots = "HVYSHGN_SHOTS", hits = "HVYSHGN_HITS" },
+    { name = "Double Barrel Shotgun", killsWith = "DBSHGN_KILLS", deathsBy = "DBSHGN_DEATHS", headshots = "DBSHGN_HEADSHOTS", shots = "DBSHGN_SHOTS", hits = "DBSHGN_HITS" },
+    { name = "Auto Shotgun", killsWith = "AUTOSHGN_KILLS", deathsBy = "AUTOSHGN_DEATHS", headshots = "AUTOSHGN_HEADSHOTS", shots = "AUTOSHGN_SHOTS", hits = "AUTOSHGN_HITS" },
+    --{ name = "Combat Shotgun", killsWith = "MINIGUNS_KILLS", deathsBy = "MINIGUNS_DEATHS", headshots = "MINIGUNS_HEADSHOTS", shots = "MINIGUNS_SHOTS", hits = "MINIGUNS_HITS" },
+}
+uTable.rifleStats = {
+    { name = "Assault Rifle", killsWith = "ASLTRIFLE_KILLS", deathsBy = "ASLTRIFLE_DEATHS", headshots = "ASLTRIFLE_HEADSHOTS", shots = "ASLTRIFLE_SHOTS", hits = "ASLTRIFLE_HITS" },
+    --{ name = "Assault Rifle MK II", killsWith = "ASLTRIFLE_KILLS", deathsBy = "ASLTRIFLE_DEATHS", headshots = "ASLTRIFLE_HEADSHOTS", shots = "ASLTRIFLE_SHOTS", hits = "ASLTRIFLE_HITS" },
+    { name = "Carbine Rifle", killsWith = "CRBNRIFLE_KILLS", deathsBy = "CRBNRIFLE_DEATHS", headshots = "CRBNRIFLE_HEADSHOTS", shots = "CRBNRIFLE_SHOTS", hits = "CRBNRIFLE_HITS" },
+    --{ name = "Carbine Rifle MK II", killsWith = "CRBNRIFLE_KILLS", deathsBy = "CRBNRIFLE_DEATHS", headshots = "CRBNRIFLE_HEADSHOTS", shots = "CRBNRIFLE_SHOTS", hits = "CRBNRIFLE_HITS" },
+    { name = "Advanced Rifle", killsWith = "ADVRIFLE_KILLS", deathsBy = "ADVRIFLE_DEATHS", headshots = "ADVRIFLE_HEADSHOTS", shots = "ADVRIFLE_SHOTS", hits = "ADVRIFLE_HITS" },
+    { name = "Special Carbine", killsWith = "SPCARBINE_KILLS", deathsBy = "SPCARBINE_DEATHS", headshots = "SPCARBINE_HEADSHOTS", shots = "SPCARBINE_SHOTS", hits = "SPCARBINE_HITS" },
+    { name = "Special Carbine Mk II", killsWith = "SPCARB_MK2_KILLS", deathsBy = "SPCARB_MK2_DEATHS", headshots = "SPCARB_MK2_HEADSHOTS", shots = "SPCARB_MK2_SHOTS", hits = "SPCARB_MK2_HITS" },
+    { name = "Bullpup Rifle", killsWith = "BULLRIFLE_KILLS", deathsBy = "BULLRIFLE_DEATHS", headshots = "BULLRIFLE_HEADSHOTS", shots = "BULLRIFLE_SHOTS", hits = "BULLRIFLE_HITS" },
+    --{ name = "Bullpup Rifle MK II", killsWith = "BULLRIFLE_KILLS", deathsBy = "BULLRIFLE_DEATHS", headshots = "BULLRIFLE_HEADSHOTS", shots = "BULLRIFLE_SHOTS", hits = "BULLRIFLE_HITS" },
+    { name = "Compact Rifle", killsWith = "CMPRIFLE_KILLS", deathsBy = "CMPRIFLE_DEATHS", headshots = "CMPRIFLE_HEADSHOTS", shots = "CMPRIFLE_SHOTS", hits = "CMPRIFLE_HITS" },
+    { name = "Military Rifle", killsWith = "MLTRYRFL_KILLS", deathsBy = "MLTRYRFL_DEATHS", headshots = "MLTRYRFL_HEADSHOTS", shots = "MLTRYRFL_SHOTS", hits = "MLTRYRFL_HITS" },
+    { name = "Heavy Rifle", killsWith = "HVYRIFLE_KILLS", deathsBy = "HVYRIFLE_DEATHS", headshots = "HVYRIFLE_HEADSHOTS", shots = "HVYRIFLE_SHOTS", hits = "HVYRIFLE_HITS" },
+    --Tactical Rifle
+    { name = "Battle Rifle", killsWith = "BTL_RLF_KILLS", deathsBy = "BTL_RLF_DEATHS", headshots = "BTL_RLF_HEADSHOTS", shots = "BTL_RLF_SHOTS", hits = "BTL_RLF_HITS" },
+}
+uTable.lmgStats = {
+    { name = "MG", killsWith = "MG_KILLS", deathsBy = "MG_DEATHS", headshots = "MG_HEADSHOTS", shots = "MG_SHOTS", hits = "MG_HITS" },
+    { name = "Combat MG", killsWith = "CMBTMG_KILLS", deathsBy = "CMBTMG_DEATHS", headshots = "CMBTMG_HEADSHOTS", shots = "CMBTMG_SHOTS", hits = "CMBTMG_HITS" },
+    { name = "Combat MG MK II", killsWith = "CMBMG_MK2_KILLS", deathsBy = "CMBMG_MK2_DEATHS", headshots = "CMBMG_MK2_HEADSHOTS", shots = "CMBMG_MK2_SHOTS", hits = "CMBMG_MK2_HITS" },
+    { name = "Gusenberg Sweeper", killsWith = "GUSNBRG_KILLS", deathsBy = "GUSNBRG_DEATHS", headshots = "GUSNBRG_HEADSHOTS", shots = "GUSNBRG_SHOTS", hits = "GUSNBRG_HITS" }, 
+}
+uTable.sniperStats = {
+    { name = "Sniper Rifle", killsWith = "SNIPERRFL_KILLS", deathsBy = "SNIPERRFL_DEATHS", headshots = "SNIPERRFL_HEADSHOTS", shots = "SNIPERRFL_SHOTS", hits = "SNIPERRFL_HITS" },
+    { name = "Heavy Sniper", killsWith = "HVYSNIPER_KILLS", deathsBy = "HVYSNIPER_DEATHS", headshots = "HVYSNIPER_HEADSHOTS", shots = "HVYSNIPER_SHOTS", hits = "HVYSNIPER_HITS" },
+    { name = "Heavy Sniper MK II", killsWith = "HVYS_MK2_KILLS", deathsBy = "HVYS_MK2_DEATHS", headshots = "HVYS_MK2_HEADSHOTS", shots = "HVYS_MK2_SHOTS", hits = "HVYS_MK2_HITS" },
+    --Marksman Rifle
+    --Marksman Rifle MK II
+    { name = "Precision Rifle", killsWith = "PRCSRIFLE_KILLS", deathsBy = "PRCSRIFLE_DEATHS", headshots = "PRCSRIFLE_HEADSHOTS", shots = "PRCSRIFLE_SHOTS", hits = "PRCSRIFLE_HITS" },
+}
+uTable.heavyStats = {
+    { name = "RPG", killsWith = "RPG_KILLS", deathsBy = "RPG_DEATHS", shots = "RPG_SHOTS" },
+    { name = "Grenade Launcher", killsWith = "GRNLAUNCH_KILLS", deathsBy = "GRNLAUNCH_DEATHS", shots = "GRNLAUNCH_SHOTS" },
+    --Grenade Launcher Smoke
+    { name = "Minigun", killsWith = "MINIGUNS_KILLS", deathsBy = "MINIGUNS_DEATHS", shots = "MINIGUNS_SHOTS" },
+    --Firework Launcher
+    --Railgun
+    { name = "Homing Launcher", killsWith = "HOMLNCH_KILLS", deathsBy = "HOMLNCH_DEATHS", shots = "HOMLNCH_SHOTS" },
+    { name = "Compact Grenade Launcher", killsWith = "CMPGL_KILLS", deathsBy = "CMPGL_DEATHS", shots = "CMPGL_SHOTS"},
+    { name = "Widowmaker", killsWith = "RAYMINIGUN_KILLS", deathsBy = "RAYMINIGUN_DEATHS", shots = "RAYMINIGUN_SHOTS" },
+    { name = "Compact EMP Launcher", killsWith = "EMPGL_KILLS", deathsBy = "EMPGL_DEATHS", shots = "EMPGL_SHOTS" },
+    { name = "Snow Launcher", killsWith = "SNW_LCHR_KILLS", deathsBy = "SNW_LCHR_DEATHS", shots = "SNW_LCHR_SHOTS" },
+    --Railgun XM3?
+}
+uTable.throwStats = {
+    { name = "Grenade", killsWith = "GRENADE_KILLS", deathsBy = "GRENADE_DEATHS" },
+    --BZ Gas
+    { name = "Molotov", killsWith = "MOLOTOV_KILLS", deathsBy = "MOLOTOV_DEATHS" },
+    { name = "Sticky Bomb", killsWith = "STKYBMB_KILLS", deathsBy = "STKYBMB_DEATHS" },
+    { name = "Proximity Mine", killsWith = "PRXMINE_KILLS", deathsBy = "PRXMINE_DEATHS" },
+    --Snowballs
+    { name = "Pipe Bomb", killsWith = "PIPEBOMB_KILLS", deathsBy = "PIPEBOMB_DEATHS" },
+    --Baseball
+    { name = "Tear Gas", killsWith = "SMKGRENADE_KILLS", deathsBy = "SMKGRENADE_DEATHS" },
+    --Flare
+    --Acid Package?
+}
+
+
+
+
+
+uTable.weaponStats = {
+    --{ name = "ASLTMG", killsWith = "ASLTMG_KILLS", deathsBy = "ASLTMG_DEATHS", headshots = "ASLTMG_HEADSHOTS", shots = "ASLTMG_SHOTS", hits = "ASLTMG_HITS" },
+   --{ name = "ASLTSNIP", ammoBought = "ASLTSNIP_FM_AMMO_BOUGHT", ammoCurrent = "ASLTSNIP_FM_AMMO_CURRENT", inPossession = "ASLTSNIP_IN_POSSESSION", acquiredAsGift = "ASLTSNIP_AQUIRED_AS_GIFT" },
+
+    --{ name = "Grenade Launcher", killsWith = "GRNLAUNCH_KILLS", deathsBy = "GRNLAUNCH_DEATHS", headshots = "GRNLAUNCH_HEADSHOTS", shots = "GRNLAUNCH_SHOTS" },
+    --{ name = "RPG", killsWith = "RPG_KILLS", deathsBy = "RPG_DEATHS", headshots = "RPG_HEADSHOTS", shots = "RPG_SHOTS" },
+    --knife
+    --{ name = "Nightstick", killsWith = "NIGHTSTICK_KILLS", deathsBy = "NIGHTSTICK_DEATHS", hits = "NIGHTSTICK_HITS" },
+    --{ name = "Baseball Bat", killsWith = "BAT_KILLS", deathsBy = "BAT_DEATHS", hits = "BAT_HITS" },
+    --{ name = "Crowbar", killsWith = "CROWBAR_KILLS", deathsBy = "CROWBAR_DEATHS",hits = "CROWBAR_HITS" },
+    -- { name = "Golf Club", killsWith = "GCLUB_KILLS", deathsBy = "GCLUB_DEATHS",  hits = "GCLUB_HITS" },
+
+    --{ name = "Hammer", killsWith = "HAMMER_KILLS", deathsBy = "HAMMER_DEATHS" hits = "HAMMER_HITS" },
+    
+
+
+    --Gusenberg Sweeper
+    --Firework Launcher
+    --Heavy Shotgun
+    --Marksman Rifle
+    --Hatchet
+    --Homing Launcher
+    --Proximity Mine
+    --Marksman Pistol
+    --Machine Pistol
+    --Heavy Revolver
+    --Switchblade
+    --Sweeper Shotgun
+    --Battle Axe
+    --Compact Grenade Launcher
+    --Mini SMG
+    --Pipe Bomb
+    --Pool Cue
+    --Pipe Wrench
+    --Assault Rifle Mk II
+    --Carbine Rifle Mk II
+    --Combat MG Mk II
+    --Heavy Sniper Mk II
+    --Pistol Mk II
+    --SMG Mk II
+    --Bullpup Rifle Mk II
+    --Marksman Rifle Mk II
+    --Heavy Revolver Mk II
+    --Double-Action Revolver
+    --Stone Hatchet
+    --Unholy Hellbringer
+    --Windowmaker
+    --Up-n-Atomizer
+    --Ceramic Pistol
+    --Navy Revolver
+    --Combat Shotgun
+    --Perico Pistol
+
+   
+   
+    --{ name = "Wrench", killsWith = "WRENCH_KILLS", deathsBy = "WRENCH_DEATHS",  hits = "WRENCH_HITS" },
+    --{ name = "Smoke Grenade", killsWith = "SMKGRENADE_KILLS", deathsBy = "SMKGRENADE_DEATHS", headshots = "SMKGRENADE_HEADSHOTS", shots = "SMKGRENADE_SHOTS", timeHeld = "SMKGRENADE_HELDTIME", dbHeldTime = "SMKGRENADE_DB_HELDTIME" },
+}
 
 function uTable.unlockAwards()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_FM_DM_WINS"), 50, true)
