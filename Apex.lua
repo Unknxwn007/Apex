@@ -354,14 +354,13 @@ end)
 
 
 -- Reputation
-local repMultiplier = menu.add_feature("RP Multiplier", "value_f", reputationSub.id, function(f) 
+menu.add_feature("RP Multiplier [10x]", "action", reputationSub.id, function(f) 
     while f.on do
-        script.set_global_f(262145 + 1, repMultiplier.value)
+        script.set_global_f(262145 + 1, 10.0)
         system.wait()
     end        
-    script.set_global_f(62145 + 1, 1.0)
+    script.set_global_f(262145 + 1, 1.0)
 end)
-repMultiplier.min, repMultiplier.max, repMultiplier.mod, repMultiplier.value = 1, 100, 5, 1
 menu.add_feature("Car Club level Exploit", "toggle", reputationSub.id, function(f)
     menu.notify("Buy clothing or customize your vehicle!", "Apex", 6, colors.red)
     while f.on do
