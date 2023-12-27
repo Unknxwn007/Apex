@@ -1,10 +1,16 @@
-local uTable = {}
+local tables = {}
 
 local function mpx2()
     return "MP" .. stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1) .. "_"
 end
 
-uTable.Achievements = {
+tables.trustedModes = {
+    { bit = 1 << 1, name = "Globals" },
+    { bit = 1 << 0, name = "Stats" },
+    { bit = 1 << 2, name = "Natives" }
+}
+
+tables.Achievements = {
     [1] = "Welcome to Los Santos",
     [2] = "A Friendship Resurrected",
     [3] = "A Fair Day's Pay",
@@ -84,24 +90,24 @@ uTable.Achievements = {
     [77] = "Masterminds",
 }
 
-uTable.CircoLocoMusic = {
+tables.CircoLocoMusic = {
     {name = "CircoLoco Record - Black EP", coord = v3(-2172.050, 1159.195, -24.372)},
     {name = "CircoLoco Record - Blue EP", coord = v3(955.299, 48.904, 112.553)},
     {name = "CircoLoco Record - Violet EP", coord = v3(-1618.841, -3010.627, -75.205)},
     {name = "CircoLoco Record - Green EP", coord = v3(2726.694, -387.484, -48.993)}
 }
-uTable.KennyMusic = {
+tables.KennyMusic = {
     {name = "Kenny's Backyard Boogie - #1", coord = v3(-2163.025, 1083.473, -24.362)},
     {name = "Kenny's Backyard Boogie - #2", coord = v3(-2180.532, 1082.276, -24.367)},
     {name = "Kenny's Backyard Boogie - #3", coord = v3(-2162.992, 1089.790, -24.363)},
     {name = "Kenny's Backyard Boogie - #4", coord = v3(-2162.770, 1115.913, -24.371)}
 }
-uTable.NezMusic = {
+tables.NezMusic = {
     {name = "NEZ - You Wanna?", coord = v3(-860.241, -229.980, 61.016)},
     {name = "NEZ ft. Schoolboy Q - Let's Get It", coord = v3(25.010, 521.276, 170.227)}
 }
 
-uTable.clothingIDs = {
+tables.clothingIDs = {
     36699, 36700, 36701, 36702, 36703, 36704, 36705, 36706, 36707, 36708,
     36709, 36710, 36711, 36712, 36713, 36714, 36715, 36716, 36717, 36718,
     36719, 36720, 36721, 36722, 36723, 36724, 36725, 36726, 36727, 36728,
@@ -307,13 +313,13 @@ uTable.clothingIDs = {
     3783, 3784, 3785, 3786, 3787, 3788, 3789, 3790, 3791, 3792, 3793, 3794, 3799, 3797
 }
 
-uTable.AchievementIDs = {
+tables.AchievementIDs = {
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 
     33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 
     63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78
 }
 
-uTable.vanityPlates = {
+tables.vanityPlates = {
     {name = "E-Cola", id = 6},
     {name = "Las Venturas", id = 7},
     {name = "Liberty City", id = 8},
@@ -323,7 +329,7 @@ uTable.vanityPlates = {
     {name = "Sprunk", id = 12}
 }
 
-uTable.unreleasedVehicles = {
+tables.unreleasedVehicles = {
     23096, 14944, 35450, 35452, 35530, 35428, 35606, 35612, 17686, 17702, 35668, 35492, 35494, 35496, 35544, 
     35652, 35578, 35574, 35572, 35590, 28910, 35580, 35412, 35630, 35632, 35488, 35444, 35648, 35650, 24303, 
     35480, 17520, 26040, 35414, 35416, 35418, 35420, 35404, 19350, 19351, 23095, 17519, 35446, 35410, 22108, 
@@ -340,7 +346,7 @@ uTable.unreleasedVehicles = {
     17684, 26054, 35678
 }
 
-uTable.autoShopRobberies = {
+tables.autoShopRobberies = {
     {name = "The Union Depository Contract", subName = "unionContract" },
     {name = "The Superdollar Deal", subName = "superDollar" },
     {name = "The Bank Contract", subName = "bankContract" },
@@ -351,7 +357,7 @@ uTable.autoShopRobberies = {
     {name = "The Data Contract", subName = "dataContract" },
 }
 
-uTable.agencyContracts = {
+tables.agencyContracts = {
     { name = "Asset Protection", stat = "FIXER_SC_ASSETS_PROTECTED" },
     { name = "Gang Termination", stat = "FIXER_SC_GANG_TERMINATED" },
     { name = "Liquidize Assets", stat = "FIXER_SC_EQ_DESTROYED" },
@@ -361,12 +367,12 @@ uTable.agencyContracts = {
 
     { name = "Payphone Hits", stat = "FIXERTELEPHONEHITSCOMPL"},
 }
-uTable.agencyContracts2 = {
+tables.agencyContracts2 = {
     { name = "Contracts done", stat = "TUNER_COUNT"},
     { name = "Contracts earnings", stat = "TUNER_EARNINGS"},
 }
 
-uTable.compStats = {
+tables.compStats = {
     { name = "Races Won", stat = "MPPLY_TOTAL_RACES_WON"},
     { name = "Races Lost", stat = "MPPLY_TOTAL_RACES_LOST"},
     { name = "Custom Race Wins", stat = "MPPLY_TOTAL_CUSTOM_RACES_WON"},
@@ -383,13 +389,32 @@ uTable.compStats = {
     { name = "Team Deathmatch Losses", stat = "MPPLY_TOTAL_TDEATHMATCH_LOST"},
     --{ name = "", stat = ""},
 }
-uTable.compStatsPP = { -- per player
+tables.compStatsPP = { -- per player
     { name = "Impromptu Races Won", stat = "IMPROMPTU_RACES_WON"},
 }
+tables.allReports = {
+    { name = "Griefing", stat = "MPPLY_GRIEFING" },
+    { name = "Exploits", stat = "MPPLY_EXPLOITS" },
+    { name = "Bug Exploits", stat = "MPPLY_GAME_EXPLOITS" },
+    { name = "Text Chat: Annoying Me", stat = "MPPLY_TC_ANNOYINGME" },
+    { name = "Text Chat: Using Hate Speech", stat = "MPPLY_TC_HATE" },
+    { name = "Voice Chat: Annoying Me", stat = "MPPLY_VC_ANNOYINGME" },
+    { name = "Voice Chat: Using Hate Speech", stat = "MPPLY_VC_HATE" },
+    { name = "Offensive Language", stat = "MPPLY_OFFENSIVE_LANGUAGE" },
+    { name = "Offensive Tagplate", stat = "MPPLY_OFFENSIVE_TAGPLATE" },
+    { name = "Offensive Content", stat = "MPPLY_OFFENSIVE_UGC" },
+    { name = "Bad Crew Name", stat = "MPPLY_BAD_CREW_NAME" },
+    { name = "Bad Crew Motto", stat = "MPPLY_BAD_CREW_MOTTO" },
+    { name = "Bad Crew Status", stat = "MPPLY_BAD_CREW_STATUS" },
+    { name = "Bad Crew Emblem", stat = "MPPLY_BAD_CREW_EMBLEM" },
+    { name = "Friendly", stat = "MPPLY_FRIENDLY" },
+    { name = "Helpful", stat = "MPPLY_HELPFUL" },
+}
 
---RAILGUN_KILLS | ASLTR_MK2_KILLS | CBNR_MK2_KILLS | HCK_DVE_KILLS | YACHT_NAME, YACHT_NAME2 |  | BLRIFLE_MK2_KILLS | MKRIFLE_MK2_KILLS | 
+
+--RAILGUN_KILLS | ASLTR_MK2_KILLS | CBNR_MK2_KILLS | HCK_DVE_KILLS | YACHT_NAME, YACHT_NAME2 |  | BLRIFLE_MK2_KILLS |  | 
 --REV_MK2_KILLS | REV_DA_KILLS | 
-uTable.meleeStats = {
+tables.meleeStats = {
     { name = "Antique Cavalry Dagger", killsWith = "DAGGER_KILLS", deathsBy = "DAGGER_DEATHS" },
     { name = "Baseball Bat", killsWith = "BAT_KILLS", deathsBy = "BAT_DEATHS" },
     { name = "Bottle", killsWith = "BOTTLE_KILLS", deathsBy = "BOTTLE_DEATHS"},
@@ -409,7 +434,7 @@ uTable.meleeStats = {
     { name = "Stone Hatchet", killsWith = "SHATCHET_KILLS", deathsBy = "SHATCHET_DEATHS"},
     --{ name = "Candy Cane", killsWith = "", deathsBy = ""},
 }
-uTable.pistolStats = {
+tables.pistolStats = {
     { name = "Pistol", killsWith = "PISTOL_KILLS", deathsBy = "PISTOL_DEATHS", headshots = "PISTOL_HEADSHOTS", shots = "PISTOL_SHOTS", hits = "PISTOL_HITS" },
     { name = "Pistol MK II", killsWith = "PIST_MK2_KILLS", deathsBy = "PIST_MK2_DEATHS", headshots = "PIST_MK2_HEADSHOTS", shots = "PIST_MK2_SHOTS", hits = "PIST_MK2_HITS" },
     { name = "Combat Pistol", killsWith = "CMBTPISTOL_KILLS", deathsBy = "CMBTPISTOL_DEATHS", headshots = "CMBTPISTOL_HEADSHOTS", shots = "CMBTPISTOL_SHOTS", hits = "CMBTPISTOL_HITS" },
@@ -431,7 +456,7 @@ uTable.pistolStats = {
     { name = "Stun Gun", killsWith = "STNGNMP_KILLS", deathsBy = "STNGNMP_DEATHS", headshots = "STNGNMP_HEADSHOTS", shots = "STNGNMP_SHOTS", hits = "STNGNMP_HITS" },    
     { name = "WM 29 Pistol", killsWith = "PISTOLXM3_KILLS", deathsBy = "PISTOLXM3_DEATHS", headshots = "PISTOLXM3_HEADSHOTS", shots = "PISTOLXM3_SHOTS", hits = "PISTOLXM3_HITS" },   
 }
-uTable.smgStats = {
+tables.smgStats = {
     { name = "Micro SMG", killsWith = "MICROSMG_KILLS", deathsBy = "MICROSMG_DEATHS", headshots = "MICROSMG_HEADSHOTS", shots = "MICROSMG_SHOTS", hits = "MICROSMG_HITS" },
     { name = "SMG", killsWith = "SMG_KILLS", deathsBy = "SMG_DEATHS", headshots = "SMG_HEADSHOTS", shots = "SMG_SHOTS", hits = "SMG_HITS" },
     { name = "SMG MK II", killsWith = "SMG_MK2_KILLS", deathsBy = "SMG_MK2_DEATHS", headshots = "SMG_MK2_HEADSHOTS", shots = "SMG_MK2_SHOTS", hits = "SMG_MK2_HITS" },
@@ -442,7 +467,7 @@ uTable.smgStats = {
     { name = "Unholy Hellbringer", killsWith = "RAYCARBINE_KILLS", deathsBy = "RAYCARBINE_DEATHS", headshots = "RAYCARBINE_HEADSHOTS", shots = "RAYCARBINE_SHOTS", hits = "RAYCARBINE_HITS" },
     { name = "Tactical SMG", killsWith = "TECPISTOL_KILLS", deathsBy = "TECPISTOL_DEATHS", headshots = "TECPISTOL_HEADSHOTS", shots = "TECPISTOL_SHOTS", hits = "TECPISTOL_HITS" },
 }
-uTable.shotgunStats = {
+tables.shotgunStats = {
     { name = "Pump Shotgun", killsWith = "PUMP_KILLS", deathsBy = "PUMP_DEATHS", headshots = "PUMP_HEADSHOTS", shots = "PUMP_SHOTS", hits = "PUMP_HITS" },
     { name = "Pump Shotgun MK II", killsWith = "PUMP_MK2_KILLS", deathsBy = "PUMP_MK2_DEATHS", headshots = "PUMP_MK2_HEADSHOTS", shots = "PUMP_MK2_SHOTS", hits = "PUMP_MK2_HITS" },
     { name = "Sawn-Off Shotgun", killsWith = "SAWNOFF_KILLS", deathsBy = "SAWNOFF_DEATHS", headshots = "SAWNOFF_HEADSHOTS", shots = "SAWNOFF_SHOTS", hits = "SAWNOFF_HITS" },
@@ -454,7 +479,7 @@ uTable.shotgunStats = {
     { name = "Auto Shotgun", killsWith = "AUTOSHGN_KILLS", deathsBy = "AUTOSHGN_DEATHS", headshots = "AUTOSHGN_HEADSHOTS", shots = "AUTOSHGN_SHOTS", hits = "AUTOSHGN_HITS" },
     --{ name = "Combat Shotgun", killsWith = "MINIGUNS_KILLS", deathsBy = "MINIGUNS_DEATHS", headshots = "MINIGUNS_HEADSHOTS", shots = "MINIGUNS_SHOTS", hits = "MINIGUNS_HITS" },
 }
-uTable.rifleStats = {
+tables.rifleStats = {
     { name = "Assault Rifle", killsWith = "ASLTRIFLE_KILLS", deathsBy = "ASLTRIFLE_DEATHS", headshots = "ASLTRIFLE_HEADSHOTS", shots = "ASLTRIFLE_SHOTS", hits = "ASLTRIFLE_HITS" },
     --{ name = "Assault Rifle MK II", killsWith = "ASLTRIFLE_KILLS", deathsBy = "ASLTRIFLE_DEATHS", headshots = "ASLTRIFLE_HEADSHOTS", shots = "ASLTRIFLE_SHOTS", hits = "ASLTRIFLE_HITS" },
     { name = "Carbine Rifle", killsWith = "CRBNRIFLE_KILLS", deathsBy = "CRBNRIFLE_DEATHS", headshots = "CRBNRIFLE_HEADSHOTS", shots = "CRBNRIFLE_SHOTS", hits = "CRBNRIFLE_HITS" },
@@ -470,21 +495,22 @@ uTable.rifleStats = {
     --Tactical Rifle
     { name = "Battle Rifle", killsWith = "BTL_RLF_KILLS", deathsBy = "BTL_RLF_DEATHS", headshots = "BTL_RLF_HEADSHOTS", shots = "BTL_RLF_SHOTS", hits = "BTL_RLF_HITS" },
 }
-uTable.lmgStats = {
+tables.lmgStats = {
     { name = "MG", killsWith = "MG_KILLS", deathsBy = "MG_DEATHS", headshots = "MG_HEADSHOTS", shots = "MG_SHOTS", hits = "MG_HITS" },
     { name = "Combat MG", killsWith = "CMBTMG_KILLS", deathsBy = "CMBTMG_DEATHS", headshots = "CMBTMG_HEADSHOTS", shots = "CMBTMG_SHOTS", hits = "CMBTMG_HITS" },
     { name = "Combat MG MK II", killsWith = "CMBMG_MK2_KILLS", deathsBy = "CMBMG_MK2_DEATHS", headshots = "CMBMG_MK2_HEADSHOTS", shots = "CMBMG_MK2_SHOTS", hits = "CMBMG_MK2_HITS" },
     { name = "Gusenberg Sweeper", killsWith = "GUSNBRG_KILLS", deathsBy = "GUSNBRG_DEATHS", headshots = "GUSNBRG_HEADSHOTS", shots = "GUSNBRG_SHOTS", hits = "GUSNBRG_HITS" }, 
 }
-uTable.sniperStats = {
+tables.sniperStats = {
     { name = "Sniper Rifle", killsWith = "SNIPERRFL_KILLS", deathsBy = "SNIPERRFL_DEATHS", headshots = "SNIPERRFL_HEADSHOTS", shots = "SNIPERRFL_SHOTS", hits = "SNIPERRFL_HITS" },
     { name = "Heavy Sniper", killsWith = "HVYSNIPER_KILLS", deathsBy = "HVYSNIPER_DEATHS", headshots = "HVYSNIPER_HEADSHOTS", shots = "HVYSNIPER_SHOTS", hits = "HVYSNIPER_HITS" },
     { name = "Heavy Sniper MK II", killsWith = "HVYS_MK2_KILLS", deathsBy = "HVYS_MK2_DEATHS", headshots = "HVYS_MK2_HEADSHOTS", shots = "HVYS_MK2_SHOTS", hits = "HVYS_MK2_HITS" },
     --Marksman Rifle
     --Marksman Rifle MK II
+    { name = "Precision Rifle", killsWith = "MKRIFLE_MK2_KILLS", deathsBy = "MKRIFLE_MK2_DEATHS", headshots = "MKRIFLE_MK2_HEADSHOTS", shots = "MKRIFLE_MK2_SHOTS", hits = "MKRIFLE_MK2_HITS" },
     { name = "Precision Rifle", killsWith = "PRCSRIFLE_KILLS", deathsBy = "PRCSRIFLE_DEATHS", headshots = "PRCSRIFLE_HEADSHOTS", shots = "PRCSRIFLE_SHOTS", hits = "PRCSRIFLE_HITS" },
 }
-uTable.heavyStats = {
+tables.heavyStats = {
     { name = "RPG", killsWith = "RPG_KILLS", deathsBy = "RPG_DEATHS", shots = "RPG_SHOTS" },
     { name = "Grenade Launcher", killsWith = "GRNLAUNCH_KILLS", deathsBy = "GRNLAUNCH_DEATHS", shots = "GRNLAUNCH_SHOTS" },
     --Grenade Launcher Smoke
@@ -498,7 +524,7 @@ uTable.heavyStats = {
     { name = "Snow Launcher", killsWith = "SNW_LCHR_KILLS", deathsBy = "SNW_LCHR_DEATHS", shots = "SNW_LCHR_SHOTS" },
     --Railgun XM3?
 }
-uTable.throwStats = {
+tables.throwStats = {
     { name = "Grenade", killsWith = "GRENADE_KILLS", deathsBy = "GRENADE_DEATHS" },
     --BZ Gas
     { name = "Molotov", killsWith = "MOLOTOV_KILLS", deathsBy = "MOLOTOV_DEATHS" },
@@ -516,7 +542,7 @@ uTable.throwStats = {
 
 
 
-uTable.weaponStats = {
+tables.weaponStats = {
     --{ name = "ASLTMG", killsWith = "ASLTMG_KILLS", deathsBy = "ASLTMG_DEATHS", headshots = "ASLTMG_HEADSHOTS", shots = "ASLTMG_SHOTS", hits = "ASLTMG_HITS" },
    --{ name = "ASLTSNIP", ammoBought = "ASLTSNIP_FM_AMMO_BOUGHT", ammoCurrent = "ASLTSNIP_FM_AMMO_CURRENT", inPossession = "ASLTSNIP_IN_POSSESSION", acquiredAsGift = "ASLTSNIP_AQUIRED_AS_GIFT" },
 
@@ -575,7 +601,7 @@ uTable.weaponStats = {
     --{ name = "Smoke Grenade", killsWith = "SMKGRENADE_KILLS", deathsBy = "SMKGRENADE_DEATHS", headshots = "SMKGRENADE_HEADSHOTS", shots = "SMKGRENADE_SHOTS", timeHeld = "SMKGRENADE_HELDTIME", dbHeldTime = "SMKGRENADE_DB_HELDTIME" },
 }
 
-function uTable.unlockAwards()
+function tables.unlockAwards()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_FM_DM_WINS"), 50, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_FM_TDM_WINS"), 50, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_FM_TDM_MVP"), 50, true)
@@ -1520,4 +1546,4 @@ function uTable.unlockAwards()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_CALLME"), 50, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "AWD_CHEMCOMPOUNDS"), 50, true)
 end
-return uTable
+return tables

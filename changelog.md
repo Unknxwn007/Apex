@@ -1,3 +1,17 @@
+### 1.3.8.1
+- Additions
+    - Headshots (Stats Manager -> Weapons)
+    - More weapons in (Stats Manager-> Weapons)
+    - Go Go Monkey Blista (Unlocks -> Vehicles -> Unlock Vehicle)
+    - Pacific Standard Sweater (Unlocks -> Clothing)
+    - Character Information submenu
+    - Reports (Stats Manager -> Misc -> Reports)
+- Fixes
+    - input returning nil on cancelling
+    - RP Multiplier not scaling
+- Changes
+    - Changed the mod & max values for weapon stat editing
+
 ### 1.3.8
 - Additions
     - RP Multiplier

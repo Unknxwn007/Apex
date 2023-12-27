@@ -1,9 +1,9 @@
 local appdata = utils.get_appdata_path("PopstarDevs", "2Take1Menu")
 package.path = appdata .. "\\scripts\\?.lua;" .. package.path  
-local uTable = require("ApexLib.uTable")
+local tables = require("ApexLib.tables")
 local helpers = require("ApexLib.helpers")
 
-local uFunctions = {}
+local functions = {}
 local mpx
 
 leplayer = stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 0)
@@ -12,56 +12,56 @@ local function mpx2()
     return "MP" .. stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1) .. "_"
 end
 
-
-function uFunctions.stat_set_string(statName, value)
+function functions.stat_set_string(statName, value)
     native.call(0xA87B2335D12531D7, statName, value, true)
 end
-
 
 function unlockPackedStat(index, leplayer)
     native.call(0xDB8A58AEAA67CD07, index, true, leplayer)
 end
 
-function uFunctions.unlockChopShopCars()
+
+
+function functions.unlockChopShopCars()
     for index = 36285, 36304 do
        script.set_global_i(262145+ index, 1)
        stats.stat_set_int(gameplay.get_hash_key(mpx2().."SALV23_INST_PROG"), -1, true) -- gaunlet
      end
 end
 
-function uFunctions.unlockSnowLauncher()
+function functions.unlockSnowLauncher()
     unlockPackedStat(36066, leplayer)
 end
 
-function uFunctions.unlockEveryPackedStat()
-       for _, index in ipairs(uTable.clothingIDs) do
+function functions.unlockEveryPackedStat()
+       for _, index in ipairs(tables.clothingIDs) do
     unlockPackedStat(index, leplayer)
         system.wait(2)
     end
 end
 
-function uFunctions.cunningStuntsFigures()
+function functions.cunningStuntsFigures()
     for index = 16964, 16970 do
         script.set_global_i(262145 + index, 1)
         system.wait(2)
     end
 end
 
-function uFunctions.doomsdayHeistBodysuits()
+function functions.doomsdayHeistBodysuits()
     for index = 23588, 23592 do
         script.set_global_i(262145 + index, 1)
         system.wait(2)
     end
 end
 
-function uFunctions.diamondCasinoHeistBodysuits()
+function functions.diamondCasinoHeistBodysuits()
     for index = 28897, 28900 do
         script.set_global_i(262145 + index, 1)
         system.wait(2)
     end
 end
 
-function uFunctions.losSantosTunersClothing()
+function functions.losSantosTunersClothing()
     local indices = {31415, 31398, 31405, 31406}
     for _, index in ipairs(indices) do
         script.set_global_i(262145 + index, 1)
@@ -69,7 +69,7 @@ function uFunctions.losSantosTunersClothing()
     end
 end
 
-function uFunctions.criminalEnterprisesClothing()
+function functions.criminalEnterprisesClothing()
     local indices = {33157, 34297, 34298, 34299, 34048}
     for _, index in ipairs(indices) do
         script.set_global_i(262145 + index, 1)
@@ -77,7 +77,7 @@ function uFunctions.criminalEnterprisesClothing()
     end
 end
 
-function uFunctions.festiveSurprise2014Clothing()
+function functions.festiveSurprise2014Clothing()
     local indices = {12992}
     for _, index in ipairs(indices) do
         script.set_global_i(262145 + index, 1)
@@ -85,7 +85,7 @@ function uFunctions.festiveSurprise2014Clothing()
     end
 end
 
-function uFunctions.independenceDaySpecialClothing()
+function functions.independenceDaySpecialClothing()
     local indices = {8473, 8472, 8471, 8470, 8469, 8468, 8430}
     for _, index in ipairs(indices) do
         script.set_global_i(262145 + index, 1)
@@ -93,7 +93,7 @@ function uFunctions.independenceDaySpecialClothing()
     end
 end
 
-function uFunctions.lowridersClothing()
+function functions.lowridersClothing()
     local indices = {12773, 12772, 12771, 12770, 12769, 12768, 12767, 12766, 12765, 12764}
     for _, index in ipairs(indices) do
         script.set_global_i(262145 + index, 1)
@@ -101,7 +101,7 @@ function uFunctions.lowridersClothing()
     end
 end
 
-function uFunctions.criminalEnterprisesAdditionalClothing()
+function functions.criminalEnterprisesAdditionalClothing()
     local indices = {33221, 33220, 33219, 33218, 33217, 33216, 33215, 33214, 33213, 33212, 33211, 33210, 33209, 33208, 33207}
     for _, index in ipairs(indices) do
         script.set_global_i(262145 + index, 1)
@@ -109,7 +109,7 @@ function uFunctions.criminalEnterprisesAdditionalClothing()
     end
 end
 
-function uFunctions.independenceDaySpecialAdditionalClothing()
+function functions.independenceDaySpecialAdditionalClothing()
     local indices = {8430}
     for _, index in ipairs(indices) do
         script.set_global_i(262145 + index, 1)
@@ -117,7 +117,7 @@ function uFunctions.independenceDaySpecialAdditionalClothing()
     end
 end
 
-function uFunctions.cayoPericoHeistClothing()
+function functions.cayoPericoHeistClothing()
     local shadesIndices = {
         31107, 31106, 31105, 31104, 31103, 31102, 31101, 31100, 31099, 31098,
         31097, 31096, 31095, 31094, 31093, 31092, 31091, 31090, 31089, 31088,
@@ -163,7 +163,7 @@ function uFunctions.cayoPericoHeistClothing()
     end
 end
 
-function uFunctions.independenceDaySpecialAdditionalClothing2()
+function functions.independenceDaySpecialAdditionalClothing2()
     local animalHatIndices = {12230}
     for _, index in ipairs(animalHatIndices) do
         script.set_global_i(262145 + index, 1)
@@ -171,7 +171,7 @@ function uFunctions.independenceDaySpecialAdditionalClothing2()
     end
 end
 
-function uFunctions.basicUnlocks()
+function functions.basicUnlocks()
     menu.get_feature_by_hierarchy_key("online.recovery.stat_unlocks"):toggle()
     menu.get_feature_by_hierarchy_key("online.recovery.tattoo_unlocks"):toggle()
     menu.get_feature_by_hierarchy_key("online.recovery.parachute_unlocks"):toggle()
@@ -186,13 +186,13 @@ function uFunctions.basicUnlocks()
     menu.get_feature_by_hierarchy_key("online.recovery.arena_unlocks"):toggle()
  end -- i forgot :toggle() thanks toph        -Lol
       
-function uFunctions.unlockArenaCars()
+function functions.unlockArenaCars()
   	stats.stat_set_int(gameplay.get_hash_key(mpx2().."ARENAWARS_AP_TIER"), 999, true)
 	stats.stat_set_int(gameplay.get_hash_key(mpx2().."ARENAWARS_AP"), 10039, true)
 	menu.notify("Change sessions and complete a Arena War mission.", "Apex")
 end
 
-function uFunctions.setCutscenesSeen()
+function functions.setCutscenesSeen()
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_FLOW_CS_DRV_SEEN"), true, true)
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_FLOW_CS_TRA_SEEN"), true, true)
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_FLOW_CS_FUN_SEEN"), true, true)
@@ -201,7 +201,7 @@ function uFunctions.setCutscenesSeen()
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."LOW_BEN_INTRO_CS_SEEN"), true, true)
 end
 
-function uFunctions.unlockLiveries()
+function functions.unlockLiveries()
 for i = 0,20 do
         stats.stat_set_int(gameplay.get_hash_key(mpx2().."MPPLY_XMASLIVERIES"..i), -1, true)
         stats.stat_set_int(gameplay.get_hash_key(mpx2().."AWD_TAXIDRIVER"), 50, true)
@@ -212,13 +212,13 @@ for i = 0,20 do
  end
 end
 
-function uFunctions.unlockMeleeWeaponSkins()
+function functions.unlockMeleeWeaponSkins()
    script.set_global_i(262145 + 34365, 0)
    script.set_global_i(262145 + 34328 + 9, -1716189206) --knife
    script.set_global_i(262145 + 34328 + 10, -1786099057) -- bat
 end
 
-function uFunctions.refillInventory()
+function functions.refillInventory()
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."NO_BOUGHT_YUM_SNACKS"), 30, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."NO_BOUGHT_HEALTH_SNACKS"), 15, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."NO_BOUGHT_EPIC_SNACKS"), 5, true)
@@ -235,28 +235,28 @@ function uFunctions.refillInventory()
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."BREATHING_APPAR_BOUGHT"), 20, true)
 end
 
-function uFunctions.unlockAllAchievements()
-    for _, index in ipairs(uTable.AchievementIDs) do
+function functions.unlockAllAchievements()
+    for _, index in ipairs(tables.AchievementIDs) do
 	    native.call(0xBEC7076D64130195, index)
         system.wait(2)
     end
 end
 
-function uFunctions.unlockChopShopCars()
+function functions.unlockChopShopCars()
     for index = 36285, 36304 do
         script.set_global_i(262145+index, 1)
     end
 end
 
-function uFunctions.unlockSnowCannon()
+function functions.unlockSnowCannon()
     unlockPackedStat(42148, leplayer)
 end
 
-function uFunctions.enableVincent()
+function functions.enableVincent()
     script.set_global_i(262145+36058, 1)
 end
 
-function uFunctions.packedChopShopClothes()
+function functions.packedChopShopClothes()
     for index = 42154, 42247 do
         unlockPackedStat(index, leplayer)
         unlockPackedStat(42111, leplayer)
@@ -271,7 +271,7 @@ function uFunctions.packedChopShopClothes()
     end
 end
 
-function uFunctions.unlockPartyClothes()
+function functions.unlockPartyClothes()
     for index = 42130, 42144 do
         unlockPackedStat(index, leplayer)
         unlockPackedStat(42145, leplayer) --bronze
@@ -279,7 +279,7 @@ function uFunctions.unlockPartyClothes()
     end
 end
 
-function uFunctions.unlockChopShopAwards()
+function functions.unlockChopShopAwards()
 		for index = 36068, 36075 do
 	script.set_global_i(262145+index, 1)
 	script.set_global_i(262145+36305, 1)
@@ -307,27 +307,27 @@ function uFunctions.unlockChopShopAwards()
   end
 end
 
-function uFunctions.doomsDayActOne()
+function functions.doomsDayActOne()
     --stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_MISSION_PROG"), 7, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_MISSION_PROG"), 503, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_HEIST_STATUS"), -229383, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_NOTIFICATIONS"), 1557, true)
     script.set_local_i(gameplay.get_hash_key("GB_GANG_OPS_PLANNING"), 182, 6)
 end
-function uFunctions.doomsDayActTwo()
+function functions.doomsDayActTwo()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_MISSION_PROG"), 240, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_HEIST_STATUS"), -229378, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_NOTIFICATIONS"), 1557, true)
     script.set_local_i(gameplay.get_hash_key("GB_GANG_OPS_PLANNING"), 182, 6)
 end
-function uFunctions.doomsDayActThree()
+function functions.doomsDayActThree()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_MISSION_PROG"), 16368, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_HEIST_STATUS"), -229380, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_NOTIFICATIONS"), 1557, true)
     script.set_local_i(gameplay.get_hash_key("GB_GANG_OPS_PLANNING"), 182, 6)
 end
 
-function uFunctions.casinoHeistSilentSneaky()
+function functions.casinoHeistSilentSneaky()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_APPROACH"), 1, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3_LAST_APPROACH"), 3, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_BITSET1"), 127, true)
@@ -346,7 +346,7 @@ function uFunctions.casinoHeistSilentSneaky()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_BODYARMORLVL"), -1, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3_COMPLETEDPOSIX"), -1, true)
 end
-function uFunctions.casinoHeistBigCon()
+function functions.casinoHeistBigCon()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_APPROACH"), 2, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3_LAST_APPROACH"), 3, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_BITSET1"), 799, true)
@@ -365,7 +365,7 @@ function uFunctions.casinoHeistBigCon()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_BODYARMORLVL"), -1, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3_COMPLETEDPOSIX"), -1, true)
 end
-function uFunctions.casinoHeistAggressive()
+function functions.casinoHeistAggressive()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_APPROACH"), 3, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3_LAST_APPROACH"), 0, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_BITSET1"), 799, true)
@@ -384,7 +384,7 @@ function uFunctions.casinoHeistAggressive()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3OPT_BODYARMORLVL"), -1, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H3_COMPLETEDPOSIX"), -1, true)
 end
-function uFunctions.cayoPericoHard()
+function functions.cayoPericoHard()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_BS_GEN"), 131071, true) 
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_BS_ENTR"), 63, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_BS_ABIL"), 63, true)
@@ -417,7 +417,7 @@ function uFunctions.cayoPericoHard()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4_MISSIONS"), 65535, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4_PLAYTHROUGH_STATUS"), 32, true) 
 end
-function uFunctions.cayoPericoNormal()
+function functions.cayoPericoNormal()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_BS_GEN"), 131071, true) 
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_BS_ENTR"), 63, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4CNF_BS_ABIL"), 63, true)
@@ -450,7 +450,7 @@ function uFunctions.cayoPericoNormal()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4_MISSIONS"), 65535, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() ..  "H4_PLAYTHROUGH_STATUS"), 32, true) 
 end
-function uFunctions.resetCayoPerico()
+function functions.resetCayoPerico()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H4_MISSIONS"), 0, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H4_PROGRESS"), 0, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H4_PLAYTHROUGH_STATUS"), 0, true)
@@ -459,17 +459,17 @@ function uFunctions.resetCayoPerico()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H4CNF_BS_GEN"), 0, true)
 end
 
-function uFunctions.daxCooldown()
+function functions.daxCooldown()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "XM22JUGGALOWORKCDTIMER"), -1, true)
 end
-function uFunctions.chickenCooldown()
+function functions.chickenCooldown()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "SALV23_CFR_COOLDOWN"), -1, true)
 end
-function uFunctions.salvageYardRobberyCooldown()
+function functions.salvageYardRobberyCooldown()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "SALV23_VEHROB_CD"), -1, true)
 end
 
-function uFunctions.weaponLiveryChristmas23()
+function functions.weaponLiveryChristmas23()
     for index = 42068, 42069 do
         script.set_global_i(262145 + index, 1)
     end
@@ -477,8 +477,9 @@ function uFunctions.weaponLiveryChristmas23()
     stats.stat_set_int(-7648559, 5, true)
 end
 
-function uFunctions.setFavoriteBikeMC()
+function functions.setFavoriteBikeMC()
     local value = helpers.getInput("Enter int32 of desired vehicle", "", 20, 0)
+    if value == nil or value == "" then return end
     system.wait(200)
 
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "FAVOUTFITBIKETIMECURRENT"), value, true) 
@@ -487,7 +488,7 @@ function uFunctions.setFavoriteBikeMC()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "FAVOUTFITBIKETYPEALLTIME"), value, true)
 end
 
-function uFunctions.unlockArmoredParagon()
+function functions.unlockArmoredParagon()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "VCM_FLOW_PROGRESS"), -1, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "VCM_STORY_PROGRESS"), -1, true)
 
@@ -502,19 +503,19 @@ function uFunctions.unlockArmoredParagon()
     stats.stat_set_bool(gameplay.get_hash_key(mpx2() .. "CASINOPSTAT_BOOL1"), true, true)
 end
 
-function uFunctions.skipYachtMissions()
+function functions.skipYachtMissions()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "YACHT_MISSION_PROG"), 0, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "YACHT_MISSION_FLOW"), 21845, true)
 end
 
-function uFunctions.skipBennyMissions()
+function functions.skipBennyMissions()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "LOWRIDER_FLOW_COMPLETE"), 3, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "LOW_FLOW_CURRENT_PROG"), 8, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "LOW_FLOW_CURRENT_CALL"), 8, true)
     helpers.iconNotification("CHAR_CARSITE3", "Find a new session!")
 end
 
-function uFunctions.triggerAlienBunker()
+function functions.triggerAlienBunker()
      local complete = gameplay.get_hash_key(mpx2() .. "LFETIME_BIKER_BUY_COMPLET5")
      local undertake = gameplay.get_hash_key(mpx2() .. "LFETIME_BIKER_BUY_UNDERTA5")
 
@@ -533,17 +534,17 @@ function uFunctions.triggerAlienBunker()
     end
 end
 
-function uFunctions.enablePodiumMcTonyRob()
+function functions.enablePodiumMcTonyRob()
     script.set_global_i(262145 + 34080 + 1, 3) -- The Podium Robbery | slot 1
     script.set_global_i(262145 + 34080 + 2, 4) -- The McTony Robbery | slot 2
 end
 
-function uFunctions.skipSalvageMissions()
+function functions.skipSalvageMissions()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "SALV23_SCOPE_BS"), -1, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "SALV23_FM_PROG"), -1, true)
 end
 
-function uFunctions.unlockContacts()
+function functions.unlockContacts()
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PHN"), -1, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PH2"), -1, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_ACT_PH3"), -1, true)
@@ -559,7 +560,7 @@ function uFunctions.unlockContacts()
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."FM_CUT_DONE_2"), -1, true)
 end
 
-function uFunctions.unlockArcadeTrophies()
+function functions.unlockArcadeTrophies()
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."AWD_KINGOFQUB3D"), true, true)
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."AWD_QUBISM"), true, true)
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."AWD_QUIBITS"), true, true)
@@ -568,7 +569,7 @@ function uFunctions.unlockArcadeTrophies()
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."AWD_ELEVENELEVEN"), true, true)
 end
 
-function uFunctions.completeFlightSchool()
+function functions.completeFlightSchool()
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."PILOT_ASPASSEDLESSON_0"), true, true)
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."PILOT_ASPASSEDLESSON_1"), true, true)
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."PILOT_ASPASSEDLESSON_2"), true, true)
@@ -591,8 +592,9 @@ function uFunctions.completeFlightSchool()
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."PILOT_SCHOOL_MEDAL_9"), 1, true)
 end
 
-function uFunctions.intStatInput(stat, perchar)
+function functions.intStatInput(stat, perchar)
     local value = helpers.getInput("Integer value", "", 10, 0)
+    if value == nil or value == "" then return end
     system.wait(200)
 
     if not (perchar) then
@@ -602,8 +604,9 @@ function uFunctions.intStatInput(stat, perchar)
     end
 end
 
-function uFunctions.floatStatInput(stat, perchar)
+function functions.floatStatInput(stat, perchar)
     local value = helpers.getInput("Float value", "", 70, 0)
+    if value == nil or value == "" then return end
     system.wait(200)
 
     if not (perchar) then
@@ -613,8 +616,9 @@ function uFunctions.floatStatInput(stat, perchar)
     end
 end
 
-function uFunctions.u64StatInput(stat, perchar)
+function functions.u64StatInput(stat, perchar)
     local value = helpers.getInput("Integer value", "", 70, 0)
+    if value == nil or value == "" then return end
     system.wait(200)
 
     if not (perchar) then
@@ -624,8 +628,9 @@ function uFunctions.u64StatInput(stat, perchar)
     end 
 end
 
-function uFunctions.dateStatInput(stat, perchar)
+function functions.dateStatInput(stat, perchar)
     local value = helpers.getInput("Example input: 2011,09,12", "", 70, 0)
+    if value == nil or value == "" then return end
     system.wait(200)
 
     if not (perchar) then
@@ -635,8 +640,9 @@ function uFunctions.dateStatInput(stat, perchar)
     end
 end
 
-function uFunctions.stringStatInput(stat, perchar)
+function functions.stringStatInput(stat, perchar)
     local value = helpers.getInput("String value", "", 70, 0)
+    if value == nil or value == "" then return end
     system.wait(200)
 
     if not (perchar) then
@@ -646,7 +652,7 @@ function uFunctions.stringStatInput(stat, perchar)
     end
 end
 
-function uFunctions.maxFleecaNormal()
+function functions.maxFleecaNormal()
     script.set_global_i(1928235, 7453)
     script.set_global_i(1928236, 7453)
     script.set_global_i(1928237, -14806)
@@ -654,14 +660,14 @@ function uFunctions.maxFleecaNormal()
     system.wait()
 end
 
-function uFunctions.maxFleecaHard()
+function functions.maxFleecaHard()
     script.set_global_i(1928235, 5962)
     script.set_global_i(1928236, 5962)
     script.set_global_i(1928237, -11824)
     menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
 end
 
-function uFunctions.maxPrisonNormal()
+function functions.maxPrisonNormal()
     script.set_global_i(1928235, -8468)
     script.set_global_i(1928236, 2142)
     script.set_global_i(1928237, 2142)
@@ -670,7 +676,7 @@ function uFunctions.maxPrisonNormal()
     menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
 end
 
-function uFunctions.maxPrisonHard()
+function functions.maxPrisonHard()
     script.set_global_i(1928235, -6756)
     script.set_global_i(1928236, 1714)
     script.set_global_i(1928237, 1714)
@@ -679,7 +685,7 @@ function uFunctions.maxPrisonHard()
     menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
 end
 
-function uFunctions.maxHumaneNormal()
+function functions.maxHumaneNormal()
     script.set_global_i(1928235, -6248)
     script.set_global_i(1928236, 1587)
     script.set_global_i(1928237, 1587)
@@ -688,7 +694,7 @@ function uFunctions.maxHumaneNormal()
     menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
 end
 
-function uFunctions.maxHumaneHard()
+function functions.maxHumaneHard()
     script.set_global_i(1928235, -4976)
     script.set_global_i(1928236, 1269)
     script.set_global_i(1928237, 1269)
@@ -697,7 +703,7 @@ function uFunctions.maxHumaneHard()
     menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
 end
 
-function uFunctions.maxSAFNormal()
+function functions.maxSAFNormal()
     script.set_global_i(1928235, -8384)
     script.set_global_i(1928236, 2121)
     script.set_global_i(1928237, 2121)
@@ -706,7 +712,7 @@ function uFunctions.maxSAFNormal()
     menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
 end
 
-function uFunctions.maxSAFHard()
+function functions.maxSAFHard()
     script.set_global_i(1928235, -6688)
     script.set_global_i(1928236, 1697)
     script.set_global_i(1928237, 1697)
@@ -715,7 +721,7 @@ function uFunctions.maxSAFHard()
     menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
 end
 
-function uFunctions.maxPacificNormal()
+function functions.maxPacificNormal()
     script.set_global_i(1928235, -3900)
     script.set_global_i(1928236, 1000)
     script.set_global_i(1928237, 1000)
@@ -724,7 +730,7 @@ function uFunctions.maxPacificNormal()
     menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
 end
 
-function uFunctions.maxPacificHard()
+function functions.maxPacificHard()
     script.set_global_i(1928235, -3096)
     script.set_global_i(1928236, 799)
     script.set_global_i(1928237, 799)
@@ -733,7 +739,7 @@ function uFunctions.maxPacificHard()
     menu.notify("Please hit enter on any player's cut, then hit ESC to force the change. DO NOT ADJUST CUT.", "Apex", 7, 0xFF00FFFF)
 end
 
-function uFunctions.getFMHost()
+function functions.getFMHost()
     menu.notify("Getting Script Host...", "Apex", 3, 0xFF00FFFF)
     if player.is_player_valid(player.player_id()) then
         native.call(0x6EB5F71AA68F2E8E, "freemode")
@@ -744,16 +750,16 @@ function uFunctions.getFMHost()
     end
 end
 
-function uFunctions.instantFinish2020()
-    uFunctions.getFMHost()
+function functions.instantFinish2020()
+    functions.getFMHost()
     script.set_local_i(gameplay.get_hash_key("fm_mission_controller_2020"), 48513 , 9)
     script.set_local_i(gameplay.get_hash_key("fm_mission_controller_2020"), 48513 + 1765 + 1, 1337)
     system.wait(2000)
     script.set_local_i(gameplay.get_hash_key("fm_mission_controller_2020"), 48513 , 6)
 end 
 
-function uFunctions.instantFinishH3()
-    uFunctions.getFMHost()
+function functions.instantFinishH3()
+    functions.getFMHost()
     for i = 0, 3, 1 do
         script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 19728 + 2686, 10000000) --pay me bitch im warning you
         script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 31603 + i * 292 + 86, 10000) --headshots not just kills
@@ -764,7 +770,7 @@ function uFunctions.instantFinishH3()
     script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 27489 + 859, 99999)
 end
 
-function uFunctions.tradePricesVEH()
+function functions.tradePricesVEH()
     stats.stat_set_int(1488257575, 65535, true)
     stats.stat_set_int(3591169109, 48, true)
     stats.stat_set_int(2560268979, 48, true)
@@ -794,8 +800,8 @@ function uFunctions.tradePricesVEH()
     native.call(0x1581503AE529CD2E, 158, 158, mpx2())
 end
 
-function uFunctions.instantFinishH2()
-    uFunctions.getFMHost()
+function functions.instantFinishH2()
+    functions.getFMHost()
     for i = 0, 1, 1 do
         script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 31603 + i * 292 + 86, 10000) --headshots not just kills
         script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 31603 + i * 292 + 91, 10000) -- kill counts
@@ -805,8 +811,8 @@ function uFunctions.instantFinishH2()
     system.wait()
 end
 
-function uFunctions.instantFinishApt()
-    uFunctions.getFMHost()
+function functions.instantFinishApt()
+    functions.getFMHost()
     script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 19728 + 2686, 1875000)
     for i = 0, 3, 1 do
         script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 31603 + i * 292 + 86, 10000)
@@ -818,11 +824,11 @@ function uFunctions.instantFinishApt()
     script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 19728, 12)
 end
 
-function uFunctions.setAchievement(achievementId)
+function functions.setAchievement(achievementId)
     native.call(0xBEC7076D64130195, achievementId)
 end
 
-function uFunctions.maxPayoutH3DNormal()
+function functions.maxPayoutH3DNormal()
     script.set_global_i(1963945 + 1497 + 736 + 92 + 1, 58)
     script.set_global_i(1963945 + 1497 + 736 + 92 + 2, 141)
     script.set_global_i(1963945 + 1497 + 736 + 92 + 3, 141)
@@ -830,7 +836,7 @@ function uFunctions.maxPayoutH3DNormal()
     script.set_global_i(262145 + 29085, 1410065408)
 end
 
-function uFunctions.maxPayoutH3DHard()
+function functions.maxPayoutH3DHard()
     script.set_global_i(1963945 + 1497 + 736 + 92 + 1, 58)
     script.set_global_i(1963945 + 1497 + 736 + 92 + 2, 131)
     script.set_global_i(1963945 + 1497 + 736 + 92 + 3, 131)
@@ -838,7 +844,7 @@ function uFunctions.maxPayoutH3DHard()
     script.set_global_i(262145 + 29085, 1410065408)
 end
 
-function uFunctions.maxPayoutH2Smart()
+function functions.maxPayoutH2Smart()
     local pslot = stats.stat_get_int(gameplay.get_hash_key("mpply_last_mp_char"), 0)
     local statCheckH2 = stats.stat_get_int(gameplay.get_hash_key("MP" .. pslot .. "_GANGOPS_FLOW_MISSION_PROG"), 0)
     local statCheckH2S = stats.stat_get_int(gameplay.get_hash_key("MP" .. pslot .. "_GANGOPS_HEIST_STATUS"), 0)
@@ -857,4 +863,4 @@ function uFunctions.maxPayoutH2Smart()
     end
 end
 
-return uFunctions
+return functions
