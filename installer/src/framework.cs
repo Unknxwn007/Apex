@@ -133,8 +133,8 @@ namespace src
         public static void Download()
         {
             string apexLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/Apex.lua";
-            string funcLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/ApexLib/uFunctions.lua";
-            string tableLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/ApexLib/uTable.lua";
+            string funcLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/ApexLib/functions.lua";
+            string tableLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/ApexLib/tables.lua";
             string helpLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/ApexLib/helpers.lua";
 
 
@@ -145,8 +145,8 @@ namespace src
                 {
                     wc.DownloadFile(apexLUA, Path.Combine(scriptFolder, "Apex.lua"));
                     wc.DownloadFile(helpLUA, Path.Combine(apexLib, "helpers.lua"));
-                    wc.DownloadFile(funcLUA, Path.Combine(apexLib, "uFunctions.lua"));
-                    wc.DownloadFile(tableLUA, Path.Combine(apexLib, "uTable.lua"));
+                    wc.DownloadFile(funcLUA, Path.Combine(apexLib, "functions.lua"));
+                    wc.DownloadFile(tableLUA, Path.Combine(apexLib, "tables.lua"));
                 }
                 catch (Exception ex) { LogError(ex); }
             }
