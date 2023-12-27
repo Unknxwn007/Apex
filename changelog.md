@@ -7,9 +7,6 @@
     - Weapon stat editing /Sorted by type\ (Kills, Deaths, Headshots, Hits, Shots)
     - Competitive stat editing won / lost (Races, Golf, Dart, Tennis, Base Jump, (Team) Deathmatch)
     - Drift Races Played (Stats Manager -> Misc)
-    - 
-- Fixes
-- Changes
 
 ### 1.3.7.1
 - Fixes
