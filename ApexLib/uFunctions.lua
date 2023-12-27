@@ -314,14 +314,12 @@ function uFunctions.doomsDayActOne()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_NOTIFICATIONS"), 1557, true)
     script.set_local_i(gameplay.get_hash_key("GB_GANG_OPS_PLANNING"), 182, 6)
 end
-
 function uFunctions.doomsDayActTwo()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_MISSION_PROG"), 240, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_HEIST_STATUS"), -229378, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_NOTIFICATIONS"), 1557, true)
     script.set_local_i(gameplay.get_hash_key("GB_GANG_OPS_PLANNING"), 182, 6)
 end
-
 function uFunctions.doomsDayActThree()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FLOW_MISSION_PROG"), 16368, true)
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_HEIST_STATUS"), -229380, true)

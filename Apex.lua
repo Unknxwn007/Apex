@@ -57,17 +57,20 @@ local missionSub = menu.add_feature("Mission Manager", "parent", root.id)
 local statSub = menu.add_feature("Stats Manager", "parent", root.id)
 local usefulSub = menu.add_feature("Useful Features", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
---local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
 
 local playerusefulSub = menu.add_player_feature("Useful Features", "parent", playerRoot.id)
 
+--[[local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
+
+
+
 
 -- dev stuff
---[[menu.add_feature("GET INT-STAT VALUE", "action", devSub.id, function() 
+menu.add_feature("GET INT-STAT VALUE", "action", devSub.id, function() 
     system.wait(300)
     local value = helpers.getInput("STAT NAME", "", 30, 0)
 
-    local piss = stats.stat_get_int(gameplay.get_hash_key(mpx2()..value), -1)
+    local piss = stats.stat_get_int(gameplay.get_hash_key(mpx2()..value), 0)
     menu.notify(tostring(piss))
 end)
 menu.add_feature("SET INT-STAT VALUE", "action", devSub.id, function() 
@@ -110,8 +113,21 @@ local crimeStats = menu.add_feature("Crimes", "parent", statSub.id)
 local vehicleStats = menu.add_feature("Vehicles", "parent", statSub.id)
 local cashStats = menu.add_feature("Cash", "parent", statSub.id)
 local combatStats = menu.add_feature("Combat", "parent", statSub.id)
--- local weaponStats = menu.add_feature("Weapons", "parent", statSub.id)
+local weaponStats = menu.add_feature("Weapons", "parent", statSub.id)
+
+local weaponStatsMelee = menu.add_feature("Melee", "parent", weaponStats.id)
+local weaponStatsP = menu.add_feature("Pistols", "parent", weaponStats.id)
+local weaponStatsSMG = menu.add_feature("Submachine Guns", "parent", weaponStats.id)
+local weaponStatsSG = menu.add_feature("Shotguns", "parent", weaponStats.id)
+local weaponStatsR = menu.add_feature("Assault Rifles", "parent", weaponStats.id)
+local weaponStatsLMG = menu.add_feature("Light Machine Guns", "parent", weaponStats.id)
+local weaponStatsS = menu.add_feature("Snipers", "parent", weaponStats.id)
+local weaponStatsH = menu.add_feature("Heavy", "parent", weaponStats.id)
+local weaponStatsT = menu.add_feature("Throwables", "parent", weaponStats.id)
+
+
 local miscStats = menu.add_feature("Miscellaneous Stats", "parent", statSub.id)
+local competitiveStats = menu.add_feature("Competitive", "parent", miscStats.id)
 local theContractDLC = menu.add_feature("The Contract", "parent", miscStats.id)
 
 
@@ -338,7 +354,14 @@ end)
 
 
 -- Reputation
-
+local repMultiplier = menu.add_feature("RP Multiplier", "value_f", reputationSub.id, function(f) 
+    while f.on do
+        script.set_global_f(262145 + 1, 10.0)
+        system.wait()
+    end        
+    script.set_global_f(62145 + 1, 1.0)
+end)
+repMultiplier.min, repMultiplier.max, repMultiplier.mod, repMultiplier.value = 1, 100, 5, 1
 menu.add_feature("Car Club level Exploit", "toggle", reputationSub.id, function(f)
     menu.notify("Buy clothing or customize your vehicle!", "Apex", 6, colors.red)
     while f.on do
@@ -483,11 +506,9 @@ menu.add_feature("Auto Setup:", "autoaction_value_str", doomsdayHeist.id, functi
         menu.notify("Error 0x42069", "Apex", 10, colors.red)
     end
 end):set_str_data({"Act 1: The Data Breaches", "Act 2: The Bodgan Problem", "Act 3: Doomsday Scenario"})
-
 menu.add_feature("Max Payout", "action", doomsdayHeist.id, function()
     uFunctions.maxPayoutH2Smart()
 end)
-
 -- the casino heist -> modded presets
 --[[
 menu.add_feature("Gold - 3.6M for players 2, 3 and 4", "toggle", casinoModdedPresets.id, function(f)
@@ -567,7 +588,6 @@ menu.add_feature("Skip", "action_value_str", casinoHeist.id, function(f)
         menu.notify("Error 0x42069", "Apex", 10, colors.red)
     end
 end):set_str_data({"Fingerprints", "Keypads"})
-
 menu.add_feature("Max Payout For All (Diamond)", "action_value_str", casinoHeist.id, function(f)
     if f.value == 0 then
         uFunctions.maxPayoutH3DNormal()
@@ -576,7 +596,6 @@ menu.add_feature("Max Payout For All (Diamond)", "action_value_str", casinoHeist
     else
     end
 end):set_str_data({"Normal", "Hard"})
-
 menu.add_feature("Remove All CCTV Camera's", "action", casinoHeist.id, function()
     menu.get_feature_by_hierarchy_key("online.casinoperico_heist.remove_cameras"):toggle()
 end)
@@ -1126,12 +1145,383 @@ end)
 menu.add_feature("Victim kills", "action", combatStats.id, function() 
     uFunctions.intStatInput("BIGGEST_VICTIM_KILLS", true)
 end)
+-- weapon stats
+for i, v in pairs(uTable.meleeStats) do
+    --local sub = menu.add_feature(v.name, "action value_i", "parent", weaponStats.id)
+--kills with
+    local weaponKills = menu.add_feature(v.name .. " Kills", "action_value_i", weaponStatsMelee.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.killsWith), f.value, true)
+    end)
+    weaponKills.min = 0
+    weaponKills.max = 1000000
+    weaponKills.mod = 100
+    weaponKills.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.killsWith), -1)
+--deaths by
+    local weaponDeaths = menu.add_feature(v.name .. " Deaths", "action_value_i", weaponStatsMelee.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.deathsBy), f.value, true)
+    end)
+    weaponDeaths.min = 0
+    weaponDeaths.max = 1000000
+    weaponDeaths.mod = 100
+    weaponDeaths.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.deathsBy), 0)
+
+--blank
+    menu.add_feature(" ", "action", weaponStatsMelee.id, function()
+        --stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+end
+for i, v in pairs(uTable.shotgunStats) do
+    --local sub = menu.add_feature(v.name, "action value_i", "parent", weaponStats.id)
+--kills with
+    local weaponKills = menu.add_feature(v.name .. " Kills", "action_value_i", weaponStatsSG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.killsWith), f.value, true)
+    end)
+    weaponKills.min = 0
+    weaponKills.max = 1000000
+    weaponKills.mod = 100
+    weaponKills.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.killsWith), -1)
+--deaths by
+    local weaponDeaths = menu.add_feature(v.name .. " Deaths", "action_value_i", weaponStatsSG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.deathsBy), f.value, true)
+    end)
+    weaponDeaths.min = 0
+    weaponDeaths.max = 1000000
+    weaponDeaths.mod = 100
+    weaponDeaths.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.deathsBy), 0)
+--headshots
+    --[[local weaponHS = menu.add_feature(v.name .. " Headshots", "action_value_i", weaponStatsSG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.headshots), f.value, true)
+    end)
+    weaponHS.min = 0
+    weaponHS.max = 1000000
+    weaponHS.mod = 100
+    weaponHS.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.headshots), 0)--]]
+--shots
+    local weaponShots = menu.add_feature(v.name .. " Shots", "action_value_i", weaponStatsSG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.shots), f.value, true)
+    end)
+    weaponShots.min = 0
+    weaponShots.max = 1000000 
+    weaponShots.mod = 100
+    weaponShots.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.shots), 0)
+--hits
+    local weaponHits = menu.add_feature(v.name .. " Hits", "action_value_i", weaponStatsSG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+    weaponHits.min = 0 
+    weaponHits.max = 1000000
+    weaponHits.mod = 100
+    weaponHits.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.hits), 0)
+--blank
+    menu.add_feature(" ", "action", weaponStatsSG.id, function()
+        --stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+end
+for i, v in pairs(uTable.heavyStats) do
+    --local sub = menu.add_feature(v.name, "action value_i", "parent", weaponStats.id)
+--kills with
+    local weaponKills = menu.add_feature(v.name .. " Kills", "action_value_i", weaponStatsH.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.killsWith), f.value, true)
+    end)
+    weaponKills.min = 0
+    weaponKills.max = 1000000
+    weaponKills.mod = 100
+    weaponKills.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.killsWith), -1)
+--deaths by
+    local weaponDeaths = menu.add_feature(v.name .. " Deaths", "action_value_i", weaponStatsH.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.deathsBy), f.value, true)
+    end)
+    weaponDeaths.min = 0
+    weaponDeaths.max = 1000000
+    weaponDeaths.mod = 100
+    weaponDeaths.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.deathsBy), 0)
+--shots
+    local weaponShots = menu.add_feature(v.name .. " Shots", "action_value_i", weaponStatsH.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.shots), f.value, true)
+    end)
+    weaponShots.min = 0
+    weaponShots.max = 1000000 
+    weaponShots.mod = 100
+    weaponShots.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.shots), 0)
+--blank
+    menu.add_feature(" ", "action", weaponStatsH.id, function()
+        --stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+end
+for i, v in pairs(uTable.throwStats) do
+    --local sub = menu.add_feature(v.name, "action value_i", "parent", weaponStats.id)
+--kills with
+    local weaponKills = menu.add_feature(v.name .. " Kills", "action_value_i", weaponStatsT.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.killsWith), f.value, true)
+    end)
+    weaponKills.min = 0
+    weaponKills.max = 1000000
+    weaponKills.mod = 100
+    weaponKills.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.killsWith), -1)
+--deaths by
+    local weaponDeaths = menu.add_feature(v.name .. " Deaths", "action_value_i", weaponStatsT.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.deathsBy), f.value, true)
+    end)
+    weaponDeaths.min = 0
+    weaponDeaths.max = 1000000
+    weaponDeaths.mod = 100
+    weaponDeaths.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.deathsBy), 0)
+
+--blank
+    menu.add_feature(" ", "action", weaponStatsT.id, function()
+        --stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+end
+for i, v in pairs(uTable.pistolStats) do
+    --local sub = menu.add_feature(v.name, "action value_i", "parent", weaponStats.id)
+--kills with
+    local weaponKills = menu.add_feature(v.name .. " Kills", "action_value_i", weaponStatsP.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.killsWith), f.value, true)
+    end)
+    weaponKills.min = 0
+    weaponKills.max = 1000000
+    weaponKills.mod = 100
+    weaponKills.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.killsWith), -1)
+--deaths by
+    local weaponDeaths = menu.add_feature(v.name .. " Deaths", "action_value_i", weaponStatsP.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.deathsBy), f.value, true)
+    end)
+    weaponDeaths.min = 0
+    weaponDeaths.max = 1000000
+    weaponDeaths.mod = 100
+    weaponDeaths.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.deathsBy), 0)
+--headshots
+    --[[local weaponHS = menu.add_feature(v.name .. " Headshots", "action_value_i", weaponStatsP.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.headshots), f.value, true)
+    end)
+    weaponHS.min = 0
+    weaponHS.max = 1000000
+    weaponHS.mod = 100
+    weaponHS.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.headshots), 0)--]]
+--shots
+    local weaponShots = menu.add_feature(v.name .. " Shots", "action_value_i", weaponStatsP.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.shots), f.value, true)
+    end)
+    weaponShots.min = 0
+    weaponShots.max = 1000000 
+    weaponShots.mod = 100
+    weaponShots.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.shots), 0)
+--hits
+    local weaponHits = menu.add_feature(v.name .. " Hits", "action_value_i", weaponStatsP.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+    weaponHits.min = 0 
+    weaponHits.max = 1000000
+    weaponHits.mod = 100
+    weaponHits.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.hits), 0)
+--blank
+    menu.add_feature(" ", "action", weaponStatsP.id, function()
+        --stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+end
+for i, v in pairs(uTable.lmgStats) do
+    --local sub = menu.add_feature(v.name, "action value_i", "parent", weaponStats.id)
+--kills with
+    local weaponKills = menu.add_feature(v.name .. " Kills", "action_value_i", weaponStatsLMG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.killsWith), f.value, true)
+    end)
+    weaponKills.min = 0
+    weaponKills.max = 1000000
+    weaponKills.mod = 100
+    weaponKills.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.killsWith), -1)
+--deaths by
+    local weaponDeaths = menu.add_feature(v.name .. " Deaths", "action_value_i", weaponStatsLMG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.deathsBy), f.value, true)
+    end)
+    weaponDeaths.min = 0
+    weaponDeaths.max = 1000000
+    weaponDeaths.mod = 100
+    weaponDeaths.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.deathsBy), 0)
+--headshots
+    --[[local weaponHS = menu.add_feature(v.name .. " Headshots", "action_value_i", weaponStatsLMG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.headshots), f.value, true)
+    end)
+    weaponHS.min = 0
+    weaponHS.max = 1000000
+    weaponHS.mod = 100
+    weaponHS.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.headshots), 0)--]]
+--shots
+    local weaponShots = menu.add_feature(v.name .. " Shots", "action_value_i", weaponStatsLMG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.shots), f.value, true)
+    end)
+    weaponShots.min = 0
+    weaponShots.max = 1000000 
+    weaponShots.mod = 100
+    weaponShots.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.shots), 0)
+--hits
+    local weaponHits = menu.add_feature(v.name .. " Hits", "action_value_i", weaponStatsLMG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+    weaponHits.min = 0 
+    weaponHits.max = 1000000
+    weaponHits.mod = 100
+    weaponHits.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.hits), 0)
+--blank
+    menu.add_feature(" ", "action", weaponStatsLMG.id, function()
+        --stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+end
+for i, v in pairs(uTable.smgStats) do
+    --local sub = menu.add_feature(v.name, "action value_i", "parent", weaponStats.id)
+--kills with
+    local weaponKills = menu.add_feature(v.name .. " Kills", "action_value_i", weaponStatsSMG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.killsWith), f.value, true)
+    end)
+    weaponKills.min = 0
+    weaponKills.max = 1000000
+    weaponKills.mod = 100
+    weaponKills.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.killsWith), -1)
+--deaths by
+    local weaponDeaths = menu.add_feature(v.name .. " Deaths", "action_value_i", weaponStatsSMG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.deathsBy), f.value, true)
+    end)
+    weaponDeaths.min = 0
+    weaponDeaths.max = 1000000
+    weaponDeaths.mod = 100
+    weaponDeaths.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.deathsBy), 0)
+--headshots
+    --[[local weaponHS = menu.add_feature(v.name .. " Headshots", "action_value_i", weaponStatsSMG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.headshots), f.value, true)
+    end)
+    weaponHS.min = 0
+    weaponHS.max = 1000000
+    weaponHS.mod = 100
+    weaponHS.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.headshots), 0)--]]
+--shots
+    local weaponShots = menu.add_feature(v.name .. " Shots", "action_value_i", weaponStatsSMG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.shots), f.value, true)
+    end)
+    weaponShots.min = 0
+    weaponShots.max = 1000000 
+    weaponShots.mod = 100
+    weaponShots.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.shots), 0)
+--hits
+    local weaponHits = menu.add_feature(v.name .. " Hits", "action_value_i", weaponStatsSMG.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+    weaponHits.min = 0 
+    weaponHits.max = 1000000
+    weaponHits.mod = 100
+    weaponHits.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.hits), 0)
+--blank
+    menu.add_feature(" ", "action", weaponStatsSMG.id, function()
+        --stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+end
+for i, v in pairs(uTable.rifleStats) do
+    --local sub = menu.add_feature(v.name, "action value_i", "parent", weaponStats.id)
+--kills with
+    local weaponKills = menu.add_feature(v.name .. " Kills", "action_value_i", weaponStatsR.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.killsWith), f.value, true)
+    end)
+    weaponKills.min = 0
+    weaponKills.max = 1000000
+    weaponKills.mod = 100
+    weaponKills.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.killsWith), -1)
+--deaths by
+    local weaponDeaths = menu.add_feature(v.name .. " Deaths", "action_value_i", weaponStatsR.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.deathsBy), f.value, true)
+    end)
+    weaponDeaths.min = 0
+    weaponDeaths.max = 1000000
+    weaponDeaths.mod = 100
+    weaponDeaths.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.deathsBy), 0)
+--headshots
+    --[[local weaponHS = menu.add_feature(v.name .. " Headshots", "action_value_i", weaponStatsR.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.headshots), f.value, true)
+    end)
+    weaponHS.min = 0
+    weaponHS.max = 1000000
+    weaponHS.mod = 100
+    weaponHS.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.headshots), 0)--]]
+--shots
+    local weaponShots = menu.add_feature(v.name .. " Shots", "action_value_i", weaponStatsR.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.shots), f.value, true)
+    end)
+    weaponShots.min = 0
+    weaponShots.max = 1000000 
+    weaponShots.mod = 100
+    weaponShots.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.shots), 0)
+--hits
+    local weaponHits = menu.add_feature(v.name .. " Hits", "action_value_i", weaponStatsR.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+    weaponHits.min = 0 
+    weaponHits.max = 1000000
+    weaponHits.mod = 100
+    weaponHits.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.hits), 0)
+--blank
+    menu.add_feature(" ", "action", weaponStatsR.id, function()
+        --stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+end
+for i, v in pairs(uTable.sniperStats) do
+    --local sub = menu.add_feature(v.name, "action value_i", "parent", weaponStats.id)
+--kills with
+    local weaponKills = menu.add_feature(v.name .. " Kills", "action_value_i", weaponStatsS.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.killsWith), f.value, true)
+    end)
+    weaponKills.min = 0
+    weaponKills.max = 1000000
+    weaponKills.mod = 100
+    weaponKills.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.killsWith), -1)
+--deaths by
+    local weaponDeaths = menu.add_feature(v.name .. " Deaths", "action_value_i", weaponStatsS.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.deathsBy), f.value, true)
+    end)
+    weaponDeaths.min = 0
+    weaponDeaths.max = 1000000
+    weaponDeaths.mod = 100
+    weaponDeaths.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.deathsBy), 0)
+--headshots
+    --[[local weaponHS = menu.add_feature(v.name .. " Headshots", "action_value_i", weaponStatsS.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.headshots), f.value, true)
+    end)
+    weaponHS.min = 0
+    weaponHS.max = 1000000
+    weaponHS.mod = 100
+    weaponHS.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.headshots), 0)--]]
+--shots
+    local weaponShots = menu.add_feature(v.name .. " Shots", "action_value_i", weaponStatsS.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.shots), f.value, true)
+    end)
+    weaponShots.min = 0
+    weaponShots.max = 1000000 
+    weaponShots.mod = 100
+    weaponShots.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.shots), 0)
+--hits
+    local weaponHits = menu.add_feature(v.name .. " Hits", "action_value_i", weaponStatsS.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+    weaponHits.min = 0 
+    weaponHits.max = 1000000
+    weaponHits.mod = 100
+    weaponHits.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.hits), 0)
+--blank
+    menu.add_feature(" ", "action", weaponStatsS.id, function()
+        --stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.hits), f.value, true)
+    end)
+end
+
+
+--[[ local pistolKills = menu.add_feature("Pistol kills", "action_value_i", weaponStatsP.id, function(f)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().. "PISTOL_KILLS"), f.value, true)
+end)
+pistolKills.min, pistolKills.max, pistolKills.mod, pistolKills.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. "PISTOL_KILLS"), 0), 0, 999999999, 100
+--]]
 
 -- FAVORITE_WEAPON_HELDTIME
 --menu.add_feature("Least favorite radio station", "action", miscStats.id, function() 
 
 --end)
--- misc stats
+
+
+-- Misc stats
 for i, v in pairs(uTable.agencyContracts2) do
     local contracts = menu.add_feature(v.name, "action_value_i", theContractDLC.id, function(f)
         stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.stat), f.value, true)
@@ -1139,7 +1529,7 @@ for i, v in pairs(uTable.agencyContracts2) do
     contracts.min = 0
     contracts.max = 1000000
     contracts.mod = 100
-    contracts.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), -1)
+    contracts.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), 0)
 end
 for i, v in pairs(uTable.agencyContracts) do
     local contracts = menu.add_feature(v.name, "action_value_i", theContractDLC.id, function(f)
@@ -1148,8 +1538,28 @@ for i, v in pairs(uTable.agencyContracts) do
     contracts.min = 0
     contracts.max = 1000
     contracts.mod = 5
-    contracts.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), -1)
+    contracts.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), 0)
 end
+-- Competitive Stats
+for i, v in pairs(uTable.compStats) do
+    local compStatss = menu.add_feature(v.name, "action_value_i", competitiveStats.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(v.stat), f.value, true)
+    end)
+    compStatss.min = 0
+    compStatss.max = 1000000
+    compStatss.mod = 10
+    compStatss.value = stats.stat_get_int(gameplay.get_hash_key(v.stat), 0)
+end
+for i, v in pairs(uTable.compStatsPP) do
+    local compStatss = menu.add_feature(v.name, "action_value_i", competitiveStats.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.stat), f.value, true)
+    end)
+    compStatss.min = 0
+    compStatss.max = 1000000
+    compStatss.mod = 10
+    compStatss.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), 0)
+end
+-- General
 menu.add_feature("Set character as transferred", "action", miscStats.id, function()
     stats.stat_set_bool(gameplay.get_hash_key(mpx2().."WAS_CHAR_TRANSFERED"), true, true)
 end)
@@ -1157,13 +1567,39 @@ menu.add_feature("Set character name", "action", miscStats.id, function()
     local value = helpers.getInput("Enter the desired character name (has no filter)", "", 10, 0)
     uFunctions.stat_set_string(gameplay.get_hash_key(mpx2() .. "CHAR_NAME"), value)
 end)
+menu.add_feature("Set Organization name", "action_value_str", miscStats.id, function(f) 
+    local value = helpers.getInput("Enter the desired name (has no filter)", "", 15, 0)
+    if f.value == 0 then
+        uFunctions.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), value)
+    elseif f.value == 1 then
+        uFunctions.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "¦ " .. value .. " ¦   ")
+    elseif f.value == 2 then
+        uFunctions.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "~h~" .. value .. " ~h~")
+    elseif f.value == 3 then
+        uFunctions.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "~÷~ " .. value .. " ~÷~   ")
+    end
+    menu.notify("Change sessions.", "Apex")
+end):set_str_data({"No Prefix", "Rockstar Verified", "Bold", "Rockstar Icon"})
+menu.add_feature("Set Motorcycle Club name", "action_value_str", miscStats.id, function(f) 
+    local value = helpers.getInput("Enter the desired name (has no filter)", "", 15, 0)
+    if f.value == 0 then
+        uFunctions.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), value)
+    elseif f.value == 1 then
+        uFunctions.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "¦ " .. value .. " ¦   ")
+    elseif f.value == 2 then
+        uFunctions.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "~h~" .. value .. " ~h~")
+    elseif f.value == 3 then
+        uFunctions.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "~÷~ " .. value .. " ~÷~   ")
+    end
+    menu.notify("Change sessions.", "Apex")
+end):set_str_data({"No Prefix", "Rockstar Verified", "Bold", "Rockstar Icon"})
 local driftRacesWon = menu.add_feature("Drift races played", "action_value_i", miscStats.id, function(f)
     stats.stat_set_int(gameplay.get_hash_key(mpx2().. "DRIFT_RACE_PLAY_COUNT"), f.value, true)
 end)
 driftRacesWon.min = 0
 driftRacesWon.max = 99999999999999
 driftRacesWon.mod = 1
-driftRacesWon.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. "DRIFT_RACE_PLAY_COUNT"), -1)
+driftRacesWon.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. "DRIFT_RACE_PLAY_COUNT"), 0)
 menu.add_feature("Set Lowrider cutscenes as seen", "action", miscStats.id, function()
     uFunctions.setCutscenesSeen()
 end)
@@ -1238,18 +1674,13 @@ menu.add_feature("Start Event", "action_value_str", miscSub.id, function(f)
     end
     menu.notify("Please change sessions.", "Apex")
 end):set_str_data({"Christmas Truck", "Yeti"})
-menu.add_feature("Enable Snow", "toggle", miscSub.id, function(f)
-    menu.get_feature_by_hierarchy_key("online.tunables.snow").on = f.on
-end)
-menu.add_feature("Restore removed vehicles", "action", miscSub.id, function()
-    for _, index in ipairs(uTable.unreleasedVehicles) do
-        script.set_global_i(262145 + index, 1)
-        system.wait(2)
+menu.add_feature("Story Mode", "action_value_str", miscSub.id, function(f) 
+    if f.value == 0 then
+        native.call(0x593850C16A36B692) -- SHUTDOWN_AND_LAUNCH_SINGLE_PLAYER_GAME
+    else
+        native.call(0xB475F27C6A994D65) -- SET_PROFILE_SETTING_PROLOGUE_COMPLETE
     end
-end)
-menu.add_feature("Set clear plate", "action", miscSub.id, function()
-    vehicle.set_vehicle_number_plate_text(player.player_vehicle(), "-")
-end)
+end):set_str_data({"Go To", "Skip Prologue"})
 menu.add_feature("Bad Sport", "action_value_str", miscSub.id, function(f) 
     if f.value == 0 then
         stats.stat_set_float(gameplay.get_hash_key("MPPLY_OVERALL_BADSPORT"), 120000, true)
@@ -1264,6 +1695,19 @@ menu.add_feature("Bad Sport", "action_value_str", miscSub.id, function(f)
     end
     menu.notify("Change sessions.", "Apex")
 end):set_str_data({"Become", "Remove"})
+menu.add_feature("Enable Snow", "toggle", miscSub.id, function(f)
+    menu.get_feature_by_hierarchy_key("online.tunables.snow").on = f.on
+end)
+menu.add_feature("Restore removed vehicles", "action", miscSub.id, function()
+    for _, index in ipairs(uTable.unreleasedVehicles) do
+        script.set_global_i(262145 + index, 1)
+        system.wait(2)
+    end
+end)
+menu.add_feature("Set clear plate", "action", miscSub.id, function()
+    vehicle.set_vehicle_number_plate_text(player.player_vehicle(), "-")
+end)
+
 vanityPlateFunc = menu.add_feature("Vanity Plates", "autoaction_value_str", miscSub.id, function(f, pid)
     vehicle.set_vehicle_number_plate_index(player.player_vehicle(), f.value + 6)
 end)

@@ -1,3 +1,16 @@
+### 1.3.8
+- Additions
+    - RP Multiplier
+    - Set Organization / Motorcycle Club name (Stats Manager -> Misc (**with prefixes!**))
+    - Compettive Stats (Stats Manager -> Misc)
+    - Story Mode - Go to / Skip Prologue (Misc)
+    - Weapon stat editing /Sorted by type\ (Kills, Deaths, Headshots, Hits, Shots)
+    - Competitive stat editing won / lost (Races, Golf, Dart, Tennis, Base Jump, (Team) Deathmatch)
+    - Drift Races Played (Stats Manager -> Misc)
+    - 
+- Fixes
+- Changes
+
 ### 1.3.7.1
 - Fixes
     - Car Club exploit
@@ -9,7 +22,6 @@
     - Agency Contracts Editor (Stat Manager -> Misc)
     - Overall Income & Expenses (Stat Manager)
     - Bad Sport (Misc)
-    - Modded Casino payout
     - Auto Shop payout editor
     - Bag size (Cayo Perico)
 - Removals 
