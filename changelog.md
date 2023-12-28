@@ -1,5 +1,3 @@
-
-
 ### 1.3.8.1
 - Additions
     - Headshots (Stats Manager -> Weapons)

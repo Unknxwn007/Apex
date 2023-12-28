@@ -12,15 +12,9 @@ local function mpx2()
     return "MP" .. stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1) .. "_"
 end
 
-function functions.stat_set_string(statName, value)
-    native.call(0xA87B2335D12531D7, statName, value, true)
-end
-
 function unlockPackedStat(index, leplayer)
     native.call(0xDB8A58AEAA67CD07, index, true, leplayer)
 end
-
-
 
 function functions.unlockChopShopCars()
     for index = 36285, 36304 do
@@ -742,8 +736,8 @@ end
 function functions.getFMHost()
     menu.notify("Getting Script Host...", "Apex", 3, 0xFF00FFFF)
     if player.is_player_valid(player.player_id()) then
-        native.call(0x6EB5F71AA68F2E8E, "freemode")
-        native.call(0x741A3D8380319A81)
+        natives.script.request_script("freemode")
+        natives.network.network_request_to_be_host_of_this_script()
         system.wait(2000)
     else
         return menu.notify("Failed to get script host, please try again.", "Apex", 3, 0xFF00FFFF)
@@ -790,14 +784,14 @@ function functions.tradePricesVEH()
     stats.stat_set_int(3208705583, 5, true)
     stats.stat_set_int(3820516274, 10, true)
     stats.stat_set_int(2183656009, 10, true)
-    native.call(0xDB8A58AEAA67CD07, 32366, true, mpx2())
-    native.call(0xDB8A58AEAA67CD07, 34373, true, mpx2())
-    native.call(0xDB8A58AEAA67CD07, 34374, true, mpx2())
-    native.call(0xDB8A58AEAA67CD07, 41656, true, mpx2())
-    native.call(0xDB8A58AEAA67CD07, 41671, true, mpx2())
-    native.call(0x1581503AE529CD2E, 22063, 20, mpx2())
-    native.call(0x1581503AE529CD2E, 22050, 5, mpx2())
-    native.call(0x1581503AE529CD2E, 158, 158, mpx2())
+    natives.stats.set_packed_stat_bool_code(32366, true, mpx2())
+    natives.stats.set_packed_stat_bool_code(34373, true, mpx2())
+    natives.stats.set_packed_stat_bool_code(34374, true, mpx2())
+    natives.stats.set_packed_stat_bool_code(41656, true, mpx2())
+    natives.stats.set_packed_stat_bool_code(41671, true, mpx2())
+    natives.stats.set_packed_stat_int_code(22063, 20, mpx2())
+    natives.stats.set_packed_stat_int_code(22050, 5, mpx2())
+    natives.stats.set_packed_stat_int_code(158, 158, mpx2())
 end
 
 function functions.instantFinishH2()
@@ -822,10 +816,6 @@ function functions.instantFinishApt()
     end
     system.wait(2000)
     script.set_local_i(gameplay.get_hash_key("fm_mission_controller"), 19728, 12)
-end
-
-function functions.setAchievement(achievementId)
-    native.call(0xBEC7076D64130195, achievementId)
 end
 
 function functions.maxPayoutH3DNormal()

@@ -19,8 +19,7 @@ end
 INTERESTING
     REDWOOD_HEALTH_DEPLETE_MULTIPLIER
     AP_MULTIPLIER
-
-    TUNER_SPRINT_RACE_PLACE_XP_MULTIPLIER
+    COLLECTABLES_MOVIE_PROPS
 ]]
 
 local colors = {
@@ -66,10 +65,9 @@ local settingsSub = menu.add_feature("Settings", "parent", root.id)
 
 local playerusefulSub = menu.add_player_feature("Useful Features", "parent", playerRoot.id)
 
---local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
-
--- dev stuff
---[[menu.add_feature("GET INT-STAT VALUE", "action", devSub.id, function() 
+-- dev stuff 
+--[[local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
+menu.add_feature("GET INT-STAT VALUE", "action", devSub.id, function() 
     system.wait(300)
     local value = helpers.getInput("STAT NAME", "", 30, 0)
 
@@ -79,7 +77,8 @@ end)
 menu.add_feature("SET INT-STAT VALUE", "action", devSub.id, function() 
     -- stats.stat_set_u64(gameplay.get_hash_key(mpx2().."TOTAL_PLAYING_TIME"), 528035702983, 528035702983)
 
-    local value = helpers.getInput("String value", "", 70, 0)
+    local value = helpers.getInput("value", "", 70, 0)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FIREWORK_TYPE_1_WHITE"), value, true)
 end)
 menu.add_feature("NATIVE TEST", "action", devSub.id, function() 
     local piss = native.call(0x76EF28DA05EA395A)
@@ -144,7 +143,7 @@ menu.add_feature("Every Achievement", "action", uAchievementSub.id, function()
 end)
 for id, achievementName in pairs(tables.Achievements) do
     menu.add_feature(achievementName, "action", uAchievementSub.id, function()
-        Functions.setAchievement(id)
+        natives.player.give_achievement_to_player(id)
     end)
 end
 -- weapons
@@ -152,11 +151,11 @@ menu.add_feature("Unlock finish", "action_value_str", uWeaponsSub.id, function(f
     if f.value == 0 then
         functions.daxCooldown()
     elseif f.value == 1 then
-        native.call(0xDB8A58AEAA67CD07, 41657, true, mpx2())
+        natives.stats.set_packed_stat_bool_code(4167, true, mpx2())
     elseif f.value == 2 then
-        native.call(0xDB8A58AEAA67CD07, 41658, true, mpx2())
+        natives.stats.set_packed_stat_bool_code(41658, true, mpx2())
     elseif f.value == 3 then
-        native.call(0xDB8A58AEAA67CD07, 41659, true, mpx2())
+        natives.stats.set_packed_stat_bool_code(41659, true, mpx2())
     elseif f.value == 4 then
         functions.weaponLiveryChristmas23()
     else
@@ -170,7 +169,7 @@ menu.add_feature("Unlock Weapon", "action_value_str", uWeaponsSub.id, function(f
         stats.stat_set_bool(gameplay.get_hash_key("MPPLY_MELEECHLENGECOMPLETED"), true, true)
         stats.stat_set_bool(gameplay.get_hash_key("MPPLY_HEADSHOTCHLENGECOMPLETED"), true, true)
     elseif f.value == 2 then
-        native.call(0xDB8A58AEAA67CD07, 28158, true, mpx2())
+        natives.stats.set_packed_stat_bool_code(28158, true, mpx2())
     else
         menu.notify("Error 0x42069", "Apex", 10, colors.red)
     end
@@ -214,7 +213,7 @@ menu.add_feature("Some Liveries", "action", uVehiclesSub.id, function()
 end)
 -- clothing
 menu.add_feature("Pacific Standard Sweater", "action", uClothingSub.id, function()
-    native.call(0xDB8A58AEAA67CD07, 34382, true, mpx2())
+    natives.stats.set_packed_stat_bool_code(34382, true, mpx2())
 end)
 -- Beach Bum Update
 -- Holiday Gifts
@@ -282,12 +281,12 @@ menu.add_feature("Criminal Enterprises", "action", uClothingSub.id, function()
 end)
 menu.add_feature("Drug Wars", "action", uClothingSub.id, function()
     for i =  36699, 36770 do
-        native.call(0xDB8A58AEAA67CD07, i, true, mpx2())
+        natives.stats.set_packed_stat_bool_code(i, true, mpx2())
     end
 end)
 menu.add_feature("San Andreas Mercenaries", "action", uClothingSub.id, function()
     for i = 41943, 41945 do
-        native.call(0xDB8A58AEAA67CD07, i, true, mpx2())
+        natives.stats.set_packed_stat_bool_code(i, true, mpx2())
     end
 end)
 menu.add_feature("Chop Shop", "action", uClothingSub.id, function()
@@ -440,8 +439,8 @@ menu.add_feature("Precision drift exploit", "action", driftExploits.id, function
     menu.notify("Doing a precision drift adds more points now!", "Apex", 5, colors.green)
 end)
 menu.add_feature("Instantly Win", "action", driftExploits.id, function(f)
-    script.set_global_i(262145+25995, -1000000000)
-    script.set_global_i(262145+25996, -1000000000)
+    script.set_global_i(262145 + 25995, -1000000)--000)
+    script.set_global_i(262145 + 25996, -1000000)--000)
     menu.notify("Respawn by holding F!", "Apex", 5, colors.green)
 end)
 
@@ -767,7 +766,7 @@ end)
     end
 end):set_str_data({"Wallet", "Bank"})--]]
 menu.add_feature("Force cloud save", "action", usefulSub.id, function()
-    native.call(0xE07BCA305B82D2FD, 0, false, 3, false)
+    natives.stats.stat_save(0, false, 3, false)
 end)
 menu.add_feature("Call Gun Van", "action", usefulSub.id, function()
     local coords = player.get_player_coords(player.player_id())
@@ -850,13 +849,12 @@ menu.add_feature("Start Event", "action_value_str", miscSub.id, function(f)
     elseif f.value == 4 then
         script.set_global_i(262145 + 34283, 1)
     end
-    menu.notify("Please change sessions.", "Apex")
 end):set_str_data({"Christmas Truck", "Yeti", "Peyote Plants", "Jack o'Lanterns", "Snowmen",})
 menu.add_feature("Story Mode", "action_value_str", miscSub.id, function(f) 
     if f.value == 0 then
-        native.call(0x593850C16A36B692) -- SHUTDOWN_AND_LAUNCH_SINGLE_PLAYER_GAME
+        natives.network.shutdown_and_launch_single_player_game()
     else
-        native.call(0xB475F27C6A994D65) -- SET_PROFILE_SETTING_PROLOGUE_COMPLETE
+        natives.stats.set_profile_setting_prologue_complete()
     end
 end):set_str_data({"Go To", "Skip Prologue"})
 menu.add_feature("Bad Sport", "action_value_str", miscSub.id, function(f) 
@@ -1777,19 +1775,19 @@ end)
 menu.add_feature("Set character name", "action", miscStats.id, function()
     local value = helpers.getInput("Enter the desired character name (has no filter)", "", 10, 0)
     if value == nil or value == "" then return end
-    functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "CHAR_NAME"), value)
+    natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "CHAR_NAME"), value, true)
 end)
 menu.add_feature("Set Organization name", "action_value_str", miscStats.id, function(f) 
     local value = helpers.getInput("Enter the desired name (has no filter)", "", 15, 0)
     if value == nil or value == "" then return end
     if f.value == 0 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), value)
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), value, true)
     elseif f.value == 1 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "¦ " .. value .. " ¦   ")
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "¦ " .. value .. " ¦   ", true)
     elseif f.value == 2 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "~h~" .. value .. " ~h~")
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "~h~" .. value .. " ~h~", true)
     elseif f.value == 3 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "~÷~ " .. value .. " ~÷~   ")
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "~÷~ " .. value .. " ~÷~   ", true)
     end
     menu.notify("Change sessions.", "Apex")
 end):set_str_data({"No Prefix", "Rockstar Verified", "Bold", "Rockstar Icon"})
@@ -1797,13 +1795,13 @@ menu.add_feature("Set Motorcycle Club name", "action_value_str", miscStats.id, f
     local value = helpers.getInput("Enter the desired name (has no filter)", "", 15, 0)
     if value == nil or value == "" then return end
     if f.value == 0 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), value)
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), value, true)
     elseif f.value == 1 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "¦ " .. value .. " ¦   ")
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "¦ " .. value .. " ¦   ", true)
     elseif f.value == 2 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "~h~" .. value .. " ~h~")
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "~h~" .. value .. " ~h~", true)
     elseif f.value == 3 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "~÷~ " .. value .. " ~÷~   ")
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "~÷~ " .. value .. " ~÷~   ", true)
     end
     menu.notify("Change sessions.", "Apex")
 end):set_str_data({"No Prefix", "Rockstar Verified", "Bold", "Rockstar Icon"})
