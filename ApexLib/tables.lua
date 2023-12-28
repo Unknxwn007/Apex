@@ -411,7 +411,6 @@ tables.allReports = {
     { name = "Helpful", stat = "MPPLY_HELPFUL" },
 }
 
-
 --RAILGUN_KILLS | ASLTR_MK2_KILLS | CBNR_MK2_KILLS | HCK_DVE_KILLS | YACHT_NAME, YACHT_NAME2 |  | BLRIFLE_MK2_KILLS |  | 
 --REV_MK2_KILLS | REV_DA_KILLS | 
 tables.meleeStats = {
