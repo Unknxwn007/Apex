@@ -2,7 +2,7 @@ local appdata = utils.get_appdata_path("PopstarDevs", "2Take1Menu")
 package.path = appdata .. "\\scripts\\?.lua;" .. package.path
 local natives
 if not utils.file_exists("scripts/lib/natives2845.lua") then
-    menu.notify("Natives lib not found, please install it before using this script:\n\nLocal > Scripts > Install > natives2845", "Apex", nil, 0xFF0000FF)
+    menu.notify("Natives lib not found, please install it before using this script:\n\nLocal > Scripts > Install Scripts > natives2845", "Apex", nil, 0xFF0000FF)
     menu.exit()
     return
 else
