@@ -1,3 +1,14 @@
+### 1.3.9.1
+- Fixes
+    - Employee of the Month Finish
+    - Dildodude Finish
+    - Instant finish for legacy heists
+    - Instant finish for The Humane Labs Raid (Normal)
+- Improvements
+    - mpx2 function now returns an integer if required
+- Notes
+    - Thanks hiptonismhd for the bug reports!
+
 ### 1.3.9
 - Additions
     - Precision drift exploit (Exploits -> Drift Races)
