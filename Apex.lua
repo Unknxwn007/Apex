@@ -1,16 +1,16 @@
 local appdata = utils.get_appdata_path("PopstarDevs", "2Take1Menu")
-package.path = appdata .. "\\scripts\\?.lua;" .. package.path  
-local functions = require("ApexLib.functions")
-local tables = require("ApexLib.tables")
-local helpers = require("ApexLib.helpers")
+package.path = appdata .. "\\scripts\\?.lua;" .. package.path
 local natives
-if not utils.file_exists("lib/natives2845") then
-    menu.notify("Please install the natives lib file: Local > Scripts > Install > natives2845")
+if not utils.file_exists("scripts/lib/natives2845.lua") then
+    menu.notify("Natives lib not found, please install it before using this script:\n\nLocal > Scripts > Install > natives2845", "Apex", nil, 0xFF0000FF)
     menu.exit()
     return
 else
     natives = require("lib/natives2845")
 end
+local functions = require("ApexLib.functions")
+local tables = require("ApexLib.tables")
+local helpers = require("ApexLib.helpers")
 
 local function mpx2(toNumber)
     if toNumber then
