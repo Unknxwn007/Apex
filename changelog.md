@@ -1,3 +1,7 @@
+### 1.3.9.2
+- Fixes 
+    - anything that required natives
+
 ### 1.3.9.1
 - Fixes
     - Employee of the Month Finish

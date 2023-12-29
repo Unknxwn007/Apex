@@ -8,9 +8,9 @@ local natives = require("lib/natives2845")
 local function mpx2(toNumber)
     if toNumber then
         return stats.stat_get_int(791613967, 0)
-    end
-
-    return "MP" .. stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1) .. "_"
+    else
+        return "MP" .. stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1) .. "_"
+    end    
 end
 
 --[[
@@ -833,8 +833,8 @@ local accName = player.get_player_name(player.player_id())
 local accID =  player.get_player_scid(player.player_id())
 local charRank = stats.stat_get_int(gameplay.get_hash_key(mpx2(false).."CHAR_RANK_FM"), 0)
 local charCrewLevel = stats.stat_get_int(gameplay.get_hash_key("MPPLY_CURRENT_CREW_RANK"), 0)
-local charTotalBalance = tonumber(helpers.bank_wallet_balance(mpx2(false)):sub(2))
-local charBankBalance = tonumber(helpers.bank_balance(mpx2(false)):sub(2))
+local charTotalBalance = tonumber(natives.money.network_get_string_bank_wallet_balance(mpx2(false)):sub(2))
+local charBankBalance = tonumber(natives.money.network_get_string_bank_balance(mpx2(false)):sub(2))
 local charCashBalance = charTotalBalance - charBankBalance
 local charName = helpers.stat_get_string(gameplay.get_hash_key(mpx2(false).."CHAR_NAME"), -1)
 
