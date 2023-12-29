@@ -1,3 +1,24 @@
+### 1.3.9
+- Additions
+    - Precision drift exploit (Exploits -> Drift Races)
+    - Drift multiplier (Exploits -> Drift Races)
+    - Instant Win (Exploits -> Drift Races)
+    - Safe mode (Settings, on by default)
+    - First race bonus multipier (Exploits)
+    - Peyote Plants (Misc -> Start Event)
+    - Jack o'Lanterns (Misc -> Start Event)
+    - Snowmen (Misc -> Start Event)
+    - Christmas 2023 Adversary Mode Wins (Stats Manager -> Misc -> Competitive Stats)
+    - Move all money to BANK/WALLET (Useful Features)
+    - Set yacht name (Stats Manager -> Misc)
+    - Some import/export stuff (Stats Manager -> Misc -> Import/Export)
+    - Import Export Sales (Mission Manager -> Remove cooldown for..)
+    - Some Further Adventures in Finance and Felony stuff (Stats Manager -> Misc -> Finance and Felony)
+- Removals
+    - Enable unreleased missions (added to the game)
+- Improvements
+    - Now using the natives library (**make sure its installed!**)
+
 ### 1.3.8.1
 - Additions
     - Headshots (Stats Manager -> Weapons)

@@ -32,7 +32,7 @@ local colors = {
 -- Welcome
 menu.create_thread(function()
     helpers.iconNotification("CHAR_MP_FM_CONTACT", "Welcome!")
-    menu.notify("#FF00FF00#SAFE MODE IS ON!", "Apex", 10, colors.red)
+    menu.notify("#FF00FF00#SAFE MODE IS ON!", "Apex", 5, colors.red)
     --helpers.verCheck()
 end)    
 
@@ -79,6 +79,11 @@ menu.add_feature("SET INT-STAT VALUE", "action", devSub.id, function()
 
     local value = helpers.getInput("value", "", 70, 0)
     stats.stat_set_int(gameplay.get_hash_key(mpx2().."FIREWORK_TYPE_1_WHITE"), value, true)
+end)
+menu.add_feature("GET STRING-STAT VALUE", "action", devSub.id, function() 
+    local value = helpers.getInput("value", "", 70, 0)
+    local piss = natives.stats.stat_get_string(gameplay.get_hash_key(mpx2()..value), 0)
+    menu.notify(tostring(piss)) 
 end)
 menu.add_feature("NATIVE TEST", "action", devSub.id, function() 
     local piss = native.call(0x76EF28DA05EA395A)
@@ -134,6 +139,8 @@ local miscStats = menu.add_feature("Miscellaneous Stats", "parent", statSub.id)
 local reportStats = menu.add_feature("Reports", "parent", miscStats.id)
 local competitiveStats = menu.add_feature("Competitive", "parent", miscStats.id)
 local theContractDLC = menu.add_feature("The Contract", "parent", miscStats.id)
+local importExportDLC = menu.add_feature("Import / Export", "parent", miscStats.id)
+local faffDLC = menu.add_feature("Finance and Felony", "parent", miscStats.id)
 
 
 --                   !! UNLOCKS!! 
@@ -453,10 +460,6 @@ menu.add_feature("First time bonus XP", "action_value_str", exploitSub.id, funct
         script.set_global_f(262145 + 31946, 2.0) -- TUNER_PURSUIT_FIRST_TIME_BONUS_XP_MULTIPLIER
     end
 end):set_str_data({"Sprint Race", "Street Race", "Pursuit Race"})
-local timeTrialExploit = menu.add_feature("Time Trial", "action", exploitSub.id, function(f)
-    script.set_global_f(262145 + 12125, 2.0) -- TIME_TRIAL_EVENT_MULTIPLIER_RP
-    script.set_global_f(262145 + 12124, 2.0) -- TIME_TRIAL_EVENT_MULTIPLIER_CASH
-end)
 
 
 --                   !! HEIST MANAGER !! 
@@ -701,9 +704,6 @@ menu.add_feature("Reset current preps", "action", autoShopRobberies.id, function
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "TUNER_GEN_BS"), 12467, true)
 end)
 -- salvage yard robberies
-menu.add_feature("Enable unreleased missions", "action", salvageRobberies.id, function()
-    functions.enablePodiumMcTonyRob()
-end)
 menu.add_feature("Skip to finale", "action", salvageRobberies.id, function()
     functions.skipSalvageMissions()
 end)
@@ -715,13 +715,15 @@ end)
 --                   !! MISSION MANAGER !! 
 menu.add_feature("Remove cooldown for", "action_value_str", missionSub.id, function(f) 
     if f.value == 0 then
-        functions.daxCooldown()
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "XM22JUGGALOWORKCDTIMER"), -1, true)
     elseif f.value == 1 then
-        functions.chickenCooldown()
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "SALV23_CFR_COOLDOWN"), -1, true)
+    elseif f.value == 2 then
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "IMP_EXP_SELL_MISSION_CD"), -1, true) -- might be a trigger for suspension?
     else
         menu.notify("Error 0x42069", "Apex", 10, colors.red)
     end
-end):set_str_data({"Dax", "Chicken Farm Raid"})
+end):set_str_data({"Dax", "Chicken Farm Raid", "Import Export Sales"})
 menu.add_feature("Enable Vincent contact missions", "action", theChopShopDLC.id, function()
     functions.enableVincent()
 end)
@@ -756,15 +758,24 @@ menu.add_feature("Remove transaction error", "toggle", usefulSub.id, function(f)
         system.wait(0)
     end
 end)
---[[menu.add_feature("Move all money to", "action_value_str", usefulSub.id, function(f) 
-    if f.value == 0 then
-        local amount = native.call(0x76EF28DA05EA395A)
-        native.call(0xD47A2C1BA117471D, mpx2(), amount) -- bank -> wallet
-    else
-        local amount = native.call(0xA40F9C2623F6A8B5, mpx2())
-        native.call(0xC2F7FE5309181C7D, mpx2(), amount) -- wallet -> bank
+menu.add_feature("Move all money to", "action_value_str", usefulSub.id, function(f)  -- thanks for the help MIKE!
+    local walletCash =natives.money.network_get_vc_wallet_balance(stats.stat_get_int(791613967, 0))
+    local bankCash = natives.money.network_get_vc_bank_balance() 
+
+    if f.value == 0 then -- wallet -> bank
+        if bankCash > 0 then
+            natives.netshopping.net_gameserver_transfer_bank_to_wallet(stats.stat_get_int(791613967, 0), bankCash)
+        else
+            menu.notify("Funds could not be transffered, your bank balance is $"..bankCash)
+        end
+    else -- bank -> wallet
+        if walletCash > 0 then
+            natives.netshopping.net_gameserver_transfer_wallet_to_bank(stats.stat_get_int(791613967, 0), walletCash)
+        else
+            menu.notify("Funds could not be transffered, your wallet balance is $"..walletCash)
+        end
     end
-end):set_str_data({"Wallet", "Bank"})--]]
+end):set_str_data({"Wallet", "Bank"})
 menu.add_feature("Force cloud save", "action", usefulSub.id, function()
     natives.stats.stat_save(0, false, 3, false)
 end)
@@ -904,7 +915,6 @@ end)
 --                   !! SETTINGS !! 
 local safeMode = menu.add_feature("#FFFF0000#SAFE MODE", "toggle", settingsSub.id, function(f)
     fraudSub.hidden = f.on
-    timeTrialExploit.hidden = f.on
 end)
 safeMode.on = true
 
@@ -1739,6 +1749,24 @@ for i, v in pairs(tables.agencyContracts) do
     contracts.mod = 5
     contracts.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), 0)
 end
+for i, v in pairs(tables.faff) do
+    local faff = menu.add_feature(v.name, "action_value_i", faffDLC.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.stat), f.value, true)
+    end)
+    faff.min = 0
+    faff.max = 1000
+    faff.mod = 5
+    faff.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), 0)
+end
+for i, v in pairs(tables.importExport) do
+    local impexp = menu.add_feature(v.name, "action_value_i", importExportDLC.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.stat), f.value, true)
+    end)
+    impexp.min = 0
+    impexp.max = 1000
+    impexp.mod = 5
+    impexp.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), 0)
+end
 -- Competitive Stats
 for i, v in pairs(tables.compStats) do
     local compStatss = menu.add_feature(v.name, "action_value_i", competitiveStats.id, function(f)
@@ -1805,6 +1833,12 @@ menu.add_feature("Set Motorcycle Club name", "action_value_str", miscStats.id, f
     end
     menu.notify("Change sessions.", "Apex")
 end):set_str_data({"No Prefix", "Rockstar Verified", "Bold", "Rockstar Icon"})
+menu.add_feature("Set yacht name", "action", miscStats.id, function()
+    local value = helpers.getInput("Enter the desired yacht name (has no filter)", "", 10, 0)
+    if value == nil or value == "" then return end
+    natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "YACHT_NAME"), value, true)
+    menu.notify("find a new session!", "Apex", 10, colors.green)
+end)
 local driftRacesWon = menu.add_feature("Drift races played", "action_value_i", miscStats.id, function(f)
     stats.stat_set_int(gameplay.get_hash_key(mpx2().. "DRIFT_RACE_PLAY_COUNT"), f.value, true)
 end)

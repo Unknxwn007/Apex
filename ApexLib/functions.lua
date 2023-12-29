@@ -453,12 +453,7 @@ function functions.resetCayoPerico()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "H4CNF_BS_GEN"), 0, true)
 end
 
-function functions.daxCooldown()
-    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "XM22JUGGALOWORKCDTIMER"), -1, true)
-end
-function functions.chickenCooldown()
-    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "SALV23_CFR_COOLDOWN"), -1, true)
-end
+
 function functions.salvageYardRobberyCooldown()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "SALV23_VEHROB_CD"), -1, true)
 end
