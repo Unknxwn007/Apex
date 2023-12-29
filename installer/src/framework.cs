@@ -17,7 +17,8 @@ namespace src
 
         static string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         static string scriptFolder = Path.Combine(appData, "PopstarDevs\\2Take1Menu\\scripts");
-        static string apexLib = Path.Combine(scriptFolder, "ApexLib");
+        static string libFolder = Path.Combine(scriptFolder, "lib");
+        static string apexLib = Path.Combine(scriptFolder, libFolder);
 
         static string versionFile = Path.Combine(tempDir, "version.txt");
 
@@ -133,9 +134,10 @@ namespace src
         public static void Download()
         {
             string apexLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/Apex.lua";
-            string funcLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/ApexLib/functions.lua";
-            string tableLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/ApexLib/tables.lua";
-            string helpLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/ApexLib/helpers.lua";
+            string funcLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/lib/ApexLib/functions.lua";
+            string tableLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/lib/ApexLib/tables.lua";
+            string helpLUA = "https://raw.githubusercontent.com/Unknxwn007/release/lib/ApexLib/helpers.lua";
+            string nativesLUA = "https://raw.githubusercontent.com/Unknxwn007/release/lib/natives2845.lua";
 
 
             using (WebClient wc = new WebClient())
@@ -147,6 +149,7 @@ namespace src
                     wc.DownloadFile(helpLUA, Path.Combine(apexLib, "helpers.lua"));
                     wc.DownloadFile(funcLUA, Path.Combine(apexLib, "functions.lua"));
                     wc.DownloadFile(tableLUA, Path.Combine(apexLib, "tables.lua"));
+                    wc.DownloadFile(tableLUA, Path.Combine(libFolder, "natives2845.lua"));
                 }
                 catch (Exception ex) { LogError(ex); }
             }
