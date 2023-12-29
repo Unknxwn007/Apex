@@ -372,6 +372,17 @@ tables.agencyContracts2 = {
     { name = "Contracts earnings", stat = "TUNER_EARNINGS"},
 }
 
+tables.faff = { -- Further Adventures in Finance and Felony
+    --{ name = "Collections Completed", stat = "LIFETIME_BUY_COMPLETE"},
+    { name = "Sales Completed", stat = "LIFETIME_SELL_COMPLETE"},
+    { name = "Total Earnings", stat = "LIFETIME_CONTRA_EARNINGS"},
+}
+tables.importExport = {
+    --{ name = "Vehicles stolen", stat = "VEH_CARGO_STEAL_NUM"}, -- Returns 0 for some reason
+    { name = "Vehicles exported", stat = "LFETIME_IE_EXPORT_COMPLETED"},
+    { name = "Total Export Earnings", stat = "LFETIME_IE_MISSION_EARNINGS"},
+}
+
 tables.compStats = {
     { name = "Races Won", stat = "MPPLY_TOTAL_RACES_WON"},
     { name = "Races Lost", stat = "MPPLY_TOTAL_RACES_LOST"},
@@ -391,6 +402,7 @@ tables.compStats = {
 }
 tables.compStatsPP = { -- per player
     { name = "Impromptu Races Won", stat = "IMPROMPTU_RACES_WON"},
+    { name = "Christmas 2023 Adversary Mode Wins", stat = "XMAS2023_ADV_MODE_WINS"},
 }
 tables.allReports = {
     { name = "Griefing", stat = "MPPLY_GRIEFING" },
@@ -410,7 +422,6 @@ tables.allReports = {
     { name = "Friendly", stat = "MPPLY_FRIENDLY" },
     { name = "Helpful", stat = "MPPLY_HELPFUL" },
 }
-
 
 --RAILGUN_KILLS | ASLTR_MK2_KILLS | CBNR_MK2_KILLS | HCK_DVE_KILLS | YACHT_NAME, YACHT_NAME2 |  | BLRIFLE_MK2_KILLS |  | 
 --REV_MK2_KILLS | REV_DA_KILLS | 

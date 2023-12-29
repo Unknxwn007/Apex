@@ -3,6 +3,7 @@ package.path = appdata .. "\\scripts\\?.lua;" .. package.path
 local functions = require("ApexLib.functions")
 local tables = require("ApexLib.tables")
 local helpers = require("ApexLib.helpers")
+local natives = require("lib/natives2845")
 
 local function mpx2()
     return "MP" .. stats.stat_get_int(gameplay.get_hash_key("MPPLY_LAST_MP_CHAR"), 1) .. "_"
@@ -14,6 +15,11 @@ end
     - collectables -> ghost photo, action figure, ld organics, play cards, signal jammer, usb stick, movie prop, burried stashes, hidden cache, treasure chest, shipwreck (daily)
     - collectables -> trick or treat, halloween, stunt jumps, junk energy skydive
     - events -> ufo, bank shoot, ghost, taxi, christmas mug, armored truck, possessed animal, bar resupply, 
+
+INTERESTING
+    REDWOOD_HEALTH_DEPLETE_MULTIPLIER
+    AP_MULTIPLIER
+    COLLECTABLES_MOVIE_PROPS
 ]]
 
 local colors = {
@@ -26,6 +32,7 @@ local colors = {
 -- Welcome
 menu.create_thread(function()
     helpers.iconNotification("CHAR_MP_FM_CONTACT", "Welcome!")
+    menu.notify("#FF00FF00#SAFE MODE IS ON!", "Apex", 5, colors.red)
     --helpers.verCheck()
 end)    
 
@@ -43,9 +50,10 @@ local root = menu.add_feature("#FF0000FF#Apex", "parent", 0)
 local playerRoot = menu.add_player_feature("#FF0000FF#Apex", "parent", 0) 
 
 local unlocksSub = menu.add_feature("Unlocks", "parent", root.id)
-local fraudSub = menu.add_feature("#FF0000FF#[BAN RISK]#DEFAULT# Tax Fraud", "parent", root.id)
+local fraudSub = menu.add_feature("Tax Fraud", "parent", root.id)
 local reputationSub = menu.add_feature("Reputation", "parent", root.id)
 local cluesSub = menu.add_feature("Clues", "parent", root.id)
+local exploitSub = menu.add_feature("Exploits", "parent", root.id)
 local heistSub = menu.add_feature("Heist Manager", "parent", root.id)
 local missionSub = menu.add_feature("Mission Manager", "parent", root.id)
 local statSub = menu.add_feature("Stats Manager", "parent", root.id)
@@ -53,13 +61,13 @@ local statSub = menu.add_feature("Stats Manager", "parent", root.id)
 local usefulSub = menu.add_feature("Useful Features", "parent", root.id)
 local charInfo = menu.add_feature("Character Information", "parent", root.id)
 local miscSub = menu.add_feature("Miscellaneous", "parent", root.id)
+local settingsSub = menu.add_feature("Settings", "parent", root.id)
 
 local playerusefulSub = menu.add_player_feature("Useful Features", "parent", playerRoot.id)
 
---local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
-
--- dev stuff
---[[menu.add_feature("GET INT-STAT VALUE", "action", devSub.id, function() 
+-- dev stuff 
+--[[local devSub = menu.add_feature("#FF0000FF#DEV", "parent", root.id)
+menu.add_feature("GET INT-STAT VALUE", "action", devSub.id, function() 
     system.wait(300)
     local value = helpers.getInput("STAT NAME", "", 30, 0)
 
@@ -69,7 +77,13 @@ end)
 menu.add_feature("SET INT-STAT VALUE", "action", devSub.id, function() 
     -- stats.stat_set_u64(gameplay.get_hash_key(mpx2().."TOTAL_PLAYING_TIME"), 528035702983, 528035702983)
 
-    local value = helpers.getInput("String value", "", 70, 0)
+    local value = helpers.getInput("value", "", 70, 0)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2().."FIREWORK_TYPE_1_WHITE"), value, true)
+end)
+menu.add_feature("GET STRING-STAT VALUE", "action", devSub.id, function() 
+    local value = helpers.getInput("value", "", 70, 0)
+    local piss = natives.stats.stat_get_string(gameplay.get_hash_key(mpx2()..value), 0)
+    menu.notify(tostring(piss)) 
 end)
 menu.add_feature("NATIVE TEST", "action", devSub.id, function() 
     local piss = native.call(0x76EF28DA05EA395A)
@@ -83,6 +97,8 @@ local uWeaponsSub = menu.add_feature("Weapons", "parent", unlocksSub.id)
 local uVehiclesSub = menu.add_feature("Vehicles", "parent", unlocksSub.id)
 local uClothingSub = menu.add_feature("Clothing", "parent", unlocksSub.id)
 local uAwardsSub = menu.add_feature("Awards", "parent", unlocksSub.id)
+
+local driftExploits = menu.add_feature("Drift Races", "parent", exploitSub.id)
 
 local instFinish = menu.add_feature("Instant Finisher", "parent", heistSub.id)
 local legacyHeist = menu.add_feature("Legacy Heists", "parent", heistSub.id)
@@ -123,16 +139,18 @@ local miscStats = menu.add_feature("Miscellaneous Stats", "parent", statSub.id)
 local reportStats = menu.add_feature("Reports", "parent", miscStats.id)
 local competitiveStats = menu.add_feature("Competitive", "parent", miscStats.id)
 local theContractDLC = menu.add_feature("The Contract", "parent", miscStats.id)
+local importExportDLC = menu.add_feature("Import / Export", "parent", miscStats.id)
+local faffDLC = menu.add_feature("Finance and Felony", "parent", miscStats.id)
 
 
--- Unlocks
+--                   !! UNLOCKS!! 
 -- achievements
 menu.add_feature("Every Achievement", "action", uAchievementSub.id, function()
     functions.unlockAllAchievements()
 end)
 for id, achievementName in pairs(tables.Achievements) do
     menu.add_feature(achievementName, "action", uAchievementSub.id, function()
-        Functions.setAchievement(id)
+        natives.player.give_achievement_to_player(id)
     end)
 end
 -- weapons
@@ -140,11 +158,11 @@ menu.add_feature("Unlock finish", "action_value_str", uWeaponsSub.id, function(f
     if f.value == 0 then
         functions.daxCooldown()
     elseif f.value == 1 then
-        native.call(0xDB8A58AEAA67CD07, 41657, true, mpx2())
+        natives.stats.set_packed_stat_bool_code(4167, true, mpx2())
     elseif f.value == 2 then
-        native.call(0xDB8A58AEAA67CD07, 41658, true, mpx2())
+        natives.stats.set_packed_stat_bool_code(41658, true, mpx2())
     elseif f.value == 3 then
-        native.call(0xDB8A58AEAA67CD07, 41659, true, mpx2())
+        natives.stats.set_packed_stat_bool_code(41659, true, mpx2())
     elseif f.value == 4 then
         functions.weaponLiveryChristmas23()
     else
@@ -158,7 +176,7 @@ menu.add_feature("Unlock Weapon", "action_value_str", uWeaponsSub.id, function(f
         stats.stat_set_bool(gameplay.get_hash_key("MPPLY_MELEECHLENGECOMPLETED"), true, true)
         stats.stat_set_bool(gameplay.get_hash_key("MPPLY_HEADSHOTCHLENGECOMPLETED"), true, true)
     elseif f.value == 2 then
-        native.call(0xDB8A58AEAA67CD07, 28158, true, mpx2())
+        natives.stats.set_packed_stat_bool_code(28158, true, mpx2())
     else
         menu.notify("Error 0x42069", "Apex", 10, colors.red)
     end
@@ -166,7 +184,6 @@ end):set_str_data({"Snow Cannon", "Stone Hatchet", "Navy revolver"})
 menu.add_feature("Knife and Bat skins (Gun Van)", "action", uWeaponsSub.id, function()
     functions.unlockMeleeWeaponSkins()
 end) 
-
 -- vehicles
 menu.add_feature("Unlock Vehicle", "action_value_str", uVehiclesSub.id, function(f) 
     if f.value == 0 then
@@ -201,10 +218,9 @@ end)
 menu.add_feature("Some Liveries", "action", uVehiclesSub.id, function()
     functions.unlockLiveries()
 end)
-
 -- clothing
 menu.add_feature("Pacific Standard Sweater", "action", uClothingSub.id, function()
-    native.call(0xDB8A58AEAA67CD07, 34382, true, mpx2())
+    natives.stats.set_packed_stat_bool_code(34382, true, mpx2())
 end)
 -- Beach Bum Update
 -- Holiday Gifts
@@ -272,12 +288,12 @@ menu.add_feature("Criminal Enterprises", "action", uClothingSub.id, function()
 end)
 menu.add_feature("Drug Wars", "action", uClothingSub.id, function()
     for i =  36699, 36770 do
-        native.call(0xDB8A58AEAA67CD07, i, true, mpx2())
+        natives.stats.set_packed_stat_bool_code(i, true, mpx2())
     end
 end)
 menu.add_feature("San Andreas Mercenaries", "action", uClothingSub.id, function()
     for i = 41943, 41945 do
-        native.call(0xDB8A58AEAA67CD07, i, true, mpx2())
+        natives.stats.set_packed_stat_bool_code(i, true, mpx2())
     end
 end)
 menu.add_feature("Chop Shop", "action", uClothingSub.id, function()
@@ -344,7 +360,7 @@ menu.add_feature("Unlock Alien Tattoo", "action_value_str", unlocksSub.id, funct
 end):set_str_data({"Male", "Female"})
 
 
--- Tax fraud
+--                   !! TAX FRAUD !! 
 menu.add_feature("Bypass LSC sell amount", "toggle", fraudSub.id, function(f)
     while f.on do
         script.set_global_i(262145 + 175, 999999999)
@@ -352,8 +368,7 @@ menu.add_feature("Bypass LSC sell amount", "toggle", fraudSub.id, function(f)
     end
 end)
 
-
--- Reputation
+--                   !! REPUTATION !! 
 menu.add_feature("RP Multiplier [10x]", "action", reputationSub.id, function(f) 
     while f.on do
         script.set_global_f(262145 + 1, 10.0)
@@ -377,7 +392,7 @@ menu.add_feature("Reset car club level", "action", reputationSub.id, function()
 end)
 
 
--- Clues
+--                   !! CLUES !! 
 menu.add_feature("Serial Killer", "action_value_str", cluesSub.id, function(f) 
     if f.value == 0 then
         entity.set_entity_coords_no_offset(player.get_player_ped(player.player_id()), v3(-678.9984, 5797.6851, 17.3309))
@@ -420,7 +435,34 @@ menu.add_feature("Yeti Clues", "action_value_str", cluesSub.id, function(f)
 end):set_str_data({"Camp", "Clothes", "Dead Deer", "Car Wreck", "Body Parts"})
 
 
--- Heist Manager
+--                   !! EXPLOITS !! 
+local lockDriftMultiplier = menu.add_feature("Lock Drift multiplier", "action_value_f", driftExploits.id, function(f)
+    script.set_global_f(262145 + 25981, f.value)
+    menu.notify("Drift multiplier will be set to this value the entire race!", "Apex", 5, colors.green)
+end)
+lockDriftMultiplier.min, lockDriftMultiplier.max, lockDriftMultiplier.mod, lockDriftMultiplier.value = 1.0, 4.0, 0.5, 1.0 
+menu.add_feature("Precision drift exploit", "action", driftExploits.id, function(f)
+    script.set_global_i(262145 + 25984, 10000)
+    menu.notify("Doing a precision drift adds more points now!", "Apex", 5, colors.green)
+end)
+menu.add_feature("Instantly Win", "action", driftExploits.id, function(f)
+    script.set_global_i(262145 + 25995, -1000000)--000)
+    script.set_global_i(262145 + 25996, -1000000)--000)
+    menu.notify("Respawn by holding F!", "Apex", 5, colors.green)
+end)
+
+menu.add_feature("First time bonus XP", "action_value_str", exploitSub.id, function(f) 
+    if f.value == 0 then
+        script.set_global_f(262145 + 31944, 2.0) -- TUNER_SPRINT_FIRST_TIME_BONUS_XP_MULTIPLIER
+    elseif f.value == 1 then
+        script.set_global_f(262145 + 31945, 2.0) -- TUNER_STREET_FIRST_TIME_BONUS_XP_MULTIPLIER
+    elseif f.value == 2 then
+        script.set_global_f(262145 + 31946, 2.0) -- TUNER_PURSUIT_FIRST_TIME_BONUS_XP_MULTIPLIER
+    end
+end):set_str_data({"Sprint Race", "Street Race", "Pursuit Race"})
+
+
+--                   !! HEIST MANAGER !! 
 menu.add_feature("Remove cooldown for", "action_value_str", heistSub.id, function(f) 
     if f.value == 0 then
         stats.stat_set_int(gameplay.get_hash_key(mpx2().."H4_COOLDOWN"), 0, true)
@@ -492,7 +534,6 @@ end)
 menu.add_feature("Reset Setups", "action", legacyHeist.id, function()
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "HEIST_PLANNING_STAGE"), 0, true)
 end)
-
 -- the doomsday heist
 menu.add_feature("Auto Setup:", "autoaction_value_str", doomsdayHeist.id, function(f) 
     if f.value == 0 then
@@ -507,6 +548,9 @@ menu.add_feature("Auto Setup:", "autoaction_value_str", doomsdayHeist.id, functi
 end):set_str_data({"Act 1: The Data Breaches", "Act 2: The Bodgan Problem", "Act 3: Doomsday Scenario"})
 menu.add_feature("Max Payout", "action", doomsdayHeist.id, function()
     functions.maxPayoutH2Smart()
+end)
+menu.add_feature("Complete all Acts", "action", doomsdayHeist.id, function()
+    stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "GANGOPS_FM_MISSION_PROG"), -1, true)
 end)
 -- the casino heist -> modded presets
 --[[
@@ -532,7 +576,6 @@ menu.add_feature("Diamond - 3.6M for players 2, 3 and 4", "toggle", casinoModded
     system.wait(0)
     helpers.iconNotification("CHAR_MP_FM_CONTACT", "ONLY WORKS IF YOU SELECT LOW LEVEL BUYER!!")
 end)--]]
-
 -- the casino heist
 menu.add_feature("Change Payout for", "action_value_str", casinoHeist.id, function(f) 
     functions.getFMHost()
@@ -661,9 +704,6 @@ menu.add_feature("Reset current preps", "action", autoShopRobberies.id, function
     stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "TUNER_GEN_BS"), 12467, true)
 end)
 -- salvage yard robberies
-menu.add_feature("Enable unreleased missions", "action", salvageRobberies.id, function()
-    functions.enablePodiumMcTonyRob()
-end)
 menu.add_feature("Skip to finale", "action", salvageRobberies.id, function()
     functions.skipSalvageMissions()
 end)
@@ -672,16 +712,18 @@ menu.add_feature("Keep vehicle after robbery", "action", salvageRobberies.id, fu
 end)
 
 
--- Mission Manager
+--                   !! MISSION MANAGER !! 
 menu.add_feature("Remove cooldown for", "action_value_str", missionSub.id, function(f) 
     if f.value == 0 then
-        functions.daxCooldown()
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "XM22JUGGALOWORKCDTIMER"), -1, true)
     elseif f.value == 1 then
-        functions.chickenCooldown()
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "SALV23_CFR_COOLDOWN"), -1, true)
+    elseif f.value == 2 then
+        stats.stat_set_int(gameplay.get_hash_key(mpx2() .. "IMP_EXP_SELL_MISSION_CD"), -1, true) -- might be a trigger for suspension?
     else
         menu.notify("Error 0x42069", "Apex", 10, colors.red)
     end
-end):set_str_data({"Dax", "Chicken Farm Raid"})
+end):set_str_data({"Dax", "Chicken Farm Raid", "Import Export Sales"})
 menu.add_feature("Enable Vincent contact missions", "action", theChopShopDLC.id, function()
     functions.enableVincent()
 end)
@@ -707,7 +749,7 @@ menu.add_feature("Trigger Alien Egg resupply mission", "action", missionSub.id, 
 end)
 
 
--- Useful Features
+--                   !! USEFUL FEATURES !! 
 menu.add_feature("Remove transaction error", "toggle", usefulSub.id, function(f)
     while f.on do
         script.set_global_i(4537356, 0)
@@ -716,17 +758,26 @@ menu.add_feature("Remove transaction error", "toggle", usefulSub.id, function(f)
         system.wait(0)
     end
 end)
---[[menu.add_feature("Move all money to", "action_value_str", usefulSub.id, function(f) 
-    if f.value == 0 then
-        local amount = native.call(0x76EF28DA05EA395A)
-        native.call(0xD47A2C1BA117471D, mpx2(), amount) -- bank -> wallet
-    else
-        local amount = native.call(0xA40F9C2623F6A8B5, mpx2())
-        native.call(0xC2F7FE5309181C7D, mpx2(), amount) -- wallet -> bank
+menu.add_feature("Move all money to", "action_value_str", usefulSub.id, function(f)  -- thanks for the help MIKE!
+    local walletCash =natives.money.network_get_vc_wallet_balance(stats.stat_get_int(791613967, 0))
+    local bankCash = natives.money.network_get_vc_bank_balance() 
+
+    if f.value == 0 then -- wallet -> bank
+        if bankCash > 0 then
+            natives.netshopping.net_gameserver_transfer_bank_to_wallet(stats.stat_get_int(791613967, 0), bankCash)
+        else
+            menu.notify("Funds could not be transffered, your bank balance is $"..bankCash)
+        end
+    else -- bank -> wallet
+        if walletCash > 0 then
+            natives.netshopping.net_gameserver_transfer_wallet_to_bank(stats.stat_get_int(791613967, 0), walletCash)
+        else
+            menu.notify("Funds could not be transffered, your wallet balance is $"..walletCash)
+        end
     end
-end):set_str_data({"Wallet", "Bank"})--]]
+end):set_str_data({"Wallet", "Bank"})
 menu.add_feature("Force cloud save", "action", usefulSub.id, function()
-    native.call(0xE07BCA305B82D2FD, 0, false, 3, false)
+    natives.stats.stat_save(0, false, 3, false)
 end)
 menu.add_feature("Call Gun Van", "action", usefulSub.id, function()
     local coords = player.get_player_coords(player.player_id())
@@ -771,6 +822,8 @@ end)
 
 end)--]]
 
+
+--                   !! CHARACTER INFORMATION !! 
 local accName = player.get_player_name(player.player_id())
 local accID =  player.get_player_scid(player.player_id())
 local charRank = stats.stat_get_int(gameplay.get_hash_key(mpx2().."CHAR_RANK_FM"), 0)
@@ -791,22 +844,28 @@ menu.add_feature("Cash Balance: " .."$" .. helpers.add_commas(charCashBalance), 
 menu.add_feature(" ", "action", charInfo.id, function() end) -- blank
 menu.add_feature("Name: " .. charName, "action", charInfo.id, function() end) 
 
--- Misc
+
+--                   !! MISC !! 
 menu.add_feature("Start Event", "action_value_str", miscSub.id, function(f) 
     if f.value == 0 then
         script.set_global_i(262145 + 36157, 3600000)
         script.set_global_i(262145 + 36158, 1800000)
         script.set_global_i(262145 + 36055, 1)
-    else
-        script.set_global_i(262145+36054, 1)
+    elseif f.value == 1 then
+        script.set_global_i(262145 + 36054, 1)
+    elseif f.value == 2 then
+        script.set_global_i(262145 + 28150, 1) -- 
+    elseif f.value == 3 then
+        script.set_global_i(262145 + 33099, 1) -- freemode.c -> COLLECTABLES_TRICK_OR_TREAT
+    elseif f.value == 4 then
+        script.set_global_i(262145 + 34283, 1)
     end
-    menu.notify("Please change sessions.", "Apex")
-end):set_str_data({"Christmas Truck", "Yeti"})
+end):set_str_data({"Christmas Truck", "Yeti", "Peyote Plants", "Jack o'Lanterns", "Snowmen",})
 menu.add_feature("Story Mode", "action_value_str", miscSub.id, function(f) 
     if f.value == 0 then
-        native.call(0x593850C16A36B692) -- SHUTDOWN_AND_LAUNCH_SINGLE_PLAYER_GAME
+        natives.network.shutdown_and_launch_single_player_game()
     else
-        native.call(0xB475F27C6A994D65) -- SET_PROFILE_SETTING_PROLOGUE_COMPLETE
+        natives.stats.set_profile_setting_prologue_complete()
     end
 end):set_str_data({"Go To", "Skip Prologue"})
 menu.add_feature("Bad Sport", "action_value_str", miscSub.id, function(f) 
@@ -835,14 +894,13 @@ end)
 menu.add_feature("Set clear plate", "action", miscSub.id, function()
     vehicle.set_vehicle_number_plate_text(player.player_vehicle(), "-")
 end)
-
 vanityPlateFunc = menu.add_feature("Vanity Plates", "autoaction_value_str", miscSub.id, function(f, pid)
     vehicle.set_vehicle_number_plate_index(player.player_vehicle(), f.value + 6)
 end)
 vanityPlateFunc:set_str_data({"E-Cola", "Las Venturas", "Liberty City", "LS Car Meet", "Panic", "Pounders", "Sprunk"})
 
 
--- Selected Player
+--                   !! SELECTED PLAYER !! 
 menu.add_player_feature("Give RP", "toggle", playerusefulSub.id, function(f,pid)
     while f.on do
         for i = 0, 24 do
@@ -854,9 +912,15 @@ menu.add_player_feature("Give RP", "toggle", playerusefulSub.id, function(f,pid)
 end)
 
 
---                   !! STATS MANAGER CODE !! 
+--                   !! SETTINGS !! 
+local safeMode = menu.add_feature("#FFFF0000#SAFE MODE", "toggle", settingsSub.id, function(f)
+    fraudSub.hidden = f.on
+end)
+safeMode.on = true
 
--- Stats Manager
+
+
+--                   !! STATS MANAGER CODE !! 
 -- carreer
 menu.add_feature("Overall Income", "action", carreerStats.id, function()
     functions.intStatInput("MPPLY_TOTAL_EVC", false)
@@ -1685,6 +1749,24 @@ for i, v in pairs(tables.agencyContracts) do
     contracts.mod = 5
     contracts.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), 0)
 end
+for i, v in pairs(tables.faff) do
+    local faff = menu.add_feature(v.name, "action_value_i", faffDLC.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.stat), f.value, true)
+    end)
+    faff.min = 0
+    faff.max = 1000
+    faff.mod = 5
+    faff.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), 0)
+end
+for i, v in pairs(tables.importExport) do
+    local impexp = menu.add_feature(v.name, "action_value_i", importExportDLC.id, function(f)
+        stats.stat_set_int(gameplay.get_hash_key(mpx2().. v.stat), f.value, true)
+    end)
+    impexp.min = 0
+    impexp.max = 1000
+    impexp.mod = 5
+    impexp.value = stats.stat_get_int(gameplay.get_hash_key(mpx2().. v.stat), 0)
+end
 -- Competitive Stats
 for i, v in pairs(tables.compStats) do
     local compStatss = menu.add_feature(v.name, "action_value_i", competitiveStats.id, function(f)
@@ -1721,19 +1803,19 @@ end)
 menu.add_feature("Set character name", "action", miscStats.id, function()
     local value = helpers.getInput("Enter the desired character name (has no filter)", "", 10, 0)
     if value == nil or value == "" then return end
-    functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "CHAR_NAME"), value)
+    natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "CHAR_NAME"), value, true)
 end)
 menu.add_feature("Set Organization name", "action_value_str", miscStats.id, function(f) 
     local value = helpers.getInput("Enter the desired name (has no filter)", "", 15, 0)
     if value == nil or value == "" then return end
     if f.value == 0 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), value)
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), value, true)
     elseif f.value == 1 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "¦ " .. value .. " ¦   ")
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "¦ " .. value .. " ¦   ", true)
     elseif f.value == 2 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "~h~" .. value .. " ~h~")
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "~h~" .. value .. " ~h~", true)
     elseif f.value == 3 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "~÷~ " .. value .. " ~÷~   ")
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "GB_OFFICE_NAME"), "~÷~ " .. value .. " ~÷~   ", true)
     end
     menu.notify("Change sessions.", "Apex")
 end):set_str_data({"No Prefix", "Rockstar Verified", "Bold", "Rockstar Icon"})
@@ -1741,16 +1823,22 @@ menu.add_feature("Set Motorcycle Club name", "action_value_str", miscStats.id, f
     local value = helpers.getInput("Enter the desired name (has no filter)", "", 15, 0)
     if value == nil or value == "" then return end
     if f.value == 0 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), value)
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), value, true)
     elseif f.value == 1 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "¦ " .. value .. " ¦   ")
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "¦ " .. value .. " ¦   ", true)
     elseif f.value == 2 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "~h~" .. value .. " ~h~")
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "~h~" .. value .. " ~h~", true)
     elseif f.value == 3 then
-        functions.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "~÷~ " .. value .. " ~÷~   ")
+        natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "MC_GANG_NAME"), "~÷~ " .. value .. " ~÷~   ", true)
     end
     menu.notify("Change sessions.", "Apex")
 end):set_str_data({"No Prefix", "Rockstar Verified", "Bold", "Rockstar Icon"})
+menu.add_feature("Set yacht name", "action", miscStats.id, function()
+    local value = helpers.getInput("Enter the desired yacht name (has no filter)", "", 10, 0)
+    if value == nil or value == "" then return end
+    natives.stats.stat_set_string(gameplay.get_hash_key(mpx2() .. "YACHT_NAME"), value, true)
+    menu.notify("find a new session!", "Apex", 10, colors.green)
+end)
 local driftRacesWon = menu.add_feature("Drift races played", "action_value_i", miscStats.id, function(f)
     stats.stat_set_int(gameplay.get_hash_key(mpx2().. "DRIFT_RACE_PLAY_COUNT"), f.value, true)
 end)
