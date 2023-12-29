@@ -3,12 +3,13 @@ package.path = appdata .. "\\scripts\\?.lua;" .. package.path
 local functions = require("ApexLib.functions")
 local tables = require("ApexLib.tables")
 local helpers = require("ApexLib.helpers")
-if not util.file_exists("lib/natives2845") then
+local natives
+if not utils.file_exists("lib/natives2845") then
     menu.notify("Please install the natives lib file: Local > Scripts > Install > natives2845")
     menu.exit()
     return
 else
-    local natives = require("lib/natives2845")
+    natives = require("lib/natives2845")
 end
 
 local function mpx2(toNumber)
