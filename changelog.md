@@ -1,3 +1,12 @@
+### 1.3.9.4
+- Fixes
+    - Set character name
+    - Unlock Navy Revolver
+    - Auto Setup: Silent & Sneaky
+    - Skip fingerprint (The Cayo Perico Heist)
+- Removals
+    - Remove All CCTV Camera's (broken and i cba fixing it )
+
 ### 1.3.9.2
 - Fixes 
     - anything that required natives

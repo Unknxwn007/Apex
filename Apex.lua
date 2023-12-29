@@ -188,7 +188,7 @@ menu.add_feature("Unlock Weapon", "action_value_str", uWeaponsSub.id, function(f
         stats.stat_set_bool(gameplay.get_hash_key("MPPLY_MELEECHLENGECOMPLETED"), true, true)
         stats.stat_set_bool(gameplay.get_hash_key("MPPLY_HEADSHOTCHLENGECOMPLETED"), true, true)
     elseif f.value == 2 then
-        natives.stats.set_packed_stat_bool_code(28158, true, mpx2(false))
+        natives.stats.set_packed_stat_bool_code(28158, true, mpx2(true))
     else
         menu.notify("Error 0x42069", "Apex", 10, colors.red)
     end
@@ -697,12 +697,12 @@ menu.add_feature("Set everyone's cut to 151%", "toggle", cayopericoHeist.id, fun
     end
 end)
 
-menu.add_feature("Remove All CCTV Camera's", "action", cayopericoHeist.id, function()
-    menu.get_feature_by_hierarchy_key("online.casinoperico_heist.remove_cameras"):toggle()
-end)
+--menu.add_feature("Remove All CCTV Camera's", "action", cayopericoHeist.id, function()
+   -- menu.get_feature_by_hierarchy_key("online.casinoperico_heist.remove_cameras"):toggle()
+--end)
 menu.add_feature("Skip fingerprint", "action", cayopericoHeist.id, function()
     if script.get_global_i(gameplay.get_hash_key("fm_mission_controller", 52985)) ~= 1 then 
-        script.set_global_i(gameplay.get_hash_key("fm_mission_controller", 52985, 5))
+        script.set_global_i(gameplay.get_hash_key("fm_mission_controller"), 52985, 5)
     end
 end)
 menu.add_feature("Reset Heist", "action", cayopericoHeist.id, function()
@@ -843,7 +843,7 @@ local charCrewLevel = stats.stat_get_int(gameplay.get_hash_key("MPPLY_CURRENT_CR
 local charTotalBalance = tonumber(natives.money.network_get_string_bank_wallet_balance(mpx2(false)):sub(2))
 local charBankBalance = tonumber(natives.money.network_get_string_bank_balance(mpx2(false)):sub(2))
 local charCashBalance = charTotalBalance - charBankBalance
-local charName = helpers.stat_get_string(gameplay.get_hash_key(mpx2(false).."CHAR_NAME"), -1)
+local charName = natives.stats.stat_get_string(gameplay.get_hash_key(mpx2(false).."CHAR_NAME"), -1)
 
 menu.add_feature("Username: " ..accName, "action", charInfo.id, function() end)
 menu.add_feature("SocialClub ID: " ..accID, "action", charInfo.id, function() end)
