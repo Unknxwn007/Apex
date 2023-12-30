@@ -1,11 +1,14 @@
 ### 1.3.9.4
+- Additions
+    - Fix custom plate orders not working (Stats Manager -> Misc )
+    - Account flag indicators (Character Information)
+    - Check if the natives library is present, thanks Toph!
 - Fixes
     - Set character name
     - Unlock Navy Revolver
     - Auto Setup: Silent & Sneaky
     - Skip fingerprint (The Cayo Perico Heist)
-- Removals
-    - Remove All CCTV Camera's (broken and i cba fixing it )
+    - Cash Balance
 
 ### 1.3.9.2
 - Fixes 

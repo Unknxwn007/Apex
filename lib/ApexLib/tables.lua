@@ -402,7 +402,7 @@ tables.compStats = {
 }
 tables.compStatsPP = { -- per player
     { name = "Impromptu Races Won", stat = "IMPROMPTU_RACES_WON"},
-    { name = "Christmas 2023 Adversary Mode Wins", stat = "XMAS2023_ADV_MODE_WINS"},
+    { name = "Entourage (Festive Remix) Wins", stat = "XMAS2023_ADV_MODE_WINS"},
 }
 tables.allReports = {
     { name = "Griefing", stat = "MPPLY_GRIEFING" },
