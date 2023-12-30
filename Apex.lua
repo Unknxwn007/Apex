@@ -89,7 +89,7 @@ menu.add_feature("SET INT-STAT VALUE", "action", devSub.id, function()
     -- stats.stat_set_u64(gameplay.get_hash_key(mpx2(false).."TOTAL_PLAYING_TIME"), 528035702983, 528035702983)
 
     local value = helpers.getInput("value", "", 70, 0)
-    stats.stat_set_int(gameplay.get_hash_key(mpx2(false).."FIREWORK_TYPE_1_WHITE"), value, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2(false).."NUM_THRESH_CROSSED_TODAY"), value, true)
 end)
 menu.add_feature("GET STRING-STAT VALUE", "action", devSub.id, function() 
     local value = helpers.getInput("value", "", 70, 0)
@@ -99,7 +99,17 @@ end)
 menu.add_feature("NATIVE TEST", "action", devSub.id, function() 
     local piss = native.call(0x76EF28DA05EA395A)
     menu.notify(tostring(piss))
+end)
+menu.add_feature("GET DATE TEST", "action", devSub.id, function() 
+    --local piss = natives.stats.stat_get_date(gameplay.get_hash_key(mpx2(false) .. "REPEAT_OFFENDER_1_TIME"), )
+    --menu.notify(tostring(piss))
+end)
+menu.add_feature("GET BOOLEAN TEST", "action", devSub.id, function() 
+    menu.notify(tostring(stats.stat_get_bool(gameplay.get_hash_key("MPPLY_LOW_REPEAT_OFFENDER_CAP"), 0)))
+    menu.notify(tostring(stats.stat_get_bool(gameplay.get_hash_key("MPPLY_HIGH_REPEAT_OFFENDER_CAP"), 0)))
 end)--]]
+
+
 
 
 -- Subs
@@ -188,7 +198,7 @@ menu.add_feature("Unlock Weapon", "action_value_str", uWeaponsSub.id, function(f
         stats.stat_set_bool(gameplay.get_hash_key("MPPLY_MELEECHLENGECOMPLETED"), true, true)
         stats.stat_set_bool(gameplay.get_hash_key("MPPLY_HEADSHOTCHLENGECOMPLETED"), true, true)
     elseif f.value == 2 then
-        natives.stats.set_packed_stat_bool_code(28158, true, mpx2(false))
+        natives.stats.set_packed_stat_bool_code(28158, true, mpx2(true))
     else
         menu.notify("Error 0x42069", "Apex", 10, colors.red)
     end
@@ -696,13 +706,16 @@ menu.add_feature("Set everyone's cut to 151%", "toggle", cayopericoHeist.id, fun
         system.wait(0)
     end
 end)
-
 menu.add_feature("Remove All CCTV Camera's", "action", cayopericoHeist.id, function()
     menu.get_feature_by_hierarchy_key("online.casinoperico_heist.remove_cameras"):toggle()
 end)
+
+--menu.add_feature("Remove All CCTV Camera's", "action", cayopericoHeist.id, function()
+   -- menu.get_feature_by_hierarchy_key("online.casinoperico_heist.remove_cameras"):toggle()
+--end)
 menu.add_feature("Skip fingerprint", "action", cayopericoHeist.id, function()
     if script.get_global_i(gameplay.get_hash_key("fm_mission_controller", 52985)) ~= 1 then 
-        script.set_global_i(gameplay.get_hash_key("fm_mission_controller", 52985, 5))
+        script.set_global_i(gameplay.get_hash_key("fm_mission_controller"), 52985, 5)
     end
 end)
 menu.add_feature("Reset Heist", "action", cayopericoHeist.id, function()
@@ -840,10 +853,12 @@ local accName = player.get_player_name(player.player_id())
 local accID =  player.get_player_scid(player.player_id())
 local charRank = stats.stat_get_int(gameplay.get_hash_key(mpx2(false).."CHAR_RANK_FM"), 0)
 local charCrewLevel = stats.stat_get_int(gameplay.get_hash_key("MPPLY_CURRENT_CREW_RANK"), 0)
-local charTotalBalance = tonumber(natives.money.network_get_string_bank_wallet_balance(mpx2(false)):sub(2))
-local charBankBalance = tonumber(natives.money.network_get_string_bank_balance(mpx2(false)):sub(2))
-local charCashBalance = charTotalBalance - charBankBalance
-local charName = helpers.stat_get_string(gameplay.get_hash_key(mpx2(false).."CHAR_NAME"), -1)
+local charBankBalance = natives.money.network_get_vc_bank_balance(mpx2(true))
+local charCashBalance = natives.money.network_get_vc_wallet_balance(mpx2(true))
+local charName = natives.stats.stat_get_string(gameplay.get_hash_key(mpx2(false).."CHAR_NAME"), -1)
+local isFlagged = tostring(stats.stat_get_bool(gameplay.get_hash_key("MPPLY_IS_CHEATER"), 0))
+local isFlaggedDuplication1 = tostring(stats.stat_get_bool(gameplay.get_hash_key("MPPLY_LOW_REPEAT_OFFENDER_CAP"), 0))
+local isFlaggedDuplication2 = tostring(stats.stat_get_bool(gameplay.get_hash_key("MPPLY_HIGH_REPEAT_OFFENDER_CAP"), 0))
 
 menu.add_feature("Username: " ..accName, "action", charInfo.id, function() end)
 menu.add_feature("SocialClub ID: " ..accID, "action", charInfo.id, function() end)
@@ -855,7 +870,10 @@ menu.add_feature("Bank Balance: " .."$" .. helpers.add_commas(charBankBalance), 
 menu.add_feature("Cash Balance: " .."$" .. helpers.add_commas(charCashBalance), "action", charInfo.id, function() end) 
 menu.add_feature(" ", "action", charInfo.id, function() end) -- blank
 menu.add_feature("Name: " .. charName, "action", charInfo.id, function() end) 
-
+menu.add_feature("Was transferred?: " .. charName, "action", charInfo.id, function() end) 
+menu.add_feature(" ", "action", charInfo.id, function() end) -- blank
+menu.add_feature("Is Cheater? " .. isFlagged, "action", charInfo.id, function() end) 
+menu.add_feature("Repeat Offender? " .. isFlaggedDuplication1 .. " | " .. isFlaggedDuplication2, "action", charInfo.id, function() end) 
 
 --                   !! MISC !! 
 menu.add_feature("Start Event", "action_value_str", miscSub.id, function(f) 
@@ -1860,4 +1878,9 @@ driftRacesWon.mod = 1
 driftRacesWon.value = stats.stat_get_int(gameplay.get_hash_key(mpx2(false).. "DRIFT_RACE_PLAY_COUNT"), 0)
 menu.add_feature("Set Lowrider cutscenes as seen", "action", miscStats.id, function()
     functions.setCutscenesSeen()
+end)
+menu.add_feature("Fix custom plate orders not working", "action", miscStats.id, function() 
+    stats.stat_set_bool(gameplay.get_hash_key("MPPLY_LOW_REPEAT_OFFENDER_CAP"), false, true)
+    stats.stat_set_bool(gameplay.get_hash_key("MPPLY_HIGH_REPEAT_OFFENDER_CAP"), false, true)
+    stats.stat_set_int(gameplay.get_hash_key(mpx2(false).."NUM_THRESH_CROSSED_TODAY"), 0, true)
 end)
