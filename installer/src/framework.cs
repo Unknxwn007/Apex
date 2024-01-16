@@ -1,27 +1,14 @@
 ﻿using System;
 using System.IO;
-using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using System.IO.Compression;
+using System.Threading;
 
-using Ionic.Zip;
-
-namespace src
+namespace apex_installer
 {
     public class framework
     {
-        static string appPath = Environment.CurrentDirectory;
-        static string tempDir = Path.Combine(appPath, "temp"); // here we store information used by the launcher
-        static string errorLog = Path.Combine(tempDir, "error_log.txt");
-
-        static string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        static string scriptFolder = Path.Combine(appData, "PopstarDevs\\2Take1Menu\\scripts");
-        static string libFolder = Path.Combine(scriptFolder, "lib");
-        static string apexLib = Path.Combine(scriptFolder, libFolder);
-
-        static string versionFile = Path.Combine(tempDir, "version.txt");
-
         public static void WritePrefixText(string text, string prefix, bool newLine)
         {
             switch (prefix)
@@ -44,6 +31,7 @@ namespace src
             if (newLine) { Console.WriteLine(text); } else { Console.Write(text); }
         }
 
+        // this needs to be improved, but does not matter right now.
         public static void WriteColoredText(string text, ConsoleColor color, bool newLine)
         {
             Console.ForegroundColor = color;
@@ -55,15 +43,16 @@ namespace src
         {
             string errorMessage = $"[{DateTime.Now}] Error: {ex.Message}";
 
-            try
-            {
-                using (StreamWriter writer = new StreamWriter(errorLog)) { writer.Write(errorMessage + "\n"); }
-            }
+            try { using (StreamWriter writer = new StreamWriter(directories.errorLog)) { writer.Write(errorMessage + "\n"); } }
             catch (Exception exc) { WritePrefixText($"An error occurred while writing to the file: {exc.Message}", "err", true); }
+
+            WritePrefixText(ex.Message, "err", false);
         }
 
-        public static void SetAppearance()
+
+        public static void DoStartup()
         {
+            /*      Appearance      */
             Console.Title = "Apex Installer";
             string text = @"                  
      /\                    
@@ -75,102 +64,51 @@ namespace src
           |_|              
 ";
             WriteColoredText(text, ConsoleColor.Red, true);
+
+            /*      Checks      */
+            if (!Directory.Exists(directories.twotakeoneFolder)) { WritePrefixText("2take1 is not installed!", "err", true); } // 2take1 launcher not yet started
+            if (!Directory.Exists(directories.scriptFolder)) { WritePrefixText("2take1 has not yet injected!", "err", true); } // 2take1 not yet injected
         }
 
-        public static void RunChecks()
+        public static async Task Download()
         {
-            // directories
-            if (!Directory.Exists(tempDir)) { Directory.CreateDirectory(tempDir); }
-            if (!Directory.Exists(Path.Combine(appData, "PopstarDevs"))) { WritePrefixText("2take1 is not installed!", "err", true); }
-            if (!Directory.Exists(scriptFolder)) { WritePrefixText("2take1 has not yet injected!", "err", true); }
+            string downloadLink = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/Apex.zip";
+            string downloadPath = Path.Combine(directories.scriptFolder, "Apex.zip");
 
-            // files
-            if (!File.Exists(versionFile))
-            {
-                using (FileStream fs = new FileStream(Path.Combine(tempDir, "version.txt"), FileMode.Create, FileAccess.Write))
-                {
-                    byte[] contentBytes = Encoding.UTF8.GetBytes("princessbubblegum");
-                    fs.Write(contentBytes, 0, contentBytes.Length);
-                }
-            }
-        }
-
-        static async Task<string> DownloadOnlineFileAsync(string url)
-        {
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    HttpResponseMessage response = await client.GetAsync(url);
-                    response.EnsureSuccessStatusCode();
-                    return await response.Content.ReadAsStringAsync();
-                }
-                catch (HttpRequestException) { return null; }
-            }
-        }
+                    byte[] fileData = await client.GetByteArrayAsync(downloadLink);
+                    await Task.Run(() => File.WriteAllBytes(downloadPath, fileData));
 
-        public static async Task PerformUpdateCheck()
-        {
-            string url = "https://raw.githubusercontent.com/Unknxwn007/Apex/main/version.txt";
-            string cloudVersion = await DownloadOnlineFileAsync(url);
-
-            if (cloudVersion != null)
-            {
-                string localVersion = File.ReadAllText(versionFile);
-
-                if (cloudVersion == localVersion)
-                {
-                    WritePrefixText("you are up to date!", "suc", true);
-                }
-                else
-                {
-                    WritePrefixText("version does not match!", "err", false);
-                    WritePrefixText(" downloading latest..", "inf", true);
-                }
-            }
-            else { WritePrefixText("Failed to download online content.", "err", true); }
-        }
-
-        public static void Download()
-        {
-            string apexLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/Apex.lua";
-            string funcLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/lib/ApexLib/functions.lua";
-            string tableLUA = "https://raw.githubusercontent.com/Unknxwn007/Apex/release/lib/ApexLib/tables.lua";
-            string helpLUA = "https://raw.githubusercontent.com/Unknxwn007/release/lib/ApexLib/helpers.lua";
-            string nativesLUA = "https://raw.githubusercontent.com/Unknxwn007/release/lib/natives2845.lua";
-
-
-            using (WebClient wc = new WebClient())
-            {
-                wc.Headers.Add("a", "a");
-                try
-                {
-                    wc.DownloadFile(apexLUA, Path.Combine(scriptFolder, "Apex.lua"));
-                    wc.DownloadFile(helpLUA, Path.Combine(apexLib, "helpers.lua"));
-                    wc.DownloadFile(funcLUA, Path.Combine(apexLib, "functions.lua"));
-                    wc.DownloadFile(tableLUA, Path.Combine(apexLib, "tables.lua"));
-                    wc.DownloadFile(tableLUA, Path.Combine(libFolder, "natives2845.lua"));
+                    ZipFile.ExtractToDirectory(downloadPath, directories.scriptFolder);
+                    File.Delete(downloadPath);
                 }
                 catch (Exception ex) { LogError(ex); }
             }
         }
 
-        public static void InstallUninstall(bool uninstall)
+        public static async Task InstallUninstall(bool uninstall)
         {
             if(!uninstall) 
-            { 
-                if (!Directory.Exists(apexLib)) {
-                    Directory.CreateDirectory(apexLib);
-                    Download(); 
+            {
+                if (Directory.Exists(directories.apexFolder) && File.Exists(directories.apexFile))
+                {
+                    Directory.Delete(directories.apexFolder);
+                    File.Delete(directories.apexFile);
                 }
+
+                await Download();
+
                 WritePrefixText("Apex has been installed!", "suc", true);
             }
             else
             {
                 try
                 {
-                    Directory.Delete(apexLib, true);
-                    File.Delete(Path.Combine(scriptFolder, "Apex.lua"));
+                    Directory.Delete(Path.Combine(directories.scriptFolder, "lib\\ApexLib"), true);
+                    File.Delete(Path.Combine(directories.scriptFolder, "Apex.lua"));
                     WritePrefixText("Apex has been removed!", "suc", true);
                 } catch(Exception ex) { LogError(ex); }
             }
@@ -178,21 +116,19 @@ namespace src
 
         public static async Task RunSelector()
         {
-            Console.WriteLine("1. Install  |  2. Uninstall  |  3. Check for Updates\n");
+            Console.WriteLine("1. (Re)Install  |  2. Uninstall | 3. Help\n");
             int choice = Convert.ToInt32(Console.ReadLine());
 
             switch (choice)
             {
                 case 1:
-                    InstallUninstall(false);
+                    await InstallUninstall(false);
                     break;
                 case 2:
-                    InstallUninstall(true);
+                    await InstallUninstall(true);
                     break;
                 case 3:
-                    //await PerformUpdateCheck();
-                    WritePrefixText("work in progress!", "inf", true);
-                    await RunSelector();
+
                     break;
                 default:
                     WritePrefixText("Invalid choice!", "err", true);

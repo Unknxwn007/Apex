@@ -1,0 +1,26 @@
+local charInfo = menu.add_feature("Character Information", "parent", apexStuff["root"].id)
+
+-- i dont care if it doesnt update, press Z
+
+local accName = player.get_player_name(player.player_id())
+local accID =  player.get_player_scid(player.player_id())
+local charRank = stats.stat_get_int(gameplay.get_hash_key(apexStuff["helpers"].getCurrentChar(false).."CHAR_RANK_FM"), 0)
+local charCrewLevel = stats.stat_get_int(gameplay.get_hash_key("MPPLY_CURRENT_CREW_RANK"), 0)
+local charBankBalance = apexStuff["natives"].money.network_get_vc_bank_balance(apexStuff["helpers"].getCurrentChar(true))
+local charCashBalance = apexStuff["natives"].money.network_get_vc_wallet_balance(apexStuff["helpers"].getCurrentChar(true))
+local charName = apexStuff["natives"].stats.stat_get_string(gameplay.get_hash_key(apexStuff["helpers"].getCurrentChar(false).."CHAR_NAME"), -1)
+local charTransferred = tostring(stats.stat_get_bool(gameplay.get_hash_key(apexStuff["helpers"].getCurrentChar(false).. "WAS_CHAR_TRANSFERED"), 0))
+local isFlagged = tostring(stats.stat_get_bool(gameplay.get_hash_key("MPPLY_IS_CHEATER"), 0))
+local isFlaggedDuplication1 = tostring(stats.stat_get_bool(gameplay.get_hash_key("MPPLY_LOW_REPEAT_OFFENDER_CAP"), 0))
+local isFlaggedDuplication2 = tostring(stats.stat_get_bool(gameplay.get_hash_key("MPPLY_HIGH_REPEAT_OFFENDER_CAP"), 0))
+
+menu.add_feature("Username: " ..accName, "action", charInfo.id, function() end)
+menu.add_feature("SocialClub ID: " ..accID, "action", charInfo.id, function() end)
+menu.add_feature("Rank: " ..charRank, "action", charInfo.id, function() end)
+menu.add_feature("Crew Rank: " ..charCrewLevel, "action", charInfo.id, function() end)
+menu.add_feature("Bank Balance: " .."$" .. apexStuff["helpers"].add_commas(charBankBalance), "action", charInfo.id, function() end) 
+menu.add_feature("Cash Balance: " .."$" .. apexStuff["helpers"].add_commas(charCashBalance), "action", charInfo.id, function() end) 
+menu.add_feature("Name: " .. charName, "action", charInfo.id, function() end) 
+menu.add_feature("Transferred?: " .. charTransferred, "action", charInfo.id, function() end) 
+menu.add_feature("Is Cheater? " .. isFlagged, "action", charInfo.id, function() end) 
+menu.add_feature("Repeat Offender? " .. isFlaggedDuplication1 .. " | " .. isFlaggedDuplication2, "action", charInfo.id, function() end) 

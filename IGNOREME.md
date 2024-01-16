@@ -1,10 +1,16 @@
 ### 2.0
 - Additions
     - Unlock Skull Santa Finish (Unlocks -> Weapons -> Unlock Finish)
+    - Unlock Some Shirts (Unlocks -> Clothing (shirt names are shown in notification))
+    - Notifications for unlocks
+    - Double-Action Revolver (Unlocks -> Weapons -> Unlock Weapon)
+    - Times went to cinema (Stats Manager -> Misc)
+- Removals
+    - Contracts done (Stats Manager -> Misc - The Contract)
+    - Contracts earnings (Stats Manager -> Misc - The Contract)
 - Fixes
-    - Contracts done (Stats Manager -> Misc -> The Contract)
     - Was transferred (Character Information)
     - Most awards (Unlocks -> Awards)
 - Improvements
-    - HUGE code rework, massive thank you to Toph!
+    - HUGE code rework, massive thank you to Toph & "femboy.lua"!
     - Extra checks for vehicle features

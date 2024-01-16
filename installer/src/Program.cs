@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace src
+namespace apex_installer
 {
     internal class Program
     {
         static async Task Main()
         {
-            framework.RunChecks();
-            framework.SetAppearance();
+            framework.DoStartup();
 
             // introduction
             framework.WriteColoredText("Welcome to the Apex installer ", ConsoleColor.White, false);
